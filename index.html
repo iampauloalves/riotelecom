@@ -39,34 +39,44 @@
 
         /* ── DARK MODE ── */
         body.dark {
-            --gray-100:    #0a0e1a;
-            --gray-200:    #151c30;
+            --gray-100:    #070b15;
+            --gray-200:    #0f172a;
             --gray-400:    #4a5a7a;
-            --card-bg:     #111827;
+            --card-bg:     #0f172a;
             --card-border: rgba(100,140,255,0.15);
             --text-dark:   #e8eeff;
             --text-mid:    #a0b4d6;
             --text-light:  #6b85b0;
             --blue-pale:   #0d1535;
-            --shadow-sm:   0 2px 8px rgba(0,0,0,0.35);
-            --shadow-md:   0 6px 24px rgba(0,0,0,0.45);
-            --shadow-lg:   0 16px 48px rgba(0,0,0,0.55);
+            --shadow-sm:   0 2px 8px rgba(0,0,0,0.4);
+            --shadow-md:   0 6px 24px rgba(0,0,0,0.5);
+            --shadow-lg:   0 16px 48px rgba(0,0,0,0.6);
         }
-        body.dark .section-block.bg-white { background:#111827; }
-        body.dark .card { background:#111827; }
-        body.dark .isp-card { background:#111827; }
-        body.dark .diff-card { background:#111827; }
-        body.dark .hero-card { background:#1a2540; }
-        body.dark .hero-card .hc-price,
-        body.dark .hero-card .hc-speed { color:#c8d8ff; }
-        body.dark .hero-card ul li { color:#a0b4d6; }
-        body.dark .faq-item { background:#111827; }
-        body.dark .faq-q { color:#e8eeff; }
+        /* Header & nav — azul escuro profundo */
+        body.dark header,
+        body.dark nav { background:#02061a !important; }
+        body.dark .header-topbar { background:#02061a !important; border-bottom-color:rgba(255,255,255,0.08); }
+        /* Footer */
+        body.dark footer { background:#02061a; border-top-color:rgba(255,255,255,0.06); }
+        body.dark .footer-addresses,
+        body.dark .footer-bottom { border-color:rgba(255,255,255,0.06); }
+        /* Page backgrounds */
+        body.dark .section-block,
+        body.dark .section-block.bg-white { background:#070b15; }
+        body.dark .section-block.bg-pale { background:#0d1535; }
+        /* Hero */
+        body.dark .hero { background:linear-gradient(135deg,#02061a 0%,#06102a 55%,#0a0e1a 100%) !important; }
+        /* Cards */
+        body.dark .card,
+        body.dark .isp-card,
+        body.dark .diff-card,
+        body.dark .feature-card,
+        body.dark .faq-item,
+        body.dark .faq-cat,
         body.dark .status-overall,
         body.dark .status-card,
         body.dark .incident-item,
         body.dark .contato-card,
-        body.dark .feature-card,
         body.dark .sobre-num,
         body.dark .cob-city,
         body.dark .vaga-card,
@@ -75,21 +85,62 @@
         body.dark .assessoria-box,
         body.dark .cultura-card,
         body.dark .team-card,
-        body.dark .faq-cat { background:#111827; }
-        body.dark .cob-map { background:#111827; }
-        body.dark .client-box { background:#111827; }
-        body.dark .form-group input { background:#0a0e1a; border-color:rgba(100,140,255,0.2); color:#e8eeff; }
-        body.dark .info-box { background:#0d1535; }
-        body.dark .client-external { background:#0d1535; }
+        body.dark .cob-map,
+        body.dark .client-box { background:#0f172a; border-color:rgba(100,140,255,0.14); }
+        body.dark .hero-card { background:#0f172a; border-color:rgba(100,140,255,0.35); }
+        body.dark .hero-card .hc-price,
+        body.dark .hero-card .hc-speed { color:#c8d8ff; }
+        body.dark .hero-card ul li { color:#a0b4d6; }
+        body.dark .hero-card .hc-name { color:#7b8fff; }
+        /* ISP banner */
+        body.dark .isp-banner { background:linear-gradient(135deg,#02061a,#06102a); }
         body.dark .isp-banner h3 { color:#7b8fff; }
+        /* Ajuda search & candidatura */
+        body.dark .ajuda-search,
+        body.dark .candidatura-box { background:linear-gradient(135deg,#02061a,#06102a); }
+        /* Outros */
+        body.dark .form-group input { background:#070b15; border-color:rgba(100,140,255,0.2); color:#e8eeff; }
+        body.dark .info-box { background:#0d1535; border-color:rgba(100,140,255,0.15); color:#a0b4d6; }
+        body.dark .client-external { background:#0d1535; border-color:rgba(100,140,255,0.15); }
+        body.dark .incident-item.resolved { border-left-color:var(--success) !important; }
+        body.dark .incident-item.investigating { border-left-color:var(--warning) !important; }
+        body.dark .ip-selector { background:#0d1535; }
+        body.dark .btn-ip { color:#a0b4d6; }
+        body.dark .btn-outline { border-color:rgba(100,140,255,0.35); color:#7b8fff; }
+        body.dark .btn-outline:hover { background:rgba(100,140,255,0.12); }
+        body.dark .noticia-img { background:#0d1535; }
+        /* Typography */
         body.dark .title-center { color:#e8eeff; }
         body.dark .title-center span { color:#7b8fff; }
+        body.dark .subtitle-center { color:#6b85b0; }
+        body.dark .faq-q { color:#e8eeff; }
+        body.dark .faq-a p { color:#6b85b0; }
+        body.dark .sname { color:#e8eeff; }
         body.dark .diff-title,
         body.dark .feature-title,
         body.dark .vaga-title,
-        body.dark .sname,
+        body.dark .tl-title,
+        body.dark .team-name,
+        body.dark .ktitle,
+        body.dark .noticia-title,
+        body.dark .isp-card .ic-title,
+        body.dark .card .name,
         body.dark .sobre-text h2 { color:#e8eeff; }
         body.dark .sobre-text h2 span { color:#7b8fff; }
+        body.dark .sobre-text p,
+        body.dark .diff-desc,
+        body.dark .feature-desc,
+        body.dark .isp-card .ic-sub,
+        body.dark .tl-desc { color:#6b85b0; }
+        body.dark .card .speed { color:#c8d8ff; }
+        body.dark .card .price { color:#e8eeff; }
+        body.dark .card ul li,
+        body.dark .isp-card ul li { color:#a0b4d6; }
+        body.dark .timeline { border-left-color:rgba(100,140,255,0.2); }
+        body.dark .city-select { color:rgba(255,255,255,0.7); }
+        body.dark .city-select option { background:#02061a; }
+        body.dark .client-logo { color:#c8d8ff !important; }
+        body.dark .cob-section-title { color:#7b8fff; border-bottom-color:#0d1535; }
 
         /* ── THEME TOGGLE ── */
         .theme-toggle {
