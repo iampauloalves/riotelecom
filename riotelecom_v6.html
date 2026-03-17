@@ -1,0 +1,1475 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rio Telecom | Conectividade de Alta Performance</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --blue-deep:   #0000a5;
+            --blue-main:   #0702ba;
+            --blue-mid:    #0e05cf;
+            --blue-light:  #1407e3;
+            --blue-pale:   #eeeeff;
+            --blue-glow:   rgba(27,9,248,0.18);
+            --white:       #FFFFFF;
+            --gray-100:    #F4F7FB;
+            --gray-200:    #E2E9F3;
+            --gray-400:    #8FA3BF;
+            --gray-600:    #4A607A;
+            --gray-800:    #1C2B3A;
+            --text-dark:   #0D1B2A;
+            --text-mid:    #3D5472;
+            --text-light:  #6B82A0;
+            --accent:      #1b09f8;
+            --success:     #00C48C;
+            --warning:     #FFB800;
+            --danger:      #FF3B3B;
+            --card-bg:     #FFFFFF;
+            --card-border: rgba(0,80,200,0.12);
+            --shadow-sm:   0 2px 8px rgba(0,50,135,0.08);
+            --shadow-md:   0 6px 24px rgba(0,50,135,0.13);
+            --shadow-lg:   0 16px 48px rgba(0,50,135,0.18);
+            --transition:  all 0.28s cubic-bezier(0.25,0.8,0.25,1);
+            --radius-sm:   6px;
+            --radius-md:   12px;
+            --radius-lg:   18px;
+        }
+
+        /* ── DARK MODE ── */
+        body.dark {
+            --gray-100:    #0a0e1a;
+            --gray-200:    #151c30;
+            --gray-400:    #4a5a7a;
+            --card-bg:     #111827;
+            --card-border: rgba(100,140,255,0.15);
+            --text-dark:   #e8eeff;
+            --text-mid:    #a0b4d6;
+            --text-light:  #6b85b0;
+            --blue-pale:   #0d1535;
+            --shadow-sm:   0 2px 8px rgba(0,0,0,0.35);
+            --shadow-md:   0 6px 24px rgba(0,0,0,0.45);
+            --shadow-lg:   0 16px 48px rgba(0,0,0,0.55);
+        }
+        body.dark .section-block.bg-white { background:#111827; }
+        body.dark .card { background:#111827; }
+        body.dark .isp-card { background:#111827; }
+        body.dark .diff-card { background:#111827; }
+        body.dark .hero-card { background:#1a2540; }
+        body.dark .hero-card .hc-price,
+        body.dark .hero-card .hc-speed { color:#c8d8ff; }
+        body.dark .hero-card ul li { color:#a0b4d6; }
+        body.dark .faq-item { background:#111827; }
+        body.dark .faq-q { color:#e8eeff; }
+        body.dark .status-overall,
+        body.dark .status-card,
+        body.dark .incident-item,
+        body.dark .contato-card,
+        body.dark .feature-card,
+        body.dark .sobre-num,
+        body.dark .cob-city,
+        body.dark .vaga-card,
+        body.dark .kit-card,
+        body.dark .noticia-card,
+        body.dark .assessoria-box,
+        body.dark .cultura-card,
+        body.dark .team-card,
+        body.dark .faq-cat { background:#111827; }
+        body.dark .cob-map { background:#111827; }
+        body.dark .client-box { background:#111827; }
+        body.dark .form-group input { background:#0a0e1a; border-color:rgba(100,140,255,0.2); color:#e8eeff; }
+        body.dark .info-box { background:#0d1535; }
+        body.dark .client-external { background:#0d1535; }
+        body.dark .isp-banner h3 { color:#7b8fff; }
+        body.dark .title-center { color:#e8eeff; }
+        body.dark .title-center span { color:#7b8fff; }
+        body.dark .diff-title,
+        body.dark .feature-title,
+        body.dark .vaga-title,
+        body.dark .sname,
+        body.dark .sobre-text h2 { color:#e8eeff; }
+        body.dark .sobre-text h2 span { color:#7b8fff; }
+
+        /* ── THEME TOGGLE ── */
+        .theme-toggle {
+            width:38px; height:38px; border-radius:50%; border:1.5px solid rgba(255,255,255,0.25);
+            background:rgba(255,255,255,0.08); cursor:pointer; display:flex; align-items:center;
+            justify-content:center; font-size:16px; transition:all 0.25s ease;
+            align-self:center; flex-shrink:0; margin-left:8px;
+        }
+        .theme-toggle:hover { background:rgba(255,255,255,0.18); border-color:rgba(255,255,255,0.5); }
+
+        * { margin:0; padding:0; box-sizing:border-box; font-family:'Montserrat',sans-serif; }
+        body { background:var(--gray-100); color:var(--text-dark); line-height:1.7; overflow-x:hidden; transition:background 0.3s, color 0.3s; font-size:15px; }
+
+        /* ── HEADER TOP BAR ── */
+        .header-topbar {
+            background:var(--blue-deep);
+            padding:0 5%;
+            display:flex; justify-content:space-between; align-items:stretch;
+            position:fixed; width:100%; top:0; z-index:1001;
+            height:34px; border-bottom:1px solid rgba(255,255,255,0.15);
+        }
+        .topbar-left { display:flex; gap:0; align-items:stretch; }
+        .topbar-right { display:flex; gap:0; align-items:stretch; }
+        .topbar-item {
+            display:flex; align-items:center; padding:0 16px;
+            font-size:12px; color:rgba(255,255,255,0.6); font-weight:600;
+            border-right:1px solid rgba(255,255,255,0.07); white-space:nowrap;
+            text-decoration:none; transition:var(--transition); cursor:pointer;
+            letter-spacing:0.3px;
+        }
+        .topbar-item:first-child { border-left:1px solid rgba(255,255,255,0.07); }
+        .topbar-right .topbar-item:last-child { border-right:none; }
+        .topbar-item:hover { color:#fff; background:rgba(255,255,255,0.05); }
+        .topbar-item.highlight { color:var(--accent); font-weight:700; }
+        .city-select {
+            background:transparent; border:none;
+            color:rgba(255,255,255,0.6); font-size:12px; font-family:'Montserrat',sans-serif; font-weight:600;
+            cursor:pointer; outline:none; padding:0 20px 0 0;
+            appearance:none; -webkit-appearance:none;
+            background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5'%3E%3Cpath d='M0 0l4 5 4-5z' fill='rgba(255,255,255,0.4)'/%3E%3C/svg%3E");
+            background-repeat:no-repeat; background-position:right 0px center;
+        }
+        .city-select option { background:var(--blue-deep); color:#fff; }
+        .city-select:hover { color:#fff; }
+        body.dark .city-select { color:rgba(255,255,255,0.7); }
+
+        /* ── HEADER MAIN ── */
+        header {
+            background:var(--blue-deep);
+            padding:0 5%;
+            display:flex; justify-content:space-between; align-items:center;
+            position:fixed; width:100%; top:34px; z-index:1000;
+            height:70px;
+            border-bottom:3px solid rgba(255,255,255,0.12);
+            box-shadow:0 4px 20px rgba(0,0,0,0.3);
+        }
+        body.dark header { background:#060614; border-bottom-color:rgba(255,255,255,0.08); }
+        .logo-wrap { display:flex; align-items:center; gap:10px; cursor:pointer; flex-shrink:0; }
+        .logo-text { font-size:20px; font-weight:900; color:#fff; letter-spacing:0.5px; }
+        .logo-text span { color:var(--accent); }
+
+        /* Right side: nav + toggle + hamburger */
+        .header-right { display:flex; align-items:center; gap:4px; }
+
+        nav ul { display:flex; list-style:none; gap:0; align-items:stretch; height:70px; }
+        nav ul li { display:flex; align-items:stretch; }
+        nav a {
+            color:rgba(255,255,255,0.78); text-decoration:none; font-weight:700;
+            font-size:13px; text-transform:uppercase; letter-spacing:0.5px;
+            padding:0 16px; display:flex; align-items:center;
+            transition:var(--transition); white-space:nowrap; position:relative;
+        }
+        nav a::after {
+            content:''; position:absolute; bottom:0; left:0; right:0; height:3px;
+            background:transparent; transition:var(--transition);
+        }
+        nav a:hover { color:#fff; background:rgba(255,255,255,0.07); }
+        nav a:hover::after { background:rgba(255,255,255,0.3); }
+        nav a.active { color:#fff; }
+        nav a.active::after { background:var(--accent); }
+        .nav-cta {
+            background:var(--accent) !important; color:#fff !important; font-weight:900 !important;
+            margin-left:8px; border-radius:6px; padding:0 20px !important;
+        }
+        .nav-cta::after { display:none !important; }
+        .nav-cta:hover { background:rgba(255,255,255,0.92) !important; color:var(--blue-deep) !important; }
+
+        /* HAMBURGER */
+        .menu-toggle { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:6px; }
+        .menu-toggle span { width:22px; height:2px; background:#fff; border-radius:2px; transition:var(--transition); display:block; }
+        .menu-toggle.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+        .menu-toggle.open span:nth-child(2) { opacity:0; }
+        .menu-toggle.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+
+        @media (max-width:960px) {
+            .header-topbar { display:none; }
+            header { top:0; }
+            nav ul { height:auto; }
+            nav a::after { display:none; }
+            .menu-toggle { display:flex; }
+            nav {
+                position:fixed; top:70px; left:0; width:100%; background:var(--blue-deep);
+                border-top:1px solid rgba(255,255,255,0.1); max-height:0; overflow:hidden;
+                transition:max-height 0.4s ease; z-index:999;
+            }
+            nav.open { max-height:600px; }
+            nav ul { flex-direction:column; padding:8px 5%; gap:0; align-items:flex-start; }
+            nav ul li { width:100%; border-bottom:1px solid rgba(255,255,255,0.07); }
+            nav a { display:flex; padding:14px 0; font-size:14px; }
+            .nav-cta { border-radius:0 !important; margin-left:0 !important; padding:14px 0 !important; }
+        }
+
+        /* ── BOTÕES ── */
+        .btn-primary {
+            padding:13px 28px; background:var(--blue-mid); border:none; border-radius:var(--radius-sm);
+            color:#fff; font-weight:900; text-transform:uppercase; font-size:13px; letter-spacing:0.5px;
+            cursor:pointer; font-family:'Montserrat',sans-serif; transition:var(--transition);
+        }
+        .btn-primary:hover { background:var(--blue-light); box-shadow:var(--shadow-md); transform:translateY(-1px); }
+        .btn-outline {
+            padding:13px 28px; background:transparent; border:2px solid var(--blue-mid);
+            border-radius:var(--radius-sm); color:var(--blue-mid); font-weight:900; text-transform:uppercase;
+            font-size:13px; cursor:pointer; font-family:'Montserrat',sans-serif; transition:var(--transition);
+        }
+        .btn-outline:hover { background:var(--blue-mid); color:#fff; box-shadow:var(--shadow-md); }
+        .btn-outline-white {
+            padding:13px 28px; background:transparent; border:2px solid rgba(255,255,255,0.6);
+            border-radius:var(--radius-sm); color:#fff; font-weight:900; text-transform:uppercase;
+            font-size:13px; cursor:pointer; font-family:'Montserrat',sans-serif; transition:var(--transition);
+        }
+        .btn-outline-white:hover { background:#fff; color:var(--blue-deep); }
+        .btn-accent {
+            padding:13px 28px; background:var(--accent); border:none; border-radius:var(--radius-sm);
+            color:#fff; font-weight:900; text-transform:uppercase; font-size:13px;
+            cursor:pointer; font-family:'Montserrat',sans-serif; transition:var(--transition);
+        }
+        .btn-accent:hover { box-shadow:0 0 24px rgba(27,9,248,0.5); transform:translateY(-1px); }
+
+        /* ── LAYOUT ── */
+        .page { display:none; padding-top:104px; animation:fadeIn 0.35s ease; }
+        .page.active { display:block; }
+        @keyframes fadeIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+        .section-block { padding:64px 8%; }
+        .section-block.bg-white { background:#fff; }
+        .section-block.bg-blue { background:var(--blue-deep); color:#fff; }
+        .section-block.bg-pale { background:var(--blue-pale); }
+
+        .title-center { text-align:center; font-size:2rem; margin-bottom:14px; text-transform:uppercase; font-weight:900; color:var(--text-dark); }
+        .title-center span { color:var(--blue-mid); }
+        .title-center.on-dark { color:#fff; }
+        .title-center.on-dark span { color:#fff; }
+        .subtitle-center { text-align:center; font-size:16px; color:var(--text-light); max-width:600px; margin:0 auto 44px; line-height:1.7; }
+        .subtitle-center.on-dark { color:rgba(255,255,255,0.65); }
+
+        /* ── HERO ── */
+        .hero {
+            background:linear-gradient(135deg, var(--blue-deep) 0%, var(--blue-main) 55%, var(--blue-mid) 100%);
+            min-height:calc(100vh - 64px);
+            display:flex; align-items:center; padding:80px 8% 80px;
+            position:relative; overflow:visible;
+        }
+        .hero::after {
+            content:''; position:absolute; inset:0; pointer-events:none;
+            background:radial-gradient(ellipse 50% 80% at 80% 50%, rgba(27,9,248,0.12) 0%, transparent 70%),
+                        radial-gradient(ellipse 30% 50% at 10% 80%, rgba(255,255,255,0.04) 0%, transparent 60%);
+        }
+        .hero-grid { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; width:100%; position:relative; z-index:1; }
+        .hero-tag { display:inline-flex; align-items:center; gap:8px; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#fff; background:rgba(27,9,248,0.12); border:1px solid rgba(27,9,248,0.3); padding:7px 16px; border-radius:20px; width:fit-content; margin-bottom:20px; }
+        .hero-tag::before { content:''; width:6px; height:6px; background:var(--accent); border-radius:50%; }
+        .hero-title { font-size:clamp(2rem,4.5vw,3.4rem); font-weight:900; line-height:1.1; text-transform:uppercase; color:#fff; margin-bottom:20px; }
+        .hero-title span { color:#fff; }
+        .hero-sub { font-size:16px; color:rgba(255,255,255,0.72); max-width:440px; line-height:1.75; margin-bottom:32px; }
+        .hero-cta { display:flex; gap:14px; flex-wrap:wrap; margin-bottom:36px; }
+        .hero-stats { display:flex; gap:32px; padding-top:24px; border-top:1px solid rgba(255,255,255,0.12); }
+        .hero-stat .num { font-size:1.9rem; font-weight:900; color:#fff; }
+        .hero-stat .lbl { font-size:11px; color:rgba(255,255,255,0.55); text-transform:uppercase; letter-spacing:1px; }
+
+        /* CARD DESTAQUE HERO */
+        .hero-card {
+            background:#fff; border-radius:var(--radius-lg); padding:36px 32px;
+            box-shadow:0 24px 64px rgba(0,0,0,0.28);
+            position:relative; color:var(--text-dark);
+        }
+        .hero-card::before {
+            content:'PLANO EM DESTAQUE'; position:absolute; top:-14px; left:50%;
+            transform:translateX(-50%); background:var(--accent); color:#fff;
+            padding:5px 20px; font-size:10px; font-weight:900; border-radius:20px; white-space:nowrap; letter-spacing:1px;
+        }
+        .hero-card .hc-name { font-size:11px; font-weight:900; color:var(--blue-mid); letter-spacing:3px; text-transform:uppercase; margin-bottom:4px; }
+        .hero-card .hc-speed { font-size:5rem; font-weight:900; line-height:1; color:var(--blue-deep); }
+        .hero-card .hc-speed span { font-size:1rem; color:var(--text-light); display:block; font-weight:600; }
+        .hero-card ul { list-style:none; margin:20px 0 24px; border-top:1px solid var(--gray-200); padding-top:18px; }
+        .hero-card ul li { font-size:14px; font-weight:600; margin-bottom:10px; color:var(--text-mid); display:flex; align-items:center; gap:10px; }
+        .hero-card ul li::before { content:'✔'; color:var(--blue-mid); font-weight:900; font-size:12px; }
+        .hero-card .hc-price { font-size:2.6rem; font-weight:900; color:var(--blue-deep); margin-bottom:18px; }
+        .hero-card .hc-price small { font-size:14px; color:var(--text-light); font-weight:600; }
+
+        /* DIFERENCIAIS */
+        .diff-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:20px; }
+        .diff-card {
+            background:#fff; border:1px solid var(--card-border); border-radius:var(--radius-md);
+            padding:32px 26px; transition:var(--transition); box-shadow:var(--shadow-sm);
+        }
+        .diff-card:hover { border-color:var(--blue-mid); transform:translateY(-4px); box-shadow:var(--shadow-md); }
+        .diff-num { font-size:11px; font-weight:900; color:var(--blue-mid); letter-spacing:2px; text-transform:uppercase; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+        .diff-num::before { content:''; width:24px; height:2px; background:var(--blue-mid); border-radius:2px; }
+        .diff-icon { font-size:1.8rem; margin-bottom:12px; }
+        .diff-title { font-size:15px; font-weight:900; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:10px; color:var(--text-dark); }
+        .diff-desc { font-size:15px; font-weight:600; color:var(--text-mid); line-height:1.75; }
+
+        /* PLANOS */
+        .ip-selector-container { display:flex; flex-direction:column; align-items:center; margin-bottom:40px; gap:14px; }
+        .ip-selector { display:flex; background:var(--gray-200); padding:4px; border-radius:50px; }
+        .btn-ip { padding:11px 28px; border:none; background:transparent; color:var(--text-mid); font-weight:700; font-size:13px; cursor:pointer; border-radius:30px; transition:var(--transition); font-family:'Montserrat',sans-serif; }
+        .btn-ip.active { background:var(--blue-mid); color:#fff; box-shadow:var(--shadow-sm); }
+        .ip-info { font-size:12px; color:var(--blue-mid); font-weight:700; background:var(--blue-pale); padding:6px 16px; border-radius:20px; }
+
+        .plan-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:22px; }
+        .card {
+            background:#fff; padding:36px 24px; border-radius:var(--radius-md);
+            border:1.5px solid var(--card-border); transition:var(--transition);
+            display:flex; flex-direction:column; position:relative; box-shadow:var(--shadow-sm);
+        }
+        .card:hover { border-color:var(--blue-mid); transform:translateY(-6px); box-shadow:var(--shadow-md); }
+        .card.best-value { border:2px solid var(--blue-mid); box-shadow:0 8px 32px rgba(0,80,200,0.18); }
+        .card.best-value::before {
+            content:'MELHOR CUSTO-BENEFÍCIO'; position:absolute; top:-14px; left:50%;
+            transform:translateX(-50%); background:var(--blue-mid); color:#fff;
+            padding:4px 16px; font-size:10px; font-weight:900; border-radius:20px; white-space:nowrap;
+        }
+        .card .name { font-size:11px; font-weight:900; color:var(--blue-mid); letter-spacing:2px; text-transform:uppercase; margin-bottom:4px; }
+        .card .speed { font-size:3rem; font-weight:900; margin-bottom:18px; line-height:1; color:var(--blue-deep); }
+        .card .speed span { font-size:14px; color:var(--text-light); display:block; font-weight:600; }
+        .card ul { list-style:none; margin-bottom:26px; flex-grow:1; border-top:1px solid var(--gray-200); padding-top:18px; }
+        .card ul li { font-size:15px; font-weight:600; margin-bottom:10px; color:var(--text-dark); display:flex; align-items:center; gap:9px; }
+        .card ul li::before { content:'✔'; color:var(--blue-mid); font-weight:900; font-size:12px; }
+        .card .price { font-size:2.4rem; font-weight:900; margin-bottom:18px; color:var(--blue-deep); }
+        .card .price small { font-size:14px; color:var(--text-mid); font-weight:700; }
+
+        /* ISP */
+        .isp-banner { background:linear-gradient(135deg, var(--blue-deep), var(--blue-main)); border-radius:var(--radius-lg); padding:52px 44px; margin-bottom:50px; text-align:center; color:#fff; }
+        .isp-banner h3 { font-size:11px; font-weight:900; color:#fff; letter-spacing:3px; text-transform:uppercase; margin-bottom:14px; }
+        .isp-banner p { font-size:15px; color:rgba(255,255,255,0.75); max-width:660px; margin:0 auto 24px; line-height:1.75; }
+        .isp-badges { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-bottom:28px; }
+        .isp-badge { font-size:11px; font-weight:700; color:#fff; border:1px solid rgba(27,9,248,0.35); padding:5px 14px; border-radius:20px; text-transform:uppercase; letter-spacing:0.5px; }
+        .isp-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; }
+        .isp-card {
+            background:#fff; border:1.5px solid var(--card-border); border-radius:var(--radius-md);
+            padding:30px 26px; transition:var(--transition); display:flex; flex-direction:column;
+            box-shadow:var(--shadow-sm);
+        }
+        .isp-card:hover { border-color:var(--blue-mid); transform:translateY(-4px); box-shadow:var(--shadow-md); }
+        .isp-card .ic-tag { font-size:10px; font-weight:900; letter-spacing:2px; color:var(--blue-mid); text-transform:uppercase; margin-bottom:8px; }
+        .isp-card .ic-title { font-size:1.15rem; font-weight:900; margin-bottom:6px; color:var(--text-dark); }
+        .isp-card .ic-sub { font-size:14px; color:var(--text-light); margin-bottom:18px; line-height:1.6; }
+        .isp-card ul { list-style:none; margin-bottom:22px; flex-grow:1; }
+        .isp-card ul li { font-size:15px; font-weight:600; color:var(--text-mid); display:flex; align-items:flex-start; gap:8px; margin-bottom:9px; line-height:1.4; }
+        .isp-card ul li::before { content:'✔'; color:var(--blue-mid); font-weight:900; flex-shrink:0; margin-top:1px; }
+        .isp-card .ic-note { font-size:13px; color:var(--gray-400); margin-bottom:12px; }
+
+        /* ÁREA DO CLIENTE */
+        .client-wrapper { display:flex; justify-content:center; align-items:center; min-height:calc(100vh - 160px); padding:40px 5%; background:var(--gray-100); }
+        .client-box { background:#fff; border:1px solid var(--card-border); border-radius:var(--radius-lg); padding:50px 44px; width:100%; max-width:440px; text-align:center; box-shadow:var(--shadow-lg); }
+        .client-logo { font-size:20px; font-weight:900; color:var(--blue-deep); letter-spacing:0.5px; margin-bottom:6px; }
+        .client-logo span { color:#fff; }
+        .client-box h2 { font-size:1.4rem; font-weight:900; text-transform:uppercase; margin-bottom:8px; color:var(--text-dark); }
+        .client-box .client-sub { font-size:13px; color:var(--text-light); margin-bottom:28px; }
+        .form-group { margin-bottom:16px; text-align:left; }
+        .form-group label { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--text-mid); display:block; margin-bottom:6px; }
+        .form-group input {
+            width:100%; padding:13px 16px; background:var(--gray-100); border:1.5px solid var(--gray-200);
+            border-radius:var(--radius-sm); color:var(--text-dark); font-size:14px; font-family:'Montserrat',sans-serif;
+            transition:var(--transition); outline:none;
+        }
+        .form-group input:focus { border-color:var(--blue-mid); background:#fff; box-shadow:0 0 0 3px rgba(0,80,200,0.1); }
+        .form-group input::placeholder { color:var(--gray-400); }
+        .btn-login {
+            width:100%; padding:14px; background:var(--blue-mid); border:none; border-radius:var(--radius-sm);
+            color:#fff; font-weight:900; font-size:14px; text-transform:uppercase;
+            cursor:pointer; letter-spacing:0.5px; font-family:'Montserrat',sans-serif;
+            transition:var(--transition); margin-top:6px;
+        }
+        .btn-login:hover { background:var(--blue-light); box-shadow:var(--shadow-md); transform:translateY(-1px); }
+        .client-links { margin-top:18px; display:flex; flex-direction:column; gap:10px; }
+        .client-links a { font-size:12px; color:var(--text-light); text-decoration:none; transition:var(--transition); cursor:pointer; }
+        .client-links a:hover { color:var(--blue-mid); }
+        .client-divider { margin:22px 0; border:none; border-top:1px solid var(--gray-200); }
+        .client-external { background:var(--blue-pale); border:1px solid rgba(0,80,200,0.15); border-radius:var(--radius-sm); padding:16px; text-align:center; }
+        .client-external p { font-size:12px; color:var(--text-light); margin-bottom:10px; }
+        .client-apps { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+        .app-btn { padding:9px 18px; border:1.5px solid var(--blue-mid); border-radius:var(--radius-sm); font-size:12px; color:var(--blue-mid); cursor:pointer; transition:var(--transition); font-family:'Montserrat',sans-serif; font-weight:700; background:transparent; }
+        .app-btn:hover { background:var(--blue-mid); color:#fff; }
+
+        /* CENTRAL DE AJUDA */
+        .ajuda-search { background:linear-gradient(135deg,var(--blue-deep),var(--blue-main)); border-radius:var(--radius-lg); padding:44px; text-align:center; margin-bottom:48px; color:#fff; }
+        .ajuda-search h3 { font-size:1.2rem; font-weight:900; text-transform:uppercase; letter-spacing:1px; margin-bottom:10px; }
+        .ajuda-search p { color:rgba(255,255,255,0.7); font-size:14px; margin-bottom:22px; }
+        .search-bar { display:flex; gap:10px; max-width:500px; margin:0 auto; }
+        .search-bar input { flex:1; padding:13px 18px; background:rgba(255,255,255,0.12); border:1.5px solid rgba(255,255,255,0.2); border-radius:var(--radius-sm); color:#fff; font-size:14px; font-family:'Montserrat',sans-serif; outline:none; transition:var(--transition); }
+        .search-bar input:focus { background:rgba(255,255,255,0.18); border-color:#fff; }
+        .search-bar input::placeholder { color:rgba(255,255,255,0.45); }
+        .faq-categories { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:14px; margin-bottom:44px; }
+        .faq-cat { background:#fff; border:1.5px solid var(--card-border); border-radius:var(--radius-md); padding:22px 18px; text-align:center; cursor:pointer; transition:var(--transition); box-shadow:var(--shadow-sm); }
+        .faq-cat:hover { border-color:var(--blue-mid); transform:translateY(-3px); box-shadow:var(--shadow-md); }
+        .faq-cat .icon { font-size:1.6rem; margin-bottom:8px; }
+        .faq-cat .lbl { font-size:12px; font-weight:900; text-transform:uppercase; letter-spacing:0.5px; color:var(--text-dark); }
+        .faq-list { display:flex; flex-direction:column; gap:10px; }
+        .faq-item { background:#fff; border:1.5px solid var(--card-border); border-radius:var(--radius-md); overflow:hidden; box-shadow:var(--shadow-sm); }
+        .faq-q { padding:18px 22px; font-size:14px; font-weight:700; cursor:pointer; display:flex; justify-content:space-between; align-items:center; transition:var(--transition); color:var(--text-dark); }
+        .faq-q:hover { color:var(--blue-mid); }
+        .faq-q .arrow { font-size:10px; color:var(--blue-mid); transition:var(--transition); }
+        .faq-item.open .faq-q .arrow { transform:rotate(180deg); }
+        .faq-a { max-height:0; overflow:hidden; transition:max-height 0.3s ease; }
+        .faq-item.open .faq-a { max-height:300px; }
+        .faq-a p { padding:0 22px 18px; font-size:13px; color:var(--text-light); line-height:1.75; }
+        .contato-rapido { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:16px; margin-top:48px; }
+        .contato-card { background:#fff; border:1.5px solid var(--card-border); border-radius:var(--radius-md); padding:24px; text-align:center; box-shadow:var(--shadow-sm); transition:var(--transition); }
+        .contato-card:hover { border-color:var(--blue-mid); transform:translateY(-3px); }
+        .contato-card .icon { font-size:1.7rem; margin-bottom:10px; }
+        .contato-card .ttl { font-size:12px; font-weight:900; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:5px; color:var(--text-dark); }
+        .contato-card .info { font-size:13px; color:var(--text-light); line-height:1.6; }
+
+        /* STATUS */
+        .status-overall { display:flex; align-items:center; gap:16px; background:#fff; border:1.5px solid var(--card-border); border-radius:var(--radius-md); padding:24px 28px; margin-bottom:36px; box-shadow:var(--shadow-sm); }
+        .status-dot { width:14px; height:14px; border-radius:50%; flex-shrink:0; }
+        .status-dot.green { background:var(--success); box-shadow:0 0 10px var(--success); }
+        .status-dot.yellow { background:var(--warning); box-shadow:0 0 10px var(--warning); }
+        .status-dot.red { background:var(--danger); box-shadow:0 0 10px var(--danger); }
+        .status-overall h3 { font-size:1rem; font-weight:900; color:var(--text-dark); }
+        .status-overall p { font-size:13px; color:var(--text-light); }
+        .status-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px; margin-bottom:36px; }
+        .status-card { background:#fff; border:1.5px solid var(--card-border); border-radius:var(--radius-md); padding:20px; display:flex; align-items:center; gap:14px; box-shadow:var(--shadow-sm); }
+        .status-card .sdot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+        .status-card .sname { font-size:14px; font-weight:700; color:var(--text-dark); }
+        .status-card .sstatus { font-size:12px; }
+        .status-card .stime { font-size:11px; color:var(--gray-400); margin-top:1px; }
+        .incidents { margin-top:36px; }
+        .incident-item { background:#fff; border-left:3px solid; border-radius:0 var(--radius-md) var(--radius-md) 0; padding:20px 24px; margin-bottom:12px; box-shadow:var(--shadow-sm); }
+        .incident-item.resolved { border-color:var(--success); }
+        .incident-item.investigating { border-color:var(--warning); }
+        .incident-item .ititle { font-size:14px; font-weight:900; margin-bottom:4px; color:var(--text-dark); }
+        .incident-item .idate { font-size:11px; color:var(--gray-400); margin-bottom:8px; }
+        .incident-item .idesc { font-size:13px; color:var(--text-light); line-height:1.65; }
+        .badge-status { font-size:10px; font-weight:900; padding:3px 10px; border-radius:20px; text-transform:uppercase; letter-spacing:1px; display:inline-block; margin-bottom:8px; }
+        .badge-resolved { background:rgba(0,196,140,0.1); color:var(--success); }
+        .badge-investigating { background:rgba(255,184,0,0.1); color:var(--warning); }
+
+        /* SOBRE */
+        .sobre-hero { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; margin-bottom:60px; }
+        .sobre-text h2 { font-size:2rem; font-weight:900; text-transform:uppercase; line-height:1.2; margin-bottom:18px; color:var(--text-dark); }
+        .sobre-text h2 span { color:var(--blue-mid); }
+        .sobre-text p { font-size:14px; color:var(--text-light); line-height:1.85; margin-bottom:14px; }
+        .sobre-nums { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+        .sobre-num { background:#fff; border:1.5px solid var(--card-border); border-radius:var(--radius-md); padding:22px; text-align:center; box-shadow:var(--shadow-sm); }
+        .sobre-num .n { font-size:2rem; font-weight:900; color:var(--blue-mid); }
+        .sobre-num .l { font-size:11px; color:var(--text-light); text-transform:uppercase; letter-spacing:1px; }
+        .timeline { position:relative; padding-left:28px; border-left:2px solid var(--blue-pale); }
+        .tl-item { position:relative; margin-bottom:32px; }
+        .tl-item::before { content:''; width:12px; height:12px; background:var(--blue-mid); border-radius:50%; position:absolute; left:-35px; top:4px; box-shadow:0 0 0 3px var(--blue-pale); }
+        .tl-year { font-size:11px; font-weight:900; color:var(--blue-mid); letter-spacing:2px; text-transform:uppercase; margin-bottom:3px; }
+        .tl-title { font-size:14px; font-weight:900; margin-bottom:4px; color:var(--text-dark); }
+        .tl-desc { font-size:13px; color:var(--text-light); line-height:1.65; }
+        .team-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:18px; }
+        .team-card { background:#fff; border:1.5px solid var(--card-border); border-radius:var(--radius-md); padding:26px 20px; text-align:center; transition:var(--transition); box-shadow:var(--shadow-sm); }
+        .team-card:hover { border-color:var(--blue-mid); transform:translateY(-3px); box-shadow:var(--shadow-md); }
+        .team-avatar { width:60px; height:60px; border-radius:50%; background:var(--blue-pale); border:2px solid var(--blue-mid); display:flex; align-items:center; justify-content:center; font-size:1.2rem; font-weight:900; color:var(--blue-mid); margin:0 auto 12px; }
+        .team-name { font-size:14px; font-weight:900; margin-bottom:3px; color:var(--text-dark); }
+        .team-role { font-size:12px; color:var(--text-light); }
+
+        /* COBERTURA */
+        .cob-search { display:flex; gap:10px; max-width:500px; margin-bottom:36px; }
+        .cob-search input { flex:1; padding:13px 18px; background:#fff; border:1.5px solid var(--gray-200); border-radius:var(--radius-sm); color:var(--text-dark); font-size:14px; font-family:'Montserrat',sans-serif; outline:none; transition:var(--transition); }
+        .cob-search input:focus { border-color:var(--blue-mid); }
+        .cob-search input::placeholder { color:var(--gray-400); }
+        .cob-map { background:#fff; border:1.5px solid var(--card-border); border-radius:var(--radius-lg); padding:30px; margin-bottom:36px; text-align:center; min-height:260px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; box-shadow:var(--shadow-sm); }
+        .cob-map .map-icon { font-size:3.5rem; opacity:0.25; }
+        .cob-map p { color:var(--text-light); font-size:14px; }
+        .cob-section-title { font-size:12px; font-weight:900; text-transform:uppercase; letter-spacing:2px; color:var(--text-mid); margin-bottom:16px; padding-bottom:8px; border-bottom:2px solid var(--blue-pale); }
+        .cob-cities { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; margin-bottom:32px; }
+        .cob-city { background:#fff; border:1.5px solid var(--card-border); border-radius:var(--radius-md); padding:22px; transition:var(--transition); box-shadow:var(--shadow-sm); }
+        .cob-city:hover { border-color:var(--blue-mid); transform:translateY(-2px); }
+        .cob-city .cname { font-size:15px; font-weight:900; margin-bottom:4px; color:var(--text-dark); }
+        .cob-city .cstate { font-size:11px; color:var(--blue-mid); font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; }
+        .cob-city .cbairros { font-size:12px; color:var(--text-light); line-height:1.65; }
+        .cob-city .ctag { display:inline-block; font-size:10px; font-weight:900; padding:3px 10px; border-radius:10px; margin-top:10px; text-transform:uppercase; letter-spacing:0.5px; }
+        .ctag-ativo { background:rgba(0,196,140,0.1); color:var(--success); }
+        .ctag-expansao { background:rgba(0,80,200,0.08); color:var(--blue-mid); }
+        .ctag-breve { background:rgba(255,184,0,0.1); color:#946400; }
+
+        /* TRABALHE CONOSCO */
+        .vagas-filtro { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:26px; }
+        .filtro-btn { padding:9px 20px; border:1.5px solid var(--gray-200); background:#fff; color:var(--text-mid); font-size:12px; font-weight:700; font-family:'Montserrat',sans-serif; border-radius:20px; cursor:pointer; transition:var(--transition); text-transform:uppercase; }
+        .filtro-btn.active, .filtro-btn:hover { border-color:var(--blue-mid); color:var(--blue-mid); background:var(--blue-pale); }
+        .vagas-grid { display:flex; flex-direction:column; gap:12px; }
+        .vaga-card { background:#fff; border:1.5px solid var(--card-border); border-radius:var(--radius-md); padding:22px 26px; display:flex; justify-content:space-between; align-items:center; gap:18px; transition:var(--transition); box-shadow:var(--shadow-sm); flex-wrap:wrap; }
+        .vaga-card:hover { border-color:var(--blue-mid); box-shadow:var(--shadow-md); }
+        .vaga-title { font-size:15px; font-weight:900; margin-bottom:6px; color:var(--text-dark); }
+        .vaga-meta { display:flex; gap:10px; flex-wrap:wrap; }
+        .vaga-tag { font-size:11px; font-weight:700; padding:3px 10px; border-radius:10px; text-transform:uppercase; }
+        .vtag-dep { background:var(--blue-pale); color:var(--blue-mid); }
+        .vtag-loc { background:var(--gray-100); color:var(--text-mid); }
+        .vtag-tipo { background:var(--gray-100); color:var(--text-mid); }
+        .cultura-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; }
+        .cultura-card { background:#fff; border:1.5px solid var(--card-border); border-radius:var(--radius-md); padding:26px 20px; text-align:center; box-shadow:var(--shadow-sm); }
+        .cultura-card .icon { font-size:1.7rem; margin-bottom:10px; }
+        .cultura-card .ttl { font-size:12px; font-weight:900; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:7px; color:var(--text-dark); }
+        .cultura-card .dsc { font-size:12px; color:var(--text-light); line-height:1.65; }
+        .candidatura-box { background:linear-gradient(135deg,var(--blue-deep),var(--blue-main)); border-radius:var(--radius-lg); padding:40px; text-align:center; margin-top:36px; color:#fff; }
+        .candidatura-box h3 { font-size:1.2rem; font-weight:900; text-transform:uppercase; margin-bottom:10px; }
+        .candidatura-box p { font-size:14px; color:rgba(255,255,255,0.72); margin-bottom:20px; }
+
+        /* IMPRENSA */
+        .imprensa-kits { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:18px; margin-bottom:44px; }
+        .kit-card { background:#fff; border:1.5px solid var(--card-border); border-radius:var(--radius-md); padding:26px 20px; text-align:center; transition:var(--transition); box-shadow:var(--shadow-sm); }
+        .kit-card:hover { border-color:var(--blue-mid); transform:translateY(-3px); box-shadow:var(--shadow-md); }
+        .kit-card .icon { font-size:2.2rem; margin-bottom:12px; }
+        .kit-card .ktitle { font-size:13px; font-weight:900; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:6px; color:var(--text-dark); }
+        .kit-card .kdesc { font-size:12px; color:var(--text-light); line-height:1.55; margin-bottom:16px; }
+        .noticias-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); gap:18px; margin-bottom:44px; }
+        .noticia-card { background:#fff; border:1.5px solid var(--card-border); border-radius:var(--radius-md); overflow:hidden; transition:var(--transition); box-shadow:var(--shadow-sm); }
+        .noticia-card:hover { border-color:var(--blue-mid); transform:translateY(-3px); box-shadow:var(--shadow-md); }
+        .noticia-img { height:130px; display:flex; align-items:center; justify-content:center; font-size:2.8rem; background:var(--blue-pale); }
+        .noticia-body { padding:20px; }
+        .noticia-cat { font-size:10px; font-weight:900; color:var(--blue-mid); text-transform:uppercase; letter-spacing:2px; margin-bottom:7px; }
+        .noticia-title { font-size:14px; font-weight:900; line-height:1.4; margin-bottom:7px; color:var(--text-dark); }
+        .noticia-date { font-size:12px; color:var(--gray-400); }
+        .assessoria-box { background:#fff; border:1.5px solid var(--card-border); border-radius:var(--radius-md); padding:32px; display:flex; gap:26px; align-items:center; flex-wrap:wrap; box-shadow:var(--shadow-sm); }
+        .assessoria-box .icon { font-size:2.8rem; flex-shrink:0; }
+        .assessoria-box h3 { font-size:1rem; font-weight:900; text-transform:uppercase; margin-bottom:7px; color:var(--text-dark); }
+        .assessoria-box p { font-size:13px; color:var(--text-light); line-height:1.7; margin-bottom:14px; }
+        .assessoria-contatos { display:flex; gap:20px; flex-wrap:wrap; }
+        .ac-item { font-size:13px; color:var(--text-mid); }
+        .ac-item span { color:var(--blue-mid); font-weight:700; }
+
+        /* FOOTER */
+        footer { background:var(--blue-deep); color:#fff; padding:52px 8% 28px; margin-top:0; }
+        .footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:40px; margin-bottom:36px; }
+        .footer-brand .logo-text { font-size:20px; font-weight:900; margin-bottom:12px; display:block; color:#fff; }
+        .footer-brand .logo-text span { color:#fff; }
+        .footer-brand p { font-size:15px; color:rgba(255,255,255,0.55); line-height:1.75; max-width:260px; margin-bottom:16px; }
+        .footer-contact { font-size:16px; color:rgba(255,255,255,0.6); line-height:2; }
+        .footer-contact a { color:#fff; text-decoration:none; }
+        .footer-col h4 { font-size:13px; font-weight:900; text-transform:uppercase; letter-spacing:2px; color:#fff; margin-bottom:16px; }
+        .footer-col ul { list-style:none; }
+        .footer-col ul li { margin-bottom:9px; }
+        .footer-col ul li a { font-size:15px; color:rgba(255,255,255,0.55); text-decoration:none; transition:var(--transition); cursor:pointer; }
+        .footer-col ul li a:hover { color:#fff; }
+        .footer-addresses { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:28px; border-top:1px solid rgba(255,255,255,0.1); padding-top:24px; }
+        .footer-addr h5 { font-size:12px; font-weight:900; text-transform:uppercase; letter-spacing:1px; color:#fff; margin-bottom:4px; }
+        .footer-addr p { font-size:15px; color:rgba(255,255,255,0.55); line-height:1.65; }
+        .footer-bottom { border-top:1px solid rgba(255,255,255,0.1); padding-top:22px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; }
+        .footer-bottom p { font-size:14px; color:rgba(255,255,255,0.4); }
+        .footer-social { display:flex; gap:8px; }
+        .social-btn { width:38px; height:38px; border:1px solid rgba(255,255,255,0.15); border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:900; color:rgba(255,255,255,0.5); text-decoration:none; transition:var(--transition); cursor:pointer; }
+        .social-btn:hover { border-color:#fff; color:#fff; }
+
+        /* UTILITIES */
+        .info-box { background:var(--blue-pale); border:1px solid rgba(0,80,200,0.15); border-radius:var(--radius-md); padding:18px 22px; font-size:13px; color:var(--text-mid); }
+
+        /* ── RESPONSIVE — device-aware ── */
+
+        /* Large desktop 1440px+ */
+        @media (min-width:1440px) {
+            .section-block { padding:72px 10%; }
+            .hero { padding:90px 10% 90px; }
+            .hero-title { font-size:4rem; }
+            header { padding:0 10%; padding-top:4px; }
+        }
+
+        /* Standard desktop 1024–1439px: default styles apply */
+
+        /* Small laptop / large tablet landscape 900–1023px */
+        @media (max-width:1023px) {
+            nav a { font-size:11px; padding:7px 10px; }
+            .section-block { padding:52px 6%; }
+            .hero { padding:70px 6% 70px; }
+        }
+
+        /* Tablet portrait + large phone landscape 600–899px */
+        @media (max-width:900px) {
+            .hero-grid, .sobre-hero { grid-template-columns:1fr; }
+            .hero-card { max-width:400px; margin:32px auto 0; }
+            .footer-grid { grid-template-columns:1fr 1fr; }
+            .footer-addresses { grid-template-columns:1fr; }
+            .diff-grid { grid-template-columns:repeat(2,1fr); }
+            .plan-grid { grid-template-columns:repeat(2,1fr); }
+        }
+
+        /* Phone portrait 480–599px */
+        @media (max-width:599px) {
+            .page { padding-top:70px; }
+            .section-block { padding:36px 4%; }
+            .title-center { font-size:1.5rem; }
+            .hero { padding:36px 4% 48px; }
+            .hero-title { font-size:clamp(1.7rem,7vw,2.4rem); }
+            .hero-stats { flex-wrap:wrap; gap:18px; }
+            .footer-grid { grid-template-columns:1fr; }
+            .client-box { padding:30px 18px; }
+            .sobre-nums { grid-template-columns:1fr 1fr; }
+            .vaga-card { flex-direction:column; align-items:flex-start; }
+            .diff-grid { grid-template-columns:1fr; }
+            .plan-grid { grid-template-columns:1fr; }
+            .isp-grid { grid-template-columns:1fr; }
+            .hero-card { max-width:100%; }
+            .hero-cta { flex-direction:column; }
+            .btn-primary,.btn-accent,.btn-outline,.btn-outline-white { width:100%; text-align:center; }
+            .isp-banner { padding:32px 22px; }
+            .isp-banner p { font-size:13px; }
+        }
+
+        /* Small phone 320–479px */
+        @media (max-width:479px) {
+            .section-block { padding:28px 4%; }
+            .title-center { font-size:1.3rem; }
+            .hero-title { font-size:clamp(1.5rem,8vw,2rem); }
+            .logo-text { font-size:16px; }
+            .hero-stat .num { font-size:1.4rem; }
+            .hero-stats { gap:14px; }
+            nav a { font-size:13px; }
+            .card .speed { font-size:2.4rem; }
+            .hero-card .hc-speed { font-size:4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="header-topbar" id="topbar">
+    <div class="topbar-left">
+        <span class="topbar-item">📱 (91) 98889-7200</span>
+        <span class="topbar-item">✉ info@riotelecom.com.br</span>
+    </div>
+    <div class="topbar-right">
+        <span class="topbar-item" onclick="showPage('status')" style="cursor:pointer">● Status da Rede</span>
+        <span class="topbar-item">
+            <select class="city-select" onchange="this.blur()">
+                <option>📍 Cametá — PA</option>
+                <option>📍 Mocajuba — PA</option>
+                <option>📍 Baião — PA</option>
+            </select>
+        </span>
+    </div>
+</div>
+
+<!-- HEADER -->
+<header>
+    <div class="logo-wrap" onclick="showPage('home')">
+        <img src='data:image/png;base64,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' style='height:52px;width:auto;display:block;border-radius:6px;' alt='Rio Telecom'>
+        
+    </div>
+    <div class="header-right">
+        <nav id="mainNav">
+            <ul>
+                <li><a href="#" onclick="showPage('home')" id="link-home" class="active">Home</a></li>
+                <li><a href="#" onclick="showPage('voce')" id="link-voce">Para Você</a></li>
+                <li><a href="#" onclick="showPage('empresas')" id="link-empresas">Para Empresas</a></li>
+                <li><a href="#" onclick="showPage('isp')" id="link-isp">ISP & Gov</a></li>
+                <li><a href="#" onclick="showPage('cliente')" id="link-cliente" class="nav-cta">Área do Cliente</a></li>
+            </ul>
+        </nav>
+        <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Alternar tema">🌙</button>
+        <div class="menu-toggle" id="menuToggle" onclick="toggleMenu()">
+            <span></span><span></span><span></span>
+        </div>
+    </div>
+</header>
+
+<!-- HOME -->
+<div id="home" class="page active">
+    <section class="hero">
+        <div class="hero-grid">
+            <div class="hero-left">
+                <div class="hero-tag">Velocidade que acompanha você.</div>
+                <h1 class="hero-title">Mais velocidade.<br><span>Mais possibilidades.</span><br>Mais longe.</h1>
+                <p class="hero-sub">Fibra óptica de verdade.</p>
+                <div class="hero-cta">
+                    <button class="btn-accent" onclick="showPage('voce')">Para Você</button>
+                    <button class="btn-outline-white" onclick="showPage('empresas')">Para Empresas</button>
+                </div>
+                <div class="hero-stats">
+                    <div class="hero-stat"><div class="num">99,9%</div><div class="lbl">Uptime</div></div>
+                    <div class="hero-stat"><div class="num">24h</div><div class="lbl">Suporte</div></div>
+                    <div class="hero-stat"><div class="num">+5mil</div><div class="lbl">Clientes</div></div>
+                    <div class="hero-stat"><div class="num">1,2Tbps</div><div class="lbl">Capacidade</div></div>
+                </div>
+            </div>
+            <div><div class="hero-card" id="hero-destaque"></div></div>
+        </div>
+    </section>
+
+    <section class="section-block bg-white">
+        <h2 class="title-center">Por que a <span>Rio Telecom</span>?</h2>
+        <p class="subtitle-center">Infraestrutura de nível carrier.</p>
+        <div class="diff-grid">
+            <div class="diff-card">
+                <div class="diff-num">01 — Backbone</div>
+                <div class="diff-icon">🌐</div>
+                <div class="diff-title">ROTAS</div>
+                <div class="diff-desc">Infraestrutura aérea, subterrânea e subfluvial.<br>Projetada para manter sua conexão ativa o tempo todo.</div>
+            </div>
+            <div class="diff-card">
+                <div class="diff-num">02 — Edge</div>
+                <div class="diff-icon">🏢</div>
+                <div class="diff-title">DATA CENTER</div>
+                <div class="diff-desc">Infraestrutura de até 1,2 Tbps com CDNs locais.<br>Streaming, jogos e navegação com máxima performance.</div>
+            </div>
+            <div class="diff-card">
+                <div class="diff-num">03 — Energia</div>
+                <div class="diff-icon">⚡</div>
+                <div class="diff-title">Alta Disponibilidade Elétrica</div>
+                <div class="diff-desc">Energia redundante com backup solar e gerador automático em 15 segundos. Autonomia de até 7 dias de operação ininterrupta.</div>
+            </div>
+            <div class="diff-card">
+                <div class="diff-num">04 — Interligações</div>
+                <div class="diff-icon">🔗</div>
+                <div class="diff-title">PTT</div>
+                <div class="diff-desc">Múltiplas operadoras.<br>Presença nos principais pontos de troca de tráfego do país.<br>Mais estabilidade para você.</div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- PARA VOCÊ -->
+<div id="voce" class="page">
+    <section class="section-block">
+        <h2 class="title-center">Planos para <span>Você</span></h2>
+        <p class="subtitle-center">Fibra até a sua casa.</p>
+        <div class="plan-grid" id="grid-voce"></div>
+    </section>
+</div>
+
+<!-- PARA EMPRESAS -->
+<div id="empresas" class="page">
+    <section class="section-block">
+        <h2 class="title-center">Planos <span>Business</span></h2>
+        <p class="subtitle-center">Fibra até a sua empresa.</p>
+        <div class="ip-selector-container">
+            <div class="ip-selector">
+                <button class="btn-ip active" onclick="updateBusinessPlans('dinamico', this)">IP Dinâmico</button>
+                <button class="btn-ip" onclick="updateBusinessPlans('fixo', this)">IP Fixo</button>
+            </div>
+            <div id="ip-alert" class="ip-info" style="display:none">+ R$ 80,00 aplicados ao valor base</div>
+        </div>
+        <div class="plan-grid" id="grid-empresas"></div>
+    </section>
+</div>
+
+<!-- ISP & GOV -->
+<div id="isp" class="page">
+    <section class="section-block">
+        <h2 class="title-center">Soluções <span>ISP & Gov</span></h2>
+        <div class="isp-banner">
+            <h3>Infraestrutura de Missão Crítica</h3>
+            <p>Conectividade dedicada para operações críticas.<br>Máxima estabilidade, segurança e SLA que você pode confiar.</p>
+            <div class="isp-badges">
+                <span class="isp-badge">SLA 99,95%</span><span class="isp-badge">NOC 24/7</span>
+                <span class="isp-badge">Backbone 1,2Tbps</span><span class="isp-badge">BGP Multihoming</span>
+                <span class="isp-badge">4 PTTs</span><span class="isp-badge">IPv4 & IPv6</span>
+            </div>
+            <button class="btn-outline-white" onclick="alert('Equipe comercial: (91) 98889-7200 | info@riotelecom.com.br')">FALE COM UM ESPECIALISTA</button>
+        </div>
+        <h2 class="title-center" style="margin-bottom:10px">Nossos <span>Serviços</span></h2>
+        <p class="subtitle-center">Soluções sob medida para provedores, governo e empresas de grande porte.</p>
+        <div class="isp-grid">
+            <div class="isp-card">
+                <div class="ic-tag">Conectividade</div>
+                <div class="ic-title">Link Dedicado</div>
+                <div class="ic-sub">Serviço de conectividade dedicada com banda exclusiva, sem oversubscription.</div>
+                <ul>
+                    <li>Velocidade simétrica garantida</li>
+                    <li>SLA contratual de 99,95%</li>
+                    <li>Endereçamento IP fixo dedicado</li>
+                    <li>Monitoramento proativo NOC 24x7</li>
+                    <li>Baixa latência para aplicações críticas</li>
+                </ul>
+                <button class="btn-primary" style="width:100%">Solicitar Proposta</button>
+            </div>
+            <div class="isp-card">
+                <div class="ic-tag">WAN</div>
+                <div class="ic-title">Transporte de Dados (WAN)</div>
+                <div class="ic-sub">Solução de interconexão segura entre unidades com alta disponibilidade.</div>
+                <ul>
+                    <li>Circuitos ponto a ponto e multiponto</li>
+                    <li>Baixa latência e jitter controlado</li>
+                    <li>Gerenciamento centralizado de rede</li>
+                    <li>Criptografia de enlace (opcional)</li>
+                    <li>Redundância com failover automático</li>
+                </ul>
+                <button class="btn-primary" style="width:100%">Solicitar Proposta</button>
+            </div>
+            <div class="isp-card">
+                <div class="ic-tag">LAN Estendida</div>
+                <div class="ic-title">LAN Estendida (LAN2LAN)</div>
+                <div class="ic-sub">Extensão de rede camada 2 entre localidades distintas.</div>
+                <ul>
+                    <li>Transparência total de camada 2</li>
+                    <li>Operação sem necessidade de VPN</li>
+                    <li>Alta capacidade com baixa latência</li>
+                    <li>Segmentação via VLAN (802.1Q)</li>
+                    <li>Suporte técnico especializado</li>
+                </ul>
+                <button class="btn-primary" style="width:100%">Solicitar Proposta</button>
+            </div>
+            <div class="isp-card">
+                <div class="ic-tag">Temporário</div>
+                <div class="ic-title">Link Temporário</div>
+                <div class="ic-sub">Conectividade sob demanda para eventos e operações temporárias.</div>
+                <ul>
+                    <li>Provisionamento ágil (até 48h)</li>
+                    <li>Contratação flexível (diária/mensal)</li>
+                    <li>Banda dedicada durante o período contratado</li>
+                    <li>Suporte técnico on-site (opcional)</li>
+                    <li>Equipamentos inclusos</li>
+                </ul>
+                <button class="btn-primary" style="width:100%">Solicitar Proposta</button>
+            </div>
+            <div class="isp-card">
+                <div class="ic-tag">Metro Ethernet</div>
+                <div class="ic-title">Rede Metro-Ethernet</div>
+                <div class="ic-sub">Infraestrutura metropolitana de alta capacidade para interligação urbana.</div>
+                <ul>
+                    <li>Cobertura municipal ampla</li>
+                    <li>Capacidade de até 10 Gbps</li>
+                    <li>Topologia em anel com proteção</li>
+                    <li>QoS configurável por serviço</li>
+                    <li>Compatibilidade com MPLS/VPLS</li>
+                </ul>
+                <button class="btn-primary" style="width:100%">Solicitar Proposta</button>
+            </div>
+            <div class="isp-card">
+                <div class="ic-tag">Endereçamento IP</div>
+                <div class="ic-title">Endereçamento IP (IPv4 / IPv6)</div>
+                <div class="ic-sub">Serviço de alocação de blocos IP para operação própria.</div>
+                <ul>
+                    <li>Blocos IPv4 (/24 até /20)</li>
+                    <li>Blocos IPv6 (/48 ou superiores)</li>
+                    <li>Anúncio BGP incluso</li>
+                    <li>Suporte a documentação ASN</li>
+                    <li>Apoio técnico em roteamento</li>
+                </ul>
+                <button class="btn-primary" style="width:100%">Solicitar Proposta</button>
+            </div>
+            <div class="isp-card">
+                <div class="ic-tag">Infraestrutura Passiva</div>
+                <div class="ic-title">Fibra Apagada (Dark Fiber)</div>
+                <div class="ic-sub">Disponibilização de infraestrutura óptica dedicada.</div>
+                <ul>
+                    <li>Pares de fibra monomodo (OS2)</li>
+                    <li>Rotas diversas sob consulta</li>
+                    <li>Contratos de longo prazo (IRU)</li>
+                    <li>Certificação e testes OTDR</li>
+                    <li>Manutenção preventiva inclusa</li>
+                </ul>
+                <button class="btn-primary" style="width:100%">Solicitar Proposta</button>
+            </div>
+    </section>
+</div>
+
+<!-- ÁREA DO CLIENTE -->
+<div id="cliente" class="page" style="background:var(--gray-100)">
+    <div class="client-wrapper">
+        <div class="client-box">
+            <div class="client-logo" style="font-family:'Ubuntu',sans-serif;font-size:26px;font-weight:700;letter-spacing:1px;color:var(--blue-deep);margin-bottom:6px;">Rio Telecom</div>
+            <h2>Área do Cliente</h2>
+            <p class="client-sub">Acesse sua conta para ver faturas, consumo e abrir chamados de suporte.</p>
+            <div class="form-group">
+                <label>CPF ou CNPJ</label>
+                <input type="text" id="login-cpf" placeholder="000.000.000-00">
+            </div>
+            <div class="form-group">
+                <label>Senha</label>
+                <input type="password" id="login-senha" placeholder="••••••••">
+            </div>
+            <button class="btn-login" onclick="handleLogin()">Entrar</button>
+            <div class="client-links">
+                <a>Esqueci minha senha</a>
+                <a>Primeira vez? Ative seu cadastro</a>
+                <a onclick="showPage('ajuda')">Problemas com acesso? Central de Ajuda</a>
+            </div>
+            <hr class="client-divider">
+            <div class="client-external">
+                <p>Você também pode acessar diretamente pelo portal online</p>
+                <div class="client-apps">
+                    <button class="app-btn" onclick="window.open('https://rio.beesweb.com.br','_blank')">Acessar Portal Web</button>
+                    <button class="app-btn">App Android</button>
+                    <button class="app-btn">App iOS</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- CENTRAL DE AJUDA -->
+<div id="ajuda" class="page">
+    <section class="section-block">
+        <h2 class="title-center">Central de <span>Ajuda</span></h2>
+        <div class="ajuda-search">
+            <h3>Como podemos ajudar?</h3>
+            <p>Encontre respostas para as dúvidas mais comuns ou entre em contato com nossa equipe.</p>
+            <div class="search-bar">
+                <input type="text" placeholder="Buscar na central de ajuda...">
+                <button class="btn-accent">Buscar</button>
+            </div>
+        </div>
+        <h3 style="font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-mid);margin-bottom:18px">Categorias</h3>
+        <div class="faq-categories">
+            <div class="faq-cat"><div class="icon">📶</div><div class="lbl">Conexão</div></div>
+            <div class="faq-cat"><div class="icon">💳</div><div class="lbl">Financeiro</div></div>
+            <div class="faq-cat"><div class="icon">🔧</div><div class="lbl">Instalação</div></div>
+            <div class="faq-cat"><div class="icon">📱</div><div class="lbl">App & Portal</div></div>
+            <div class="faq-cat"><div class="icon">📋</div><div class="lbl">Contrato</div></div>
+            <div class="faq-cat"><div class="icon">🔄</div><div class="lbl">Upgrade</div></div>
+        </div>
+        <h3 style="font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-mid);margin-bottom:18px">Perguntas Frequentes</h3>
+        <div class="faq-list">
+            <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">Minha internet está lenta. O que fazer? <span class="arrow">▼</span></div><div class="faq-a"><p>Reinicie o roteador desligando da tomada por 30 segundos. Verifique se outros dispositivos também estão lentos. Se persistir, teste a velocidade e abra um chamado com o resultado em nossa Área do Cliente ou pelo WhatsApp (91) 98889-7200.</p></div></div>
+            <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">Como faço para pagar minha fatura? <span class="arrow">▼</span></div><div class="faq-a"><p>Você pode pagar via Pix, boleto bancário ou cartão de crédito diretamente na Área do Cliente em rio.beesweb.com.br. O vencimento padrão é todo dia 10, podendo ser alterado mediante solicitação.</p></div></div>
+            <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">Qual é o prazo para instalação após a contratação? <span class="arrow">▼</span></div><div class="faq-a"><p>O prazo padrão é de até 5 dias úteis após a confirmação do pagamento da primeira mensalidade. Em algumas regiões pode ser realizado em até 48h. Nossa equipe entrará em contato para agendar.</p></div></div>
+            <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">Como faço o upgrade do meu plano? <span class="arrow">▼</span></div><div class="faq-a"><p>Solicite direto na Área do Cliente em "Meu Plano > Fazer Upgrade" ou pelo WhatsApp (91) 98889-7200. A mudança ocorre em até 24h sem necessidade de visita técnica na maioria dos casos.</p></div></div>
+            <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">O roteador é meu ou da Rio Telecom? <span class="arrow">▼</span></div><div class="faq-a"><p>O roteador Wi-Fi 6 é fornecido em comodato (empréstimo) pela Rio Telecom. Deve ser devolvido em caso de cancelamento. Em caso de danos causados pelo cliente, será cobrada uma taxa referente ao equipamento.</p></div></div>
+            <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">Posso cancelar o contrato a qualquer momento? <span class="arrow">▼</span></div><div class="faq-a"><p>Contratos sem fidelidade podem ser cancelados com 30 dias de aviso prévio. Contratos com fidelidade têm multa rescisória proporcional conforme previsto em contrato. Entre em contato pelo (91) 98889-7200.</p></div></div>
+        </div>
+        <h3 style="font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-mid);margin:44px 0 18px">Fale Conosco</h3>
+        <div class="contato-rapido">
+            <div class="contato-card"><div class="icon">📱</div><div class="ttl">WhatsApp</div><div class="info">(91) 98889-7200<br>Atendimento 24h</div></div>
+            <div class="contato-card"><div class="icon">✉️</div><div class="ttl">E-mail</div><div class="info">info@riotelecom.com.br<br>Resp. em até 24h</div></div>
+            <div class="contato-card"><div class="icon">🏢</div><div class="ttl">Escritório Cametá</div><div class="info">Av. Dom Pedro I, 305<br>Brasília — Cametá, PA</div></div>
+            <div class="contato-card"><div class="icon">🏢</div><div class="ttl">Escritório Mocajuba</div><div class="info">Av. Getúlio Vargas, 140<br>Fazenda — Mocajuba, PA</div></div>
+        </div>
+    </section>
+</div>
+
+<!-- STATUS DA REDE -->
+<div id="status" class="page">
+    <section class="section-block">
+        <h2 class="title-center">Status da <span>Rede</span></h2>
+
+        <!-- Overall status banner — updated by JS -->
+        <div class="status-overall" id="status-overall-banner">
+            <div class="status-dot" id="overall-dot" style="background:var(--gray-400)"></div>
+            <div>
+                <h3 id="overall-title">Verificando sistemas...</h3>
+                <p id="overall-sub">Aguarde enquanto consultamos os serviços em tempo real.</p>
+            </div>
+            <button onclick="runChecks()" class="btn-outline" style="margin-left:auto;padding:8px 18px;font-size:12px">↻ Atualizar</button>
+        </div>
+
+        <!-- Bordas / IPs reais -->
+        <h3 style="font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-mid);margin-bottom:18px">Pontos de Presença — Verificação em Tempo Real</h3>
+        <div class="status-grid" style="margin-bottom:40px">
+            <div class="status-card" id="sc-mocajuba">
+                <div class="sdot" id="dot-mocajuba" style="background:var(--gray-400)"></div>
+                <div style="flex:1">
+                    <div class="sname">EDGE MOCAJUBA</div>
+                    <div class="sstatus" id="st-mocajuba" style="color:var(--gray-400)">Verificando…</div>
+                    <div class="stime" id="tm-mocajuba">200.220.162.225</div>
+                </div>
+            </div>
+            <div class="status-card" id="sc-cameta">
+                <div class="sdot" id="dot-cameta" style="background:var(--gray-400)"></div>
+                <div style="flex:1">
+                    <div class="sname">EDGE CAMETÁ</div>
+                    <div class="sstatus" id="st-cameta" style="color:var(--gray-400)">Verificando…</div>
+                    <div class="stime" id="tm-cameta">200.220.162.225</div>
+                </div>
+            </div>
+            <div class="status-card" id="sc-baiao">
+                <div class="sdot" id="dot-baiao" style="background:var(--gray-400)"></div>
+                <div style="flex:1">
+                    <div class="sname">EDGE BAIÃO</div>
+                    <div class="sstatus" id="st-baiao" style="color:var(--gray-400)">Verificando…</div>
+                    <div class="stime" id="tm-baiao">200.220.162.225</div>
+                </div>
+            </div>
+            <div class="status-card" id="sc-dns1">
+                <div class="sdot" id="dot-dns1" style="background:var(--gray-400)"></div>
+                <div style="flex:1">
+                    <div class="sname">SERVIDOR DNS PRIMÁRIO</div>
+                    <div class="sstatus" id="st-dns1" style="color:var(--gray-400)">Verificando…</div>
+                    <div class="stime" id="tm-dns1">ns1.riotelecom.com.br</div>
+                </div>
+            </div>
+            <div class="status-card" id="sc-dns2">
+                <div class="sdot" id="dot-dns2" style="background:var(--gray-400)"></div>
+                <div style="flex:1">
+                    <div class="sname">SERVIDOR DNS SECUNDÁRIO</div>
+                    <div class="sstatus" id="st-dns2" style="color:var(--gray-400)">Verificando…</div>
+                    <div class="stime" id="tm-dns2">ns2.riotelecom.com.br</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Operadoras / Uplinks lado a lado -->
+        <h3 style="font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-mid);margin-bottom:18px">Uplinks & Operadoras</h3>
+        <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:40px">
+            <div class="status-card" style="flex:1;min-width:180px">
+                <div class="sdot" id="dot-edge" style="background:var(--gray-400)"></div>
+                <div style="flex:1">
+                    <div class="sname">EDGE DATA CENTER</div>
+                    <div class="sstatus" id="st-edge" style="color:var(--gray-400)">Verificando…</div>
+                    <div class="stime">STATUS</div>
+                </div>
+            </div>
+            <div class="status-card" style="flex:1;min-width:180px">
+                <div class="sdot" id="dot-cdns" style="background:var(--gray-400)"></div>
+                <div style="flex:1">
+                    <div class="sname">CDNs</div>
+                    <div class="sstatus" id="st-cdns" style="color:var(--gray-400)">Verificando…</div>
+                    <div class="stime">STATUS</div>
+                </div>
+            </div>
+            <div class="status-card" style="flex:1;min-width:180px">
+                <div class="sdot" id="dot-backbone1" style="background:var(--gray-400)"></div>
+                <div style="flex:1">
+                    <div class="sname">AUX1 — ROUTE ABAETETUBA</div>
+                    <div class="sstatus" id="st-backbone1" style="color:var(--gray-400)">Verificando…</div>
+                    <div class="stime">STATUS</div>
+                </div>
+            </div>
+            <div class="status-card" style="flex:1;min-width:180px">
+                <div class="sdot" id="dot-backbone2" style="background:var(--gray-400)"></div>
+                <div style="flex:1">
+                    <div class="sname">AUX2 — ROUTE TAILÂNDIA</div>
+                    <div class="sstatus" id="st-backbone2" style="color:var(--gray-400)">Verificando…</div>
+                    <div class="stime">STATUS</div>
+                </div>
+            </div>
+            <div class="status-card" style="flex:1;min-width:180px">
+                <div class="sdot" id="dot-claro" style="background:var(--gray-400)"></div>
+                <div style="flex:1">
+                    <div class="sname">CLARO</div>
+                    <div class="sstatus" id="st-claro" style="color:var(--gray-400)">Verificando…</div>
+                    <div class="stime">STATUS</div>
+                </div>
+            </div>
+            <div class="status-card" style="flex:1;min-width:180px">
+                <div class="sdot" id="dot-tim" style="background:var(--gray-400)"></div>
+                <div style="flex:1">
+                    <div class="sname">TIM / SPARKLE</div>
+                    <div class="sstatus" id="st-tim" style="color:var(--gray-400)">Verificando…</div>
+                    <div class="stime">STATUS</div>
+                </div>
+            </div>
+            <div class="status-card" style="flex:1;min-width:180px">
+                <div class="sdot" id="dot-vivo" style="background:var(--gray-400)"></div>
+                <div style="flex:1">
+                    <div class="sname">VIVO / TELEFÔNICA</div>
+                    <div class="sstatus" id="st-vivo" style="color:var(--gray-400)">Verificando…</div>
+                    <div class="stime">STATUS</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="incidents">
+            <h3 style="font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-mid);margin-bottom:18px">Histórico de Incidentes</h3>
+            <div class="incident-item resolved">
+                <span class="badge-status badge-resolved">Resolvido</span>
+                <div class="ititle">Falha Limitada — Cametá BR422</div>
+                <div class="idate">12 de março de 2026 — 09:14 às 11:47</div>
+                <div class="idesc">Troca de postes na BR422, sentido Tucuruí. Serviço restabelecido após conclusão dos trabalhos.</div>
+            </div>
+            <div class="incident-item resolved">
+                <span class="badge-status badge-resolved">Resolvido</span>
+                <div class="ititle">Falha Limitada — Indisponibilidade</div>
+                <div class="idate">28 de fevereiro de 2026 — 02:00 às 03:15</div>
+                <div class="idesc">Rompimento em um ramal que atende as Avenidas Cônego Siqueira e Coronel Raimundo Leão no Bairro Brasília. Equipe de campo acionada e reparo concluído às 03h15.</div>
+            </div>
+        </div>
+        <div class="info-box" style="margin-top:24px">🔔 <strong>Ative as notificações:</strong> Envie "STATUS" para (91) 98889-7200 no WhatsApp para receber alertas automáticos de incidentes na sua região.</div>
+    </section>
+</div>
+
+<!-- SOBRE NÓS -->
+<div id="sobre" class="page">
+    <section class="section-block bg-white">
+        <div class="sobre-hero">
+            <div class="sobre-text">
+                <h2>Conectando o <span>Pará</span> ao futuro</h2>
+                <p>A Rio Telecom nasceu com o propósito de levar conectividade de qualidade para cidades do interior do Pará que historicamente ficaram às margens da revolução digital.</p>
+                <p>Com infraestrutura própria de fibra óptica, DATA CENTER com 1,2 Tbps de capacidade, equipe técnica local e atendimento humanizado, construímos nossa reputação na confiança de mais de 5.000 famílias e empresas atendidas.</p>
+                <p>Acreditamos que internet de alta performance não é luxo — é infraestrutura essencial para educação, trabalho, saúde e desenvolvimento regional.</p>
+            </div>
+            <div class="sobre-nums">
+                <div class="sobre-num"><div class="n">2018</div><div class="l">Fundação</div></div>
+                <div class="sobre-num"><div class="n">+5mil</div><div class="l">Clientes</div></div>
+                <div class="sobre-num"><div class="n">1,2Tbps</div><div class="l">Capacidade</div></div>
+                <div class="sobre-num"><div class="n">99,9%</div><div class="l">Uptime</div></div>
+            </div>
+        </div>
+        <h2 class="title-center">Nossa <span>Trajetória</span></h2>
+        <div class="timeline" style="max-width:650px;margin:0 auto 60px">
+            <div class="tl-item"><div class="tl-year">2018</div><div class="tl-title">Fundação em Cametá</div><div class="tl-desc">A Rio Telecom é fundada com foco em atender a região de Cametá com conexão de qualidade via fibra óptica.</div></div>
+            <div class="tl-item"><div class="tl-year">2019</div><div class="tl-title">Backbone próprio</div><div class="tl-desc">Investimento em infraestrutura própria com 6 rotas de backbone incluindo cabos aéreos, subterrâneos e subfluviais.</div></div>
+            <div class="tl-item"><div class="tl-year">2021</div><div class="tl-title">Abertura de Mocajuba</div><div class="tl-desc">Inauguração do segundo escritório em Mocajuba, expandindo a cobertura para novos municípios da região e Baião.</div></div>
+            <div class="tl-item"><div class="tl-year">2023</div><div class="tl-title">DATA CENTER e ISP & Gov</div><div class="tl-desc">Inauguração do DATA CENTER com 1,2 Tbps e lançamento das soluções para provedores e órgãos governamentais.</div></div>
+            <div class="tl-item"><div class="tl-year">2025</div><div class="tl-title">5.000 clientes e Wi-Fi 6</div><div class="tl-desc">Marca histórica de 5.000 clientes ativos, modernização para Wi-Fi 6 e presença em 4 PTTs nacionais.</div></div>
+        </div>
+        <h2 class="title-center">Nosso <span>Time</span></h2>
+        <div class="team-grid">
+            <div class="team-card"><div class="team-avatar">RL</div><div class="team-name">Ricardo Lima</div><div class="team-role">CEO & Fundador</div></div>
+            <div class="team-card"><div class="team-avatar">AC</div><div class="team-name">Ana Carvalho</div><div class="team-role">Diretora Comercial</div></div>
+            <div class="team-card"><div class="team-avatar">MS</div><div class="team-name">Marcos Silva</div><div class="team-role">Diretor de TI & NOC</div></div>
+            <div class="team-card"><div class="team-avatar">JP</div><div class="team-name">João Pedro</div><div class="team-role">Gerente de Infraestrutura</div></div>
+            <div class="team-card"><div class="team-avatar">FM</div><div class="team-name">Fernanda Melo</div><div class="team-role">Gerente Financeira</div></div>
+            <div class="team-card"><div class="team-avatar">BR</div><div class="team-name">Bruno Rocha</div><div class="team-role">Suporte & Atendimento</div></div>
+        </div>
+    </section>
+</div>
+
+<!-- COBERTURA -->
+<div id="cobertura" class="page">
+    <section class="section-block">
+        <h2 class="title-center">Área de <span>Cobertura</span></h2>
+        <p class="subtitle-center">Atendemos municípios do Baixo Tocantins e expandimos continuamente nossa rede.</p>
+        <div class="cob-search">
+            <input type="text" placeholder="Digite seu município ou bairro...">
+            <button class="btn-primary">Verificar</button>
+        </div>
+        <div class="cob-map">
+            <div class="map-icon">🗺️</div>
+            <p style="font-weight:700;color:var(--text-dark)">Mapa Interativo de Cobertura</p>
+            <p>Consulte cobertura no seu endereço exato pelo nosso WhatsApp.</p>
+            <button class="btn-outline" onclick="window.open('https://wa.me/5591988897200','_blank')">Consultar pelo WhatsApp</button>
+        </div>
+
+        <div class="cob-section-title">Cidades atendidas</div>
+        <div class="cob-cities">
+            <div class="cob-city"><div class="cname">Cametá</div><div class="cstate">PA — Baixo Tocantins</div><div class="cbairros">Centro, Brasília, Prainha, Matadouro, Porto, Área Industrial e demais bairros</div><span class="ctag ctag-ativo">Ativo</span></div>
+            <div class="cob-city"><div class="cname">Mocajuba</div><div class="cstate">PA — Baixo Tocantins</div><div class="cbairros">Centro, Fazenda, Olaria, Beira Rio, Conjunto Habitacional</div><span class="ctag ctag-ativo">Ativo</span></div>
+            <div class="cob-city"><div class="cname">Baião</div><div class="cstate">PA — Baixo Tocantins</div><div class="cbairros">Centro urbano e principais bairros</div><span class="ctag ctag-ativo">Ativo</span></div>
+        </div>
+
+        <div class="cob-section-title" style="margin-top:32px">Em breve</div>
+        <div class="cob-cities">
+            <div class="cob-city"><div class="cname">Oeiras do Pará</div><div class="cstate">PA — Baixo Tocantins</div><div class="cbairros">Previsão de expansão — 2026</div><span class="ctag ctag-breve">Em breve</span></div>
+            <div class="cob-city"><div class="cname">Limoeiro do Ajurú</div><div class="cstate">PA — Baixo Tocantins</div><div class="cbairros">Previsão de expansão — 2026</div><span class="ctag ctag-breve">Em breve</span></div>
+            <div class="cob-city"><div class="cname">Igarapé-Miri</div><div class="cstate">PA — Baixo Tocantins</div><div class="cbairros">Previsão de expansão — 2026</div><span class="ctag ctag-breve">Em breve</span></div>
+            <div class="cob-city"><div class="cname">Portel</div><div class="cstate">PA — Marajó</div><div class="cbairros">Previsão de expansão — 2026/2027</div><span class="ctag ctag-breve">Em breve</span></div>
+        </div>
+
+        <div style="margin-top:36px;background:#fff;border:1.5px solid var(--card-border);border-radius:var(--radius-md);padding:28px;text-align:center;box-shadow:var(--shadow-sm)">
+            <h3 style="font-size:1rem;font-weight:900;text-transform:uppercase;margin-bottom:10px;color:var(--text-dark)">Sua cidade não está na lista?</h3>
+            <p style="font-size:14px;color:var(--text-light);margin-bottom:20px">Estamos sempre expandindo. Registre seu interesse — cidades com maior demanda têm prioridade na nossa expansão.</p>
+            <button class="btn-primary" onclick="window.open('https://wa.me/5591988897200','_blank')">Registrar Interesse pelo WhatsApp</button>
+        </div>
+    </section>
+</div>
+
+<!-- TRABALHE CONOSCO -->
+<div id="trabalhe" class="page">
+    <section class="section-block bg-white">
+        <h2 class="title-center">Trabalhe <span>Conosco</span></h2>
+        <p class="subtitle-center">Fazemos parte do crescimento digital do interior do Pará. Venha construir isso com a gente.</p>
+        <div class="cultura-grid" style="margin-bottom:50px">
+            <div class="cultura-card"><div class="icon">🤝</div><div class="ttl">Time Unido</div><div class="dsc">Ambiente colaborativo onde cada pessoa importa e contribui para o todo.</div></div>
+            <div class="cultura-card"><div class="icon">📈</div><div class="ttl">Crescimento Real</div><div class="dsc">Treinamentos e plano de carreira para todos os colaboradores.</div></div>
+            <div class="cultura-card"><div class="icon">🌍</div><div class="ttl">Impacto Local</div><div class="dsc">Nosso trabalho transforma a vida de milhares de pessoas na região.</div></div>
+            <div class="cultura-card"><div class="icon">⚡</div><div class="ttl">Inovação</div><div class="dsc">Trabalhamos com tecnologia de ponta e incentivamos novas ideias.</div></div>
+        </div>
+        <h3 style="font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-mid);margin-bottom:18px">Vagas Abertas</h3>
+        <div class="vagas-filtro">
+            <button class="filtro-btn active">Todas</button>
+            <button class="filtro-btn">Técnico</button>
+            <button class="filtro-btn">Comercial</button>
+            <button class="filtro-btn">TI</button>
+        </div>
+        <div class="vagas-grid">
+            <div class="vaga-card"><div><div class="vaga-title">Técnico de Fibra Óptica</div><div class="vaga-meta"><span class="vaga-tag vtag-dep">Infraestrutura</span><span class="vaga-tag vtag-loc">Cametá, PA</span><span class="vaga-tag vtag-tipo">CLT</span></div></div><button class="btn-outline" style="white-space:nowrap">Ver Vaga</button></div>
+            <div class="vaga-card"><div><div class="vaga-title">Analista de Suporte N2</div><div class="vaga-meta"><span class="vaga-tag vtag-dep">TI / NOC</span><span class="vaga-tag vtag-loc">Cametá, PA</span><span class="vaga-tag vtag-tipo">CLT</span></div></div><button class="btn-outline" style="white-space:nowrap">Ver Vaga</button></div>
+            <div class="vaga-card"><div><div class="vaga-title">Consultor Comercial B2B</div><div class="vaga-meta"><span class="vaga-tag vtag-dep">Comercial</span><span class="vaga-tag vtag-loc">Mocajuba, PA</span><span class="vaga-tag vtag-tipo">CLT + Comissão</span></div></div><button class="btn-outline" style="white-space:nowrap">Ver Vaga</button></div>
+            <div class="vaga-card"><div><div class="vaga-title">Atendente de Suporte</div><div class="vaga-meta"><span class="vaga-tag vtag-dep">Suporte</span><span class="vaga-tag vtag-loc">Remoto / Híbrido</span><span class="vaga-tag vtag-tipo">CLT</span></div></div><button class="btn-outline" style="white-space:nowrap">Ver Vaga</button></div>
+            <div class="vaga-card"><div><div class="vaga-title">Engenheiro de Redes</div><div class="vaga-meta"><span class="vaga-tag vtag-dep">TI</span><span class="vaga-tag vtag-loc">Cametá, PA</span><span class="vaga-tag vtag-tipo">CLT</span></div></div><button class="btn-outline" style="white-space:nowrap">Ver Vaga</button></div>
+        </div>
+        <div class="candidatura-box">
+            <h3>Não encontrou sua vaga?</h3>
+            <p>Envie seu currículo para nosso banco de talentos. Quando surgir uma oportunidade alinhada ao seu perfil, entraremos em contato.</p>
+            <button class="btn-accent" onclick="window.location.href='mailto:info@riotelecom.com.br?subject=Currículo Espontâneo'">Enviar Currículo por E-mail</button>
+        </div>
+    </section>
+</div>
+
+<!-- IMPRENSA -->
+<div id="imprensa" class="page">
+    <section class="section-block">
+        <h2 class="title-center">Sala de <span>Imprensa</span></h2>
+        <p class="subtitle-center">Comunicados, materiais de mídia, dados sobre a empresa e contato direto com nossa assessoria.</p>
+        <h3 style="font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-mid);margin-bottom:18px">Kits de Mídia</h3>
+        <div class="imprensa-kits" style="align-items:stretch">
+            <div class="kit-card" style="display:flex;flex-direction:column;justify-content:space-between">
+                <div><div class="icon">🖼️</div><div class="ktitle">Logotipo e Marca</div><div class="kdesc">Arquivos SVG, PNG em versões claro e escuro.</div></div>
+                <button class="btn-outline" style="width:100%;margin-top:16px" onclick="window.open('https://wa.me/5591988897200?text=Olá!%20Gostaria%20de%20solicitar%20o%20Kit%20de%20Logotipo%20e%20Marca%20da%20Rio%20Telecom.','_blank')">Solicitar via WhatsApp</button>
+            </div>
+            <div class="kit-card" style="display:flex;flex-direction:column;justify-content:space-between">
+                <div><div class="icon">📄</div><div class="ktitle">Press Kit Corporativo</div><div class="kdesc">Histórico, dados, missão, visão, valores e ficha técnica.</div></div>
+                <button class="btn-outline" style="width:100%;margin-top:16px" onclick="window.open('https://wa.me/5591988897200?text=Olá!%20Gostaria%20de%20solicitar%20o%20Press%20Kit%20Corporativo%20da%20Rio%20Telecom.','_blank')">Solicitar via WhatsApp</button>
+            </div>
+            <div class="kit-card" style="display:flex;flex-direction:column;justify-content:space-between">
+                <div><div class="icon">📊</div><div class="ktitle">Dados & Números</div><div class="kdesc">Estatísticas de cobertura, clientes e indicadores.</div></div>
+                <button class="btn-outline" style="width:100%;margin-top:16px" onclick="window.open('https://wa.me/5591988897200?text=Olá!%20Gostaria%20de%20solicitar%20os%20Dados%20e%20Números%20da%20Rio%20Telecom.','_blank')">Solicitar via WhatsApp</button>
+            </div>
+            <div class="kit-card" style="display:flex;flex-direction:column;justify-content:space-between">
+                <div><div class="icon">📸</div><div class="ktitle">Fotos Institucionais</div><div class="kdesc">Imagens de alta resolução da equipe e infraestrutura.</div></div>
+                <button class="btn-outline" style="width:100%;margin-top:16px" onclick="window.open('https://wa.me/5591988897200?text=Olá!%20Gostaria%20de%20solicitar%20as%20Fotos%20Institucionais%20da%20Rio%20Telecom.','_blank')">Solicitar via WhatsApp</button>
+            </div>
+        </div>
+        <h3 style="font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-mid);margin-bottom:18px">Últimas Notícias</h3>
+        <div class="noticias-grid">
+            <div class="noticia-card"><div class="noticia-img">📡</div><div class="noticia-body"><div class="noticia-cat">Expansão</div><div class="noticia-title">Rio Telecom inicia expansão para Bagre, Breves, Melgaço e Portel no primeiro trimestre de 2027.</div><div class="noticia-date">10 de março de 2026</div></div></div>
+            <div class="noticia-card"><div class="noticia-img">🏛️</div><div class="noticia-body"><div class="noticia-cat">Governo</div><div class="noticia-title">Empresa firma contrato com prefeitura para conectividade de escolas municipais</div><div class="noticia-date">28 de fevereiro de 2026</div></div></div>
+            <div class="noticia-card"><div class="noticia-img">🏆</div><div class="noticia-body"><div class="noticia-cat">Reconhecimento</div><div class="noticia-title">Rio Telecom é premiada como melhor provedor do Baixo Tocantins</div><div class="noticia-date">15 de janeiro de 2026</div></div></div>
+        </div>
+        <div class="assessoria-box">
+            <div class="icon">📰</div>
+            <div>
+                <h3>Assessoria de Imprensa</h3>
+                <p>Para entrevistas, informações adicionais, pauta ou cobertura jornalística, entre em contato com nossa equipe de comunicação.</p>
+                <div class="assessoria-contatos">
+                    <div class="ac-item"><span>Telefone:</span> (91) 98889-7200</div>
+                    <div class="ac-item"><span>E-mail:</span> info@riotelecom.com.br</div>
+                    <div class="ac-item"><span>Horário:</span> Seg–Sex, 8h–18h</div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!-- FOOTER -->
+<footer id="main-footer">
+    <div class="footer-grid">
+        <div class="footer-brand">
+            <img src="data:image/png;base64,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" style="height:36px;width:auto;display:block;border-radius:4px;margin-bottom:14px;" alt="Rio Telecom">
+            <p>Conectando Você!</p>
+            <div class="footer-contact">
+                <div>📱 <a href="tel:+5591988897200">(91) 98889-7200</a></div>
+                <div>✉️ <a href="mailto:info@riotelecom.com.br">info@riotelecom.com.br</a></div>
+            </div>
+        </div>
+        <div class="footer-col">
+            <h4>Planos</h4>
+            <ul>
+                <li><a onclick="showPage('voce')">Para Você</a></li>
+                <li><a onclick="showPage('empresas')">Para Empresas</a></li>
+                <li><a onclick="showPage('isp')">ISP & Gov</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Empresa</h4>
+            <ul>
+                <li><a onclick="showPage('sobre')">Sobre nós</a></li>
+                <li><a onclick="showPage('cobertura')">Cobertura</a></li>
+                <li><a onclick="showPage('trabalhe')">Trabalhe conosco</a></li>
+                <li><a onclick="showPage('imprensa')">Imprensa</a></li>
+            </ul>
+        </div>
+        <div class="footer-col">
+            <h4>Suporte</h4>
+            <ul>
+                <li><a onclick="showPage('cliente')">Área do Cliente</a></li>
+                <li><a onclick="showPage('ajuda')">Central de Ajuda</a></li>
+                <li><a onclick="showPage('status')">Status da Rede</a></li>
+                <li><a href="https://wa.me/5591988897200" target="_blank">WhatsApp 24h</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-addresses">
+        <div class="footer-addr"><h5>Escritório Cametá</h5><p>Avenida Dom Pedro I, 305<br>Brasília — Cametá, PA</p></div>
+        <div class="footer-addr"><h5>Escritório Mocajuba</h5><p>Avenida Getúlio Vargas, 140<br>Fazenda — Mocajuba, PA</p></div>
+    </div>
+    <div class="footer-bottom">
+        <p>RIO TELECOMUNICAÇÕES LTDA &copy; 2026 &nbsp;|&nbsp; CNPJ: 48.246.579/0001-01</p>
+        <div class="footer-social">
+            <a class="social-btn" title="LinkedIn">in</a>
+            <a class="social-btn" title="Instagram">ig</a>
+            <a class="social-btn" title="Facebook">fb</a>
+            <a class="social-btn" title="YouTube">yt</a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    const padrao = ["Wi-Fi 6", "IPv4 & IPv6", "Suporte Premium 24h", "Instalação Grátis"];
+    const planosVoce = [
+        { nome: "START",  mega: 300, preco: 100 },
+        { nome: "PLUS",   mega: 500, preco: 120, destaque: true },
+        { nome: "PRO",    mega: 600, preco: 140 },
+        { nome: "ULTRA",  mega: 800, preco: 160 }
+    ];
+    const planosEmpresas = [
+        { nome: "BUSINESS START", mega: 300, precoBase: 180 },
+        { nome: "BUSINESS PLUS",  mega: 500, precoBase: 200, destaque: true },
+        { nome: "BUSINESS PRO",   mega: 600, precoBase: 220 },
+        { nome: "BUSINESS ULTRA", mega: 800, precoBase: 240 }
+    ];
+    let ipTipo = 'dinamico';
+
+    function renderVoce() {
+        document.getElementById('grid-voce').innerHTML = planosVoce.map(p => `
+            <div class="card ${p.destaque ? 'best-value' : ''}">
+                <div class="name">${p.nome}</div>
+                <div class="speed">${p.mega}<span>MEGA</span></div>
+                <ul>${padrao.map(i => `<li>${i}</li>`).join('')}</ul>
+                <div class="price">R$ ${p.preco}<small>,00/mês</small></div>
+                <button class="btn-primary" style="width:100%">Assinar</button>
+            </div>`).join('');
+    }
+
+    function renderEmpresas() {
+        const ad = ipTipo === 'fixo' ? 80 : 0;
+        document.getElementById('grid-empresas').innerHTML = planosEmpresas.map(p => `
+            <div class="card ${p.destaque ? 'best-value' : ''}">
+                <div class="name">${p.nome}</div>
+                <div class="speed">${p.mega}<span>MEGA</span></div>
+                <ul>${padrao.map(i => `<li>${i}</li>`).join('')}<li>IP ${ipTipo === 'fixo' ? 'Fixo' : 'Dinâmico'}</li></ul>
+                <div class="price">R$ ${p.precoBase + ad}<small>,00/mês</small></div>
+                <button class="btn-primary" style="width:100%">Contratar</button>
+            </div>`).join('');
+    }
+
+    function renderHeroDestaque() {
+        const p = planosVoce.find(x => x.destaque);
+        document.getElementById('hero-destaque').innerHTML = `
+            <div class="hc-name">${p.nome}</div>
+            <div class="hc-speed">${p.mega}<span>MEGA</span></div>
+            <ul>${padrao.map(i => `<li>${i}</li>`).join('')}</ul>
+            <div class="hc-price">R$ ${p.preco}<small>,00/mês</small></div>
+            <button class="btn-accent" style="width:100%" onclick="showPage('voce')">Assinar Agora</button>`;
+    }
+
+    function updateBusinessPlans(tipo, btn) {
+        ipTipo = tipo;
+        document.querySelectorAll('.btn-ip').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById('ip-alert').style.display = tipo === 'fixo' ? 'block' : 'none';
+        renderEmpresas();
+    }
+
+    function handleLogin() {
+        const cpf = document.getElementById('login-cpf').value.trim();
+        const senha = document.getElementById('login-senha').value.trim();
+        if (!cpf || !senha) {
+            alert('Preencha CPF/CNPJ e senha para continuar.');
+            return;
+        }
+        window.open('https://rio.beesweb.com.br', '_blank');
+    }
+
+    const pagesNoFooter = ['cliente'];
+
+    function showPage(id) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.classList.add('active');
+        const link = document.getElementById('link-' + id);
+        if (link) link.classList.add('active');
+        document.getElementById('main-footer').style.display = pagesNoFooter.includes(id) ? 'none' : 'block';
+        window.scrollTo(0, 0);
+        document.getElementById('mainNav').classList.remove('open');
+        document.getElementById('menuToggle').classList.remove('open');
+        if (id === 'status') setTimeout(runChecks, 300);
+    }
+
+    // ── REAL-TIME STATUS CHECKS ──
+    // All checks use 1.1.1.1 (Cloudflare) as the connectivity probe
+    const PROBE_URL = 'https://1.1.1.1';
+
+    const STATUS_IDS = [
+        'mocajuba','cameta','baiao',
+        'dns1','dns2',
+        'backbone1','backbone2',
+        'claro','tim','vivo','edge','cdns'
+    ];
+
+    function setDot(id, ok) {
+        const dot = document.getElementById('dot-'+id);
+        const st  = document.getElementById('st-'+id);
+        const tm  = document.getElementById('tm-'+id);
+        if (!dot) return;
+        const color = ok ? 'var(--success)' : 'var(--danger)';
+        dot.style.background = color;
+        dot.style.boxShadow  = '0 0 8px ' + color;
+        if (st) { st.textContent = ok ? 'Operacional' : 'Sem resposta'; st.style.color = color; }
+        if (tm && ok) tm.textContent = 'Verificado agora';
+    }
+
+    async function probeConnectivity() {
+        // Fetch 1.1.1.1 with no-cors — success (even opaque) means we have internet
+        try {
+            await fetch(PROBE_URL, {
+                method: 'HEAD',
+                mode: 'no-cors',
+                cache: 'no-store',
+                signal: AbortSignal.timeout(5000)
+            });
+            return true;
+        } catch(e) {
+            // TypeError = CORS/opaque (host responded = online)
+            // AbortError = timeout = offline
+            return e.name !== 'AbortError' && e.name !== 'TimeoutError';
+        }
+    }
+
+    async function checkOne(id) {
+        const ok = await probeConnectivity();
+        setDot(id, ok);
+        return ok;
+    }
+
+    async function runChecks() {
+        const banner  = document.getElementById('status-overall-banner');
+        const odot    = document.getElementById('overall-dot');
+        const otitle  = document.getElementById('overall-title');
+        const osub    = document.getElementById('overall-sub');
+        if (odot) { odot.style.background='var(--warning)'; odot.style.boxShadow='0 0 8px var(--warning)'; }
+        if (otitle) otitle.textContent = 'Verificando sistemas…';
+        if (osub)   osub.textContent   = 'Consultando serviços em tempo real, aguarde.';
+
+        const results = await Promise.all(STATUS_IDS.map(id => checkOne(id)));
+        const allOk   = results.every(Boolean);
+        const anyDown = results.some(r => !r);
+        const color   = allOk ? 'var(--success)' : 'var(--danger)';
+        const now     = new Date().toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
+        if (odot)   { odot.style.background = color; odot.style.boxShadow = '0 0 10px '+color; }
+        if (otitle) otitle.textContent = allOk ? 'Todos os sistemas operacionais' : 'Degradação detectada em um ou mais serviços';
+        if (osub)   osub.textContent   = `Última verificação: hoje às ${now}${allOk ? ' — Nenhum incidente ativo.' : ' — Verifique os itens abaixo.'}`;
+    }
+
+    // Run on page load and when status page is shown
+    const _origShowPage = typeof showPage !== 'undefined' ? null : null;
+    document.addEventListener('DOMContentLoaded', () => setTimeout(runChecks, 800));
+
+    function toggleTheme() {
+        const dark = document.body.classList.toggle('dark');
+        document.getElementById('themeToggle').textContent = dark ? '☀️' : '🌙';
+        localStorage.setItem('rt-theme', dark ? 'dark' : 'light');
+    }
+
+    // Restore saved theme preference
+    (function() {
+        const saved = localStorage.getItem('rt-theme');
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (saved === 'dark' || (!saved && prefersDark)) {
+            document.body.classList.add('dark');
+            const btn = document.getElementById('themeToggle');
+            if (btn) btn.textContent = '☀️';
+        }
+    })();
+
+    // Device detection & viewport scaling
+    (function() {
+        function detectDevice() {
+            const w = window.innerWidth;
+            const ua = navigator.userAgent;
+            const isMobile = /Android|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua) || w < 480;
+            const isTablet = /iPad|Android(?!.*Mobile)/i.test(ua) || (w >= 480 && w < 960);
+            const isDesktop = !isMobile && !isTablet;
+            document.documentElement.setAttribute('data-device', isMobile ? 'mobile' : isTablet ? 'tablet' : 'desktop');
+            // Ensure proper font scaling on very small screens
+            if (isMobile && w < 360) {
+                document.documentElement.style.fontSize = Math.max(12, (w / 375) * 16) + 'px';
+            } else {
+                document.documentElement.style.fontSize = '';
+            }
+        }
+        detectDevice();
+        window.addEventListener('resize', detectDevice);
+        window.addEventListener('orientationchange', function() { setTimeout(detectDevice, 150); });
+    })();
+
+    function toggleMenu() {
+        document.getElementById('mainNav').classList.toggle('open');
+        document.getElementById('menuToggle').classList.toggle('open');
+    }
+
+    function toggleFaq(item) { item.classList.toggle('open'); }
+
+    renderVoce();
+    renderEmpresas();
+    renderHeroDestaque();
+</script>
+</body>
+</html>
