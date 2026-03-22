@@ -119,13 +119,72 @@
         .nav-cta::after { display:none !important; }
         .nav-cta:hover { background:#fff !important; color:var(--blue-deep) !important; box-shadow:0 2px 12px rgba(0,0,0,0.2) !important; }
 
+        /* ── PLANS STATIC GRID ── */
+        .plans-slider-section {
+            background:linear-gradient(180deg, var(--blue-deep) 0%, var(--blue-main) 65%, #f4f7fb 100%);
+            padding:48px 5% 64px; overflow:hidden;
+        }
+        .plans-slider-header { text-align:center; margin-bottom:36px; }
+        .plans-slider-tag {
+            display:inline-block; font-size:11px; font-weight:900; letter-spacing:2px;
+            text-transform:uppercase; color:#fff;
+            border:1px solid rgba(255,255,255,0.4); padding:5px 14px; border-radius:20px;
+            margin-bottom:10px;
+        }
+        .plans-slider-title { font-size:1.5rem; font-weight:900; color:#fff; text-transform:uppercase; margin:0; }
+
+        .plans-static-grid {
+            display:grid; grid-template-columns:repeat(4,1fr); gap:20px; max-width:1200px; margin:0 auto;
+        }
+        /* slider-card mirrors .card exactly */
+        .slider-card {
+            background:#fff; padding:36px 24px; border-radius:var(--radius-md);
+            border:1.5px solid var(--card-border);
+            display:flex; flex-direction:column; position:relative; box-shadow:var(--shadow-sm);
+            cursor:pointer;
+            opacity:0; transform:translateY(24px);
+            animation:cardReveal 0.5s ease forwards;
+        }
+        .slider-card:nth-child(1) { animation-delay:0.05s; }
+        .slider-card:nth-child(2) { animation-delay:0.15s; }
+        .slider-card:nth-child(3) { animation-delay:0.25s; }
+        .slider-card:nth-child(4) { animation-delay:0.35s; }
+        @keyframes cardReveal { to { opacity:1; transform:translateY(0); } }
+        /* transition only active after animation completes (class added by JS) */
+        .slider-card.ready { transition:var(--transition); animation:none; opacity:1; transform:translateY(0); }
+        .slider-card.ready:hover { border-color:var(--blue-mid); transform:translateY(-6px); box-shadow:var(--shadow-md); }
+        .slider-card.featured { border:2px solid var(--blue-mid); box-shadow:0 8px 32px rgba(0,80,200,0.18); }
+        .slider-card.featured.ready:hover { transform:translateY(-6px); box-shadow:0 12px 40px rgba(0,80,200,0.28); }
+        .slider-card.featured::before {
+            content:'MELHOR CUSTO-BENEFÍCIO'; position:absolute; top:-14px; left:50%;
+            transform:translateX(-50%); background:var(--blue-mid); color:#fff;
+            padding:4px 16px; font-size:10px; font-weight:900; border-radius:20px; white-space:nowrap;
+        }
+        .slider-card .sc-name { font-size:11px; font-weight:900; color:var(--blue-mid); letter-spacing:2px; text-transform:uppercase; margin-bottom:4px; }
+        .slider-card .sc-speed { font-size:3rem; font-weight:900; margin-bottom:18px; line-height:1; color:var(--blue-deep); }
+        .slider-card .sc-speed span { font-size:14px; color:var(--text-light); display:block; font-weight:600; }
+        .slider-card ul { list-style:none; margin-bottom:26px; flex-grow:1; border-top:1px solid var(--gray-200); padding-top:18px; }
+        .slider-card ul li { font-size:15px; font-weight:600; margin-bottom:10px; color:var(--text-dark); display:flex; align-items:center; gap:9px; }
+        .slider-card ul li::before { content:'✔'; color:var(--blue-mid); font-weight:900; font-size:12px; }
+        .slider-card .sc-price { font-size:2.4rem; font-weight:900; margin-bottom:18px; color:var(--blue-deep); }
+        .slider-card .sc-price small { font-size:14px; color:var(--text-mid); font-weight:700; }
+
+        @media (max-width:900px) {
+            .plans-static-grid { grid-template-columns:repeat(2,1fr); }
+        }
+        @media (max-width:540px) {
+            .plans-static-grid { grid-template-columns:1fr; }
+            .plans-slider-title { font-size:1.2rem; }
+            .slider-card .sc-speed { font-size:2.4rem; }
+        }
+
         /* ── DROPDOWN SUBMENU ── */
         .has-dropdown { position:relative; }
         .dropdown {
             position:absolute; top:100%; left:0; min-width:210px;
-            background:var(--blue-deep); border:1px solid rgba(255,255,255,0.1);
+            background:#fff; border:1px solid rgba(0,0,0,0.1);
             border-top:3px solid var(--accent); border-radius:0 0 10px 10px;
-            box-shadow:0 8px 24px rgba(0,0,0,0.35);
+            box-shadow:0 8px 24px rgba(0,0,0,0.18);
             opacity:0; visibility:hidden; transform:translateY(-6px);
             transition:all 0.2s ease; z-index:2000; overflow:hidden;
         }
@@ -133,13 +192,13 @@
         .dropdown a {
             display:flex !important; align-items:center; gap:10px;
             padding:13px 18px !important; font-size:13px !important;
-            color:rgba(255,255,255,0.8) !important; border-bottom:1px solid rgba(255,255,255,0.06);
-            text-transform:none !important; letter-spacing:0 !important; font-weight:600 !important;
+            color:var(--blue-deep) !important; border-bottom:1px solid rgba(0,0,80,0.07);
+            text-transform:none !important; letter-spacing:0 !important; font-weight:700 !important;
             white-space:nowrap; height:auto !important;
         }
         .dropdown a:last-child { border-bottom:none; }
         .dropdown a::after { display:none !important; }
-        .dropdown a:hover { background:rgba(255,255,255,0.12) !important; color:#fff !important; padding-left:22px !important; }
+        .dropdown a:hover { background:var(--blue-pale) !important; color:var(--blue-mid) !important; padding-left:22px !important; }
         .city-dot { width:8px; height:8px; border-radius:50%; background:var(--accent); flex-shrink:0; }
         .dropdown-arrow { font-size:9px; margin-left:4px; opacity:0.55; transition:transform 0.2s ease; display:inline-block; vertical-align:middle; }
         .has-dropdown:hover .dropdown-arrow { transform:rotate(180deg); }
@@ -150,10 +209,10 @@
                 transform:none !important; box-shadow:none; border:none;
                 border-top:1px solid rgba(255,255,255,0.07); border-radius:0;
                 max-height:0; overflow:hidden; transition:max-height 0.3s ease;
-                background:rgba(0,0,0,0.18);
+                background:rgba(255,255,255,0.97);
             }
             .has-dropdown.open .dropdown { max-height:300px; }
-            .dropdown a { padding:12px 0 12px 28px !important; }
+            .dropdown a { padding:12px 0 12px 28px !important; color:var(--blue-deep) !important; }
         }
 
         /* HAMBURGER */
@@ -373,9 +432,12 @@
         .faq-categories { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:14px; margin-bottom:44px; }
         .faq-cat { background:#fff; border:1.5px solid var(--card-border); border-radius:var(--radius-md); padding:22px 18px; text-align:center; cursor:pointer; transition:var(--transition); box-shadow:var(--shadow-sm); }
         .faq-cat:hover { border-color:var(--blue-mid); transform:translateY(-3px); box-shadow:var(--shadow-md); }
+        .faq-cat.active { border-color:var(--blue-mid); background:var(--blue-pale); box-shadow:var(--shadow-md); }
+        .faq-cat.active .lbl { color:var(--blue-mid); }
         .faq-cat .icon { font-size:1.6rem; margin-bottom:8px; }
         .faq-cat .lbl { font-size:12px; font-weight:900; text-transform:uppercase; letter-spacing:0.5px; color:var(--text-dark); }
         .faq-list { display:flex; flex-direction:column; gap:10px; }
+        .faq-item.hidden { display:none; }
         .faq-item { background:#fff; border:1.5px solid var(--card-border); border-radius:var(--radius-md); overflow:hidden; box-shadow:var(--shadow-sm); }
         .faq-q { padding:18px 22px; font-size:14px; font-weight:700; cursor:pointer; display:flex; justify-content:space-between; align-items:center; transition:var(--transition); color:var(--text-dark); }
         .faq-q:hover { color:var(--blue-mid); }
@@ -595,6 +657,50 @@
             .card .speed { font-size:2.4rem; }
             .hero-card .hc-speed { font-size:4rem; }
         }
+        /* ── CITY PICKER MODAL ── */
+        .city-modal-overlay {
+            display:none; position:fixed; inset:0; z-index:9000;
+            background:rgba(0,0,0,0.55); backdrop-filter:blur(4px);
+            align-items:center; justify-content:center;
+        }
+        .city-modal-overlay.open { display:flex; }
+        .city-modal {
+            background:#fff; border-radius:var(--radius-lg); padding:44px 40px 36px;
+            width:100%; max-width:420px; text-align:center;
+            box-shadow:0 24px 64px rgba(0,0,0,0.3);
+            animation:modalPop 0.28s cubic-bezier(0.34,1.56,0.64,1) forwards;
+            position:relative;
+        }
+        @keyframes modalPop { from { opacity:0; transform:scale(0.88) translateY(16px); } to { opacity:1; transform:scale(1) translateY(0); } }
+        .city-modal-close {
+            position:absolute; top:14px; right:16px;
+            background:none; border:none; font-size:20px; color:var(--gray-400);
+            cursor:pointer; line-height:1; padding:4px 8px; border-radius:6px;
+            transition:var(--transition);
+        }
+        .city-modal-close:hover { background:var(--gray-100); color:var(--text-dark); }
+        .city-modal-icon { font-size:2.4rem; margin-bottom:16px; }
+        .city-modal h3 { font-size:1.15rem; font-weight:900; color:var(--text-dark); margin-bottom:6px; text-transform:uppercase; }
+        .city-modal p { font-size:13px; color:var(--text-light); margin-bottom:24px; }
+        .city-modal-plan {
+            font-size:11px; font-weight:900; color:var(--blue-mid); letter-spacing:2px;
+            text-transform:uppercase; margin-top:10px; margin-bottom:20px;
+            background:var(--blue-pale); padding:6px 18px; border-radius:20px;
+            display:inline-block; white-space:nowrap; max-width:100%;
+            overflow:hidden; text-overflow:ellipsis;
+        }
+        .city-modal-btns { display:flex; flex-direction:column; gap:12px; }
+        .city-modal-btn {
+            display:flex; align-items:center; justify-content:center; gap:10px;
+            padding:16px 20px; border-radius:var(--radius-md);
+            border:1.5px solid var(--card-border); background:#fff;
+            cursor:pointer; transition:var(--transition); text-decoration:none;
+        }
+        .city-modal-btn:hover { border-color:var(--blue-mid); background:var(--blue-pale); transform:translateY(-2px); box-shadow:var(--shadow-sm); }
+        .city-modal-btn .cm-city { font-size:16px; font-weight:900; color:var(--text-dark); text-transform:uppercase; letter-spacing:1px; }
+        @media (max-width:480px) {
+            .city-modal { padding:36px 24px 28px; margin:16px; }
+        }
     </style>
 </head>
 <body>
@@ -614,6 +720,28 @@
                 <option value="mocajuba">📍 Mocajuba — PA</option>
             </select>
         </span>
+    </div>
+</div>
+
+<!-- CITY PICKER MODAL -->
+<div class="city-modal-overlay" id="cityModal" onclick="closeCityModal(event)">
+    <div class="city-modal">
+        <button class="city-modal-close" onclick="closeCityModal()">✕</button>
+        <div class="city-modal-icon">📍</div>
+        <h3>Selecione sua cidade</h3>
+        <p>Escolha a cidade para continuar com a assinatura do plano.</p>
+        <div class="city-modal-plan" id="modalPlanName">PLANO PLUS 500</div>
+        <div class="city-modal-btns">
+            <button class="city-modal-btn" onclick="chooseCityAndGo('baiao')">
+                <div class="cm-city">Baião</div>
+            </button>
+            <button class="city-modal-btn" onclick="chooseCityAndGo('cameta')">
+                <div class="cm-city">Cametá</div>
+            </button>
+            <button class="city-modal-btn" onclick="chooseCityAndGo('mocajuba')">
+                <div class="cm-city">Mocajuba</div>
+            </button>
+        </div>
     </div>
 </div>
 
@@ -674,6 +802,15 @@
             </div>
             <div><div class="hero-card" id="hero-destaque"></div></div>
         </div>
+    </section>
+
+    <!-- PLANOS RESIDENCIAIS — GRID ESTÁTICO -->
+    <section class="plans-slider-section">
+        <div class="plans-slider-header">
+            <span class="plans-slider-tag">Planos Residenciais</span>
+            <h3 class="plans-slider-title">Escolha o plano ideal para você</h3>
+        </div>
+        <div class="plans-static-grid" id="plansTrack"></div>
     </section>
 
     <section class="section-block bg-white">
@@ -983,21 +1120,58 @@
         </div>
         <h3 style="font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-mid);margin-bottom:18px">Categorias</h3>
         <div class="faq-categories">
-            <div class="faq-cat"><div class="icon">📶</div><div class="lbl">Conexão</div></div>
-            <div class="faq-cat"><div class="icon">💳</div><div class="lbl">Financeiro</div></div>
-            <div class="faq-cat"><div class="icon">🔧</div><div class="lbl">Instalação</div></div>
-            <div class="faq-cat"><div class="icon">📱</div><div class="lbl">App & Portal</div></div>
-            <div class="faq-cat"><div class="icon">📋</div><div class="lbl">Contrato</div></div>
-            <div class="faq-cat"><div class="icon">🔄</div><div class="lbl">Upgrade</div></div>
+            <div class="faq-cat active" data-cat="conexao" onclick="filterFaq(this)"><div class="icon">📶</div><div class="lbl">Conexão</div></div>
+            <div class="faq-cat" data-cat="financeiro" onclick="filterFaq(this)"><div class="icon">💳</div><div class="lbl">Financeiro</div></div>
+            <div class="faq-cat" data-cat="instalacao" onclick="filterFaq(this)"><div class="icon">🔧</div><div class="lbl">Instalação</div></div>
+            <div class="faq-cat" data-cat="app" onclick="filterFaq(this)"><div class="icon">📱</div><div class="lbl">App & Portal</div></div>
+            <div class="faq-cat" data-cat="contrato" onclick="filterFaq(this)"><div class="icon">📋</div><div class="lbl">Contrato</div></div>
+            <div class="faq-cat" data-cat="upgrade" onclick="filterFaq(this)"><div class="icon">🔄</div><div class="lbl">Upgrade</div></div>
         </div>
         <h3 style="font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-mid);margin-bottom:18px">Perguntas Frequentes</h3>
-        <div class="faq-list">
-            <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">Minha internet está lenta. O que fazer? <span class="arrow">▼</span></div><div class="faq-a"><p>Reinicie o roteador desligando da tomada por 30 segundos. Verifique se outros dispositivos também estão lentos. Se persistir, teste a velocidade e abra um chamado com o resultado em nossa Área do Cliente ou pelo WhatsApp (91) 98889-7200.</p></div></div>
-            <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">Como faço para pagar minha fatura? <span class="arrow">▼</span></div><div class="faq-a"><p>Você pode pagar via Pix, boleto bancário ou cartão de crédito diretamente na Área do Cliente em rio.beesweb.com.br. O vencimento padrão é todo dia 10, podendo ser alterado mediante solicitação.</p></div></div>
-            <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">Qual é o prazo para instalação após a contratação? <span class="arrow">▼</span></div><div class="faq-a"><p>O prazo padrão é de até 5 dias úteis após a confirmação do pagamento da primeira mensalidade. Em algumas regiões pode ser realizado em até 48h. Nossa equipe entrará em contato para agendar.</p></div></div>
-            <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">Como faço o upgrade do meu plano? <span class="arrow">▼</span></div><div class="faq-a"><p>Solicite direto na Área do Cliente em "Meu Plano > Fazer Upgrade" ou pelo WhatsApp (91) 98889-7200. A mudança ocorre em até 24h sem necessidade de visita técnica na maioria dos casos.</p></div></div>
-            <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">O roteador é meu ou da Rio Telecom? <span class="arrow">▼</span></div><div class="faq-a"><p>O roteador Wi-Fi 6 é fornecido em comodato (empréstimo) pela Rio Telecom. Deve ser devolvido em caso de cancelamento. Em caso de danos causados pelo cliente, será cobrada uma taxa referente ao equipamento.</p></div></div>
-            <div class="faq-item" onclick="toggleFaq(this)"><div class="faq-q">Posso cancelar o contrato a qualquer momento? <span class="arrow">▼</span></div><div class="faq-a"><p>Contratos sem fidelidade podem ser cancelados com 30 dias de aviso prévio. Contratos com fidelidade têm multa rescisória proporcional conforme previsto em contrato. Entre em contato pelo (91) 98889-7200.</p></div></div>
+        <div class="faq-list" id="faqList">
+
+            <!-- CONEXÃO (5) -->
+            <div class="faq-item" data-cat="conexao" onclick="toggleFaq(this)"><div class="faq-q">Minha internet está lenta. O que fazer? <span class="arrow">▼</span></div><div class="faq-a"><p>Reinicie o roteador desligando da tomada por 30 segundos. Verifique se outros dispositivos também estão lentos. Se persistir, faça um teste de velocidade em fast.com e abra um chamado pelo WhatsApp (91) 98889-7200.</p></div></div>
+            <div class="faq-item" data-cat="conexao" onclick="toggleFaq(this)"><div class="faq-q">O Wi-Fi está caindo com frequência. Como resolver? <span class="arrow">▼</span></div><div class="faq-a"><p>Verifique se o roteador está em local elevado e afastado de paredes grossas, micro-ondas e outros roteadores. Reinicie o equipamento. Se o problema persistir, nosso suporte 24h está disponível pelo WhatsApp (91) 98889-7200.</p></div></div>
+            <div class="faq-item" data-cat="conexao" onclick="toggleFaq(this)"><div class="faq-q">Como faço um teste de velocidade? <span class="arrow">▼</span></div><div class="faq-a"><p>Acesse fast.com ou speedtest.net com o dispositivo conectado via cabo (para resultado mais preciso) ou Wi-Fi. Feche outros programas antes do teste. O resultado deve ser próximo ao valor do plano contratado.</p></div></div>
+            <div class="faq-item" data-cat="conexao" onclick="toggleFaq(this)"><div class="faq-q">Quantos dispositivos posso conectar ao mesmo tempo? <span class="arrow">▼</span></div><div class="faq-a"><p>O roteador Wi-Fi 6 suporta múltiplas conexões simultâneas com alta estabilidade. A quantidade de dispositivos com boa performance depende do plano contratado. Planos acima de 500 Mega são ideais para residências com muitos dispositivos ativos.</p></div></div>
+            <div class="faq-item" data-cat="conexao" onclick="toggleFaq(this)"><div class="faq-q">A internet caiu completamente. O que devo fazer? <span class="arrow">▼</span></div><div class="faq-a"><p>Verifique se as luzes do roteador e da ONU (conversor óptico) estão normais. Reinicie ambos os equipamentos. Se o problema persistir após 5 minutos, consulte a página de Status da Rede ou entre em contato com nosso suporte 24h pelo WhatsApp (91) 98889-7200.</p></div></div>
+
+            <!-- FINANCEIRO (5) -->
+            <div class="faq-item hidden" data-cat="financeiro" onclick="toggleFaq(this)"><div class="faq-q">Como faço para pagar minha fatura? <span class="arrow">▼</span></div><div class="faq-a"><p>Você pode pagar via Pix, boleto bancário ou cartão de crédito diretamente na Área do Cliente em rio.beesweb.com.br. O vencimento padrão é todo dia 10, podendo ser alterado mediante solicitação.</p></div></div>
+            <div class="faq-item hidden" data-cat="financeiro" onclick="toggleFaq(this)"><div class="faq-q">Posso alterar a data de vencimento da fatura? <span class="arrow">▼</span></div><div class="faq-a"><p>Sim! A data de vencimento pode ser alterada uma vez por contrato. Entre em contato pelo WhatsApp (91) 98889-7200 ou acesse a Área do Cliente e solicite a alteração com pelo menos 5 dias de antecedência.</p></div></div>
+            <div class="faq-item hidden" data-cat="financeiro" onclick="toggleFaq(this)"><div class="faq-q">O que acontece se eu atrasar o pagamento? <span class="arrow">▼</span></div><div class="faq-a"><p>Após o vencimento, incidirá multa de 2% e juros de 1% ao mês. Após 30 dias de inadimplência, o serviço poderá ser suspenso. Entre em contato para negociar antes de atingir este prazo.</p></div></div>
+            <div class="faq-item hidden" data-cat="financeiro" onclick="toggleFaq(this)"><div class="faq-q">Como obtenho a segunda via da fatura? <span class="arrow">▼</span></div><div class="faq-a"><p>A segunda via está disponível na Área do Cliente em rio.beesweb.com.br, na seção "Financeiro". Você também pode solicitá-la pelo WhatsApp (91) 98889-7200 informando seu CPF ou CNPJ.</p></div></div>
+            <div class="faq-item hidden" data-cat="financeiro" onclick="toggleFaq(this)"><div class="faq-q">Posso pagar via débito automático? <span class="arrow">▼</span></div><div class="faq-a"><p>Sim! O débito automático está disponível para contas bancárias parceiras. Para cadastrar, acesse a Área do Cliente ou entre em contato com nosso atendimento. Com o débito automático você nunca esquece o vencimento.</p></div></div>
+
+            <!-- INSTALAÇÃO (5) -->
+            <div class="faq-item hidden" data-cat="instalacao" onclick="toggleFaq(this)"><div class="faq-q">Qual é o prazo para instalação após a contratação? <span class="arrow">▼</span></div><div class="faq-a"><p>O prazo padrão é de até 5 dias úteis após a confirmação do pagamento da primeira mensalidade. Em algumas regiões pode ser realizado em até 48h. Nossa equipe entrará em contato para agendar.</p></div></div>
+            <div class="faq-item hidden" data-cat="instalacao" onclick="toggleFaq(this)"><div class="faq-q">O que preciso ter no local para a instalação? <span class="arrow">▼</span></div><div class="faq-a"><p>Um adulto responsável deve estar presente durante a instalação. O técnico instalará a fibra, o conversor óptico (ONU) e o roteador Wi-Fi 6. Recomenda-se ter uma tomada elétrica disponível próxima ao local desejado.</p></div></div>
+            <div class="faq-item hidden" data-cat="instalacao" onclick="toggleFaq(this)"><div class="faq-q">A instalação é gratuita? <span class="arrow">▼</span></div><div class="faq-a"><p>Sim! A instalação é totalmente gratuita em todos os planos e em qualquer endereço dentro da nossa área de cobertura. Não há taxa de adesão nem custo de visita técnica para a instalação inicial.</p></div></div>
+            <div class="faq-item hidden" data-cat="instalacao" onclick="toggleFaq(this)"><div class="faq-q">Posso reagendar a visita técnica de instalação? <span class="arrow">▼</span></div><div class="faq-a"><p>Sim, você pode reagendar pelo WhatsApp (91) 98889-7200 com até 2 horas de antecedência. Reagendamentos frequentes podem afetar o prazo de instalação. Nossa equipe atende de segunda a sábado.</p></div></div>
+            <div class="faq-item hidden" data-cat="instalacao" onclick="toggleFaq(this)"><div class="faq-q">E se meu endereço for em área de difícil acesso? <span class="arrow">▼</span></div><div class="faq-a"><p>Entre em contato com nosso suporte para verificar a viabilidade técnica no seu endereço. Nossa equipe realizará uma vistoria prévia sem custo para avaliar as condições de instalação e informar o prazo adequado.</p></div></div>
+
+            <!-- APP & PORTAL (5) -->
+            <div class="faq-item hidden" data-cat="app" onclick="toggleFaq(this)"><div class="faq-q">Como acesso a Área do Cliente? <span class="arrow">▼</span></div><div class="faq-a"><p>Acesse rio.beesweb.com.br ou clique em "Área do Cliente" no menu do site. Informe seu CPF ou CNPJ cadastrado. Na primeira vez, utilize a opção "Ativar Cadastro" para criar sua senha.</p></div></div>
+            <div class="faq-item hidden" data-cat="app" onclick="toggleFaq(this)"><div class="faq-q">O app está disponível para Android e iOS? <span class="arrow">▼</span></div><div class="faq-a"><p>Sim! O aplicativo Rio Telecom está disponível na Google Play Store e na Apple App Store. Pelo app você acessa faturas, abre chamados de suporte e monitora o status da sua conexão.</p></div></div>
+            <div class="faq-item hidden" data-cat="app" onclick="toggleFaq(this)"><div class="faq-q">Esqueci minha senha. Como recuperar? <span class="arrow">▼</span></div><div class="faq-a"><p>Na tela de login da Área do Cliente, clique em "Esqueci minha senha" e informe o e-mail ou CPF cadastrado. Você receberá um link para redefinir a senha. Se não tiver acesso ao e-mail, entre em contato pelo WhatsApp (91) 98889-7200.</p></div></div>
+            <div class="faq-item hidden" data-cat="app" onclick="toggleFaq(this)"><div class="faq-q">O que posso fazer pela Área do Cliente? <span class="arrow">▼</span></div><div class="faq-a"><p>Na Área do Cliente você pode: visualizar e pagar faturas, acompanhar chamados de suporte, verificar seu plano atual, solicitar upgrade, atualizar dados cadastrais e consultar o histórico de consumo.</p></div></div>
+            <div class="faq-item hidden" data-cat="app" onclick="toggleFaq(this)"><div class="faq-q">Como abro um chamado de suporte pelo portal? <span class="arrow">▼</span></div><div class="faq-a"><p>Acesse a Área do Cliente, vá em "Suporte" ou "Chamados" e clique em "Abrir Novo Chamado". Descreva o problema com o máximo de detalhes possível. Nossa equipe retornará em até 2 horas em dias úteis.</p></div></div>
+
+            <!-- CONTRATO (5) -->
+            <div class="faq-item hidden" data-cat="contrato" onclick="toggleFaq(this)"><div class="faq-q">O roteador é meu ou da Rio Telecom? <span class="arrow">▼</span></div><div class="faq-a"><p>O roteador Wi-Fi 6 é fornecido em comodato (empréstimo) pela Rio Telecom. Deve ser devolvido em caso de cancelamento. Em caso de danos causados pelo cliente, será cobrada uma taxa referente ao equipamento.</p></div></div>
+            <div class="faq-item hidden" data-cat="contrato" onclick="toggleFaq(this)"><div class="faq-q">Posso cancelar o contrato a qualquer momento? <span class="arrow">▼</span></div><div class="faq-a"><p>Contratos sem fidelidade podem ser cancelados com 30 dias de aviso prévio. Contratos com fidelidade têm multa rescisória proporcional conforme previsto em contrato. Entre em contato pelo (91) 98889-7200.</p></div></div>
+            <div class="faq-item hidden" data-cat="contrato" onclick="toggleFaq(this)"><div class="faq-q">O contrato tem fidelidade? <span class="arrow">▼</span></div><div class="faq-a"><p>Oferecemos planos com e sem fidelidade. Planos com fidelidade (12 meses) têm condições especiais e podem incluir benefícios adicionais. Consulte nosso atendimento para verificar as opções disponíveis para o seu perfil.</p></div></div>
+            <div class="faq-item hidden" data-cat="contrato" onclick="toggleFaq(this)"><div class="faq-q">Posso transferir o contrato para outro endereço? <span class="arrow">▼</span></div><div class="faq-a"><p>Sim, a mudança de endereço é possível desde que o novo endereço esteja dentro da nossa área de cobertura. Entre em contato com pelo menos 5 dias de antecedência pelo WhatsApp (91) 98889-7200 para agendar a transferência sem custos adicionais.</p></div></div>
+            <div class="faq-item hidden" data-cat="contrato" onclick="toggleFaq(this)"><div class="faq-q">Como funciona a garantia de qualidade (SLA)? <span class="arrow">▼</span></div><div class="faq-a"><p>Garantimos 99,9% de disponibilidade do serviço. Em caso de interrupção superior ao previsto em contrato, você tem direito a crédito proporcional na próxima fatura. Consulte seu contrato ou entre em contato para mais detalhes.</p></div></div>
+
+            <!-- UPGRADE (5) -->
+            <div class="faq-item hidden" data-cat="upgrade" onclick="toggleFaq(this)"><div class="faq-q">Como faço o upgrade do meu plano? <span class="arrow">▼</span></div><div class="faq-a"><p>Solicite direto na Área do Cliente em "Meu Plano > Fazer Upgrade" ou pelo WhatsApp (91) 98889-7200. A mudança ocorre em até 24h sem necessidade de visita técnica na maioria dos casos.</p></div></div>
+            <div class="faq-item hidden" data-cat="upgrade" onclick="toggleFaq(this)"><div class="faq-q">Posso fazer downgrade para um plano menor? <span class="arrow">▼</span></div><div class="faq-a"><p>Sim, o downgrade é possível mediante solicitação. Pode estar sujeito a carência ou período mínimo de permanência no plano atual. Consulte nosso suporte para verificar as condições do seu contrato.</p></div></div>
+            <div class="faq-item hidden" data-cat="upgrade" onclick="toggleFaq(this)"><div class="faq-q">O upgrade é cobrado proporcionalmente no mês? <span class="arrow">▼</span></div><div class="faq-a"><p>Sim! O valor cobrado no mês do upgrade é calculado proporcionalmente aos dias restantes do ciclo de cobrança. A partir do próximo vencimento, você já paga o valor integral do novo plano.</p></div></div>
+            <div class="faq-item hidden" data-cat="upgrade" onclick="toggleFaq(this)"><div class="faq-q">Precisa de visita técnica para mudar de plano? <span class="arrow">▼</span></div><div class="faq-a"><p>Na maioria dos casos não é necessária visita técnica — a mudança de velocidade é feita remotamente em até 24h. Apenas em situações específicas, como troca de equipamento, o técnico precisará ir ao endereço.</p></div></div>
+            <div class="faq-item hidden" data-cat="upgrade" onclick="toggleFaq(this)"><div class="faq-q">Qual é o plano mais recomendado para minha casa? <span class="arrow">▼</span></div><div class="faq-a"><p>Para uso básico (navegação e streaming): plano de 300 Mega. Para famílias com vários dispositivos e streaming 4K: 500 ou 600 Mega. Para home office, games e streaming simultâneo em múltiplas telas: 800 Mega. Fale com nosso atendimento para uma recomendação personalizada.</p></div></div>
+
         </div>
         <h3 style="font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-mid);margin:44px 0 18px">Fale Conosco</h3>
         <div class="contato-rapido">
@@ -1190,11 +1364,13 @@
 <div id="cobertura" class="page">
     <section class="section-block">
         <h2 class="title-center">Área de <span>Cobertura</span></h2>
-        <p class="subtitle-center">Atendemos municípios do Baixo Tocantins e expandimos continuamente nossa rede.</p>
+        <p class="subtitle-center">Atendimento em todo Estado do Pará!</p>
         <div class="cob-search" style="flex-wrap:wrap">
-            <input type="text" placeholder="Digite seu município ou bairro...">
-            <button class="btn-primary">Verificar</button>
+            <input type="text" id="cob-input" placeholder="Digite seu município ou bairro..."
+                   oninput="checkCoverage()" onkeydown="if(event.key==='Enter')checkCoverage()">
+            <button class="btn-primary" onclick="checkCoverage()">Verificar</button>
         </div>
+        <div id="cob-result" style="display:none;margin-bottom:24px;padding:18px 22px;border-radius:var(--radius-md);font-size:15px;font-weight:700;display:none;align-items:center;gap:12px;"></div>
         <div class="cob-map">
             <div class="map-icon">🗺️</div>
             <p style="font-weight:700;color:var(--text-dark)">Mapa Interativo de Cobertura</p>
@@ -1383,6 +1559,25 @@
             </div>`).join('');
     }
 
+    // ── PLANS STATIC GRID ──
+    function buildSlider() {
+        const track = document.getElementById('plansTrack');
+        if (!track) return;
+        track.innerHTML = planosVoce.map(p => `
+            <div class="slider-card ${p.destaque ? 'featured' : ''}" onclick="selectCity('baiao')">
+                <div class="sc-name">${p.nome}</div>
+                <div class="sc-speed">${p.mega}<span>MEGA</span></div>
+                <ul>${padrao.map(i => `<li>${i}</li>`).join('')}</ul>
+                <div class="sc-price">R$ ${p.preco}<small>,00/mês</small></div>
+                <button class="btn-primary" style="width:100%;margin-top:auto"
+                    onclick="event.stopPropagation();openCityModal('${p.nome} ${p.mega} MEGA')">Assinar Agora</button>
+            </div>`).join('');
+        // Add 'ready' class after animation ends so hover transition kicks in
+        track.querySelectorAll('.slider-card').forEach(card => {
+            card.addEventListener('animationend', () => card.classList.add('ready'), { once: true });
+        });
+    }
+
     function renderCityVoce(city) {
         const grid = document.getElementById('grid-voce-' + city);
         if (!grid) return;
@@ -1472,7 +1667,7 @@
             <div class="hc-speed">${p.mega}<span>MEGA</span></div>
             <ul>${padrao.map(i => `<li>${i}</li>`).join('')}</ul>
             <div class="hc-price">R$ ${p.preco}<small>,00/mês</small></div>
-            <button class="btn-accent" style="width:100%" onclick="selectCity('baiao')">Assinar Agora</button>`;
+            <button class="btn-accent" style="width:100%" onclick="openCityModal('${p.nome} ${p.mega} MEGA')">Assinar Agora</button>`;
     }
 
     function updateBusinessPlans(tipo, btn) {
@@ -1626,11 +1821,89 @@
         document.getElementById('menuToggle').classList.toggle('open');
     }
 
+    function openCityModal(planName) {
+        document.getElementById('modalPlanName').textContent = planName || 'PLANO SELECIONADO';
+        document.getElementById('cityModal').classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeCityModal(e) {
+        if (e && e.target !== document.getElementById('cityModal')) return;
+        document.getElementById('cityModal').classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    function chooseCityAndGo(city) {
+        document.getElementById('cityModal').classList.remove('open');
+        document.body.style.overflow = '';
+        selectCity(city);
+    }
+
+    // Close modal on Escape key
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') {
+            document.getElementById('cityModal').classList.remove('open');
+            document.body.style.overflow = '';
+        }
+    });
+
     function toggleFaq(item) { item.classList.toggle('open'); }
+
+    function filterFaq(catEl) {
+        const cat = catEl.dataset.cat;
+        // Toggle active cat button
+        document.querySelectorAll('.faq-cat').forEach(c => c.classList.remove('active'));
+        catEl.classList.add('active');
+        // Close all open items, show/hide by category
+        document.querySelectorAll('#faqList .faq-item').forEach(item => {
+            item.classList.remove('open');
+            item.classList.toggle('hidden', item.dataset.cat !== cat);
+        });
+        // Scroll to faq list smoothly
+        document.getElementById('faqList').scrollIntoView({ behavior:'smooth', block:'nearest' });
+    }
+
+    // Init: show only 'conexao' on load
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('#faqList .faq-item').forEach(item => {
+            if (item.dataset.cat !== 'conexao') item.classList.add('hidden');
+        });
+    });
+
+    const COB_ATIVAS   = ['baiao','baião','cameta','cametá','mocajuba'];
+    const COB_BREVE    = ['oeiras','limoeiro','ajuru','ajurú','igarapé-miri','igarape-miri','igarapé miri','portel'];
+
+    function checkCoverage() {
+        const val   = document.getElementById('cob-input').value.trim().toLowerCase();
+        const res   = document.getElementById('cob-result');
+        if (!val) { res.style.display = 'none'; return; }
+
+        const ativa = COB_ATIVAS.some(c => val.includes(c));
+        const breve = !ativa && COB_BREVE.some(c => val.includes(c));
+
+        res.style.display = 'flex';
+        if (ativa) {
+            res.style.background = 'rgba(0,196,140,0.1)';
+            res.style.border     = '1.5px solid rgba(0,196,140,0.4)';
+            res.style.color      = '#007a58';
+            res.innerHTML = '<span style="font-size:1.4rem">✅</span><span>DISPONÍVEL — Cobertura em toda a área urbana!</span>';
+        } else if (breve) {
+            res.style.background = 'rgba(255,184,0,0.1)';
+            res.style.border     = '1.5px solid rgba(255,184,0,0.4)';
+            res.style.color      = '#7a5000';
+            res.innerHTML = '<span style="font-size:1.4rem">🔜</span><span>EM BREVE — Expansão prevista para esta cidade. <a href="https://wa.me/5591988897200" target="_blank" style="color:var(--blue-mid);text-decoration:underline">Registre seu interesse</a>.</span>';
+        } else {
+            res.style.background = 'rgba(255,59,59,0.08)';
+            res.style.border     = '1.5px solid rgba(255,59,59,0.3)';
+            res.style.color      = '#a32020';
+            res.innerHTML = '<span style="font-size:1.4rem">📍</span><span>Cidade não encontrada na nossa área de cobertura. <a href="https://wa.me/5591988897200" target="_blank" style="color:var(--blue-mid);text-decoration:underline">Fale conosco</a>.</span>';
+        }
+    }
 
     renderVoce();
     renderEmpresas();
     renderHeroDestaque();
+    buildSlider();
 </script>
 </body>
 </html>
