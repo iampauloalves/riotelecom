@@ -1170,7 +1170,7 @@
             <div class="faq-item hidden" data-cat="upgrade" onclick="toggleFaq(this)"><div class="faq-q">Posso fazer downgrade para um plano menor? <span class="arrow">▼</span></div><div class="faq-a"><p>Sim, o downgrade é possível mediante solicitação. Pode estar sujeito a carência ou período mínimo de permanência no plano atual. Consulte nosso suporte para verificar as condições do seu contrato.</p></div></div>
             <div class="faq-item hidden" data-cat="upgrade" onclick="toggleFaq(this)"><div class="faq-q">O upgrade é cobrado proporcionalmente no mês? <span class="arrow">▼</span></div><div class="faq-a"><p>Sim! O valor cobrado no mês do upgrade é calculado proporcionalmente aos dias restantes do ciclo de cobrança. A partir do próximo vencimento, você já paga o valor integral do novo plano.</p></div></div>
             <div class="faq-item hidden" data-cat="upgrade" onclick="toggleFaq(this)"><div class="faq-q">Precisa de visita técnica para mudar de plano? <span class="arrow">▼</span></div><div class="faq-a"><p>Na maioria dos casos não é necessária visita técnica — a mudança de velocidade é feita remotamente em até 24h. Apenas em situações específicas, como troca de equipamento, o técnico precisará ir ao endereço.</p></div></div>
-            <div class="faq-item hidden" data-cat="upgrade" onclick="toggleFaq(this)"><div class="faq-q">Qual é o plano mais recomendado para minha casa? <span class="arrow">▼</span></div><div class="faq-a"><p>Para uso básico (navegação e streaming): plano de 400 Mega. Para famílias com vários dispositivos e streaming 4K: 600 ou 800 Mega. Para home office, games e streaming simultâneo em múltiplas telas: 1000 Mega. Fale com nosso atendimento para uma recomendação personalizada.</p></div></div>
+            <div class="faq-item hidden" data-cat="upgrade" onclick="toggleFaq(this)"><div class="faq-q">Qual é o plano mais recomendado para minha casa? <span class="arrow">▼</span></div><div class="faq-a"><p>Para uso básico (navegação e streaming): plano de 300 Mega. Para famílias com vários dispositivos e streaming 4K: 500 ou 600 Mega. Para home office, games e streaming simultâneo em múltiplas telas: 800 Mega. Fale com nosso atendimento para uma recomendação personalizada.</p></div></div>
 
         </div>
         <h3 style="font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-mid);margin:44px 0 18px">Fale Conosco</h3>
@@ -1535,16 +1535,16 @@
 <script>
     const padrao = ["Wi-Fi 6", "IPv4 & IPv6", "Suporte Premium 24h", "Instalação Grátis"];
     const planosVoce = [
-        { nome: "ESSENCIAL",  mega: 400, preco: 99,90 },
-        { nome: "PLUS",   mega: 600, preco: 119,90, destaque: true },
-        { nome: "PREMIUM",    mega: 800, preco: 149,90 },
-        { nome: "EXTREME",  mega: 1000, preco: 199,90 }
+        { nome: "START",  mega: 300, preco: 100 },
+        { nome: "PLUS",   mega: 500, preco: 120, destaque: true },
+        { nome: "PRO",    mega: 600, preco: 140 },
+        { nome: "ULTRA",  mega: 800, preco: 160 }
     ];
     const planosEmpresas = [
-        { nome: "BUSINESS ESSENCIAL", mega: 400, precoBase: 179,90 },
-        { nome: "BUSINESS PLUS",  mega: 600, precoBase: 199,90, destaque: true },
-        { nome: "BUSINESS PREMIUM",   mega: 800, precoBase: 219,90 },
-        { nome: "BUSINESS ", mega: 1000, precoBase: 239,90 }
+        { nome: "BUSINESS START", mega: 300, precoBase: 180 },
+        { nome: "BUSINESS PLUS",  mega: 500, precoBase: 200, destaque: true },
+        { nome: "BUSINESS PRO",   mega: 600, precoBase: 220 },
+        { nome: "BUSINESS ULTRA", mega: 800, precoBase: 240 }
     ];
     let ipTipo = 'dinamico';
 
