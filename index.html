@@ -128,6 +128,12 @@ footer li{margin-bottom:8px}footer a:hover{color:var(--l)}
 #md{position:fixed;inset:0;background:#000a;backdrop-filter:blur(5px);z-index:99;display:none;place-items:center}#md.o{display:grid}
 #md .box{animation:pop .3s}@keyframes pop{from{opacity:0;transform:scale(.9)}}
 #md a{display:block;padding:15px;border:1.5px solid var(--ln);border-radius:12px;margin-top:10px;font:800 14px Sora;text-transform:uppercase;color:var(--b)}#md a:hover{background:var(--bp);border-color:var(--b2)}
+.ct{padding:38px 26px;align-items:center;text-align:center}
+.ct .bd2{width:68px;height:68px;border-radius:20px;background:linear-gradient(135deg,var(--b),var(--b2));display:grid;place-items:center;margin-bottom:18px;box-shadow:0 10px 24px #1b3cff44;transition:.35s}
+.ct:hover .bd2{transform:rotate(-6deg) scale(1.08);box-shadow:0 0 0 6px #b9ff3b66,0 12px 28px #1b3cff55}
+.ct svg{width:30px;height:30px;stroke:var(--l);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ct .go{font:700 13px Sora;color:var(--b2);display:flex;gap:8px;align-items:center}
+.ct .go:after{content:"→";transition:.3s}.ct:hover .go:after{transform:translateX(6px)}
 /* reveal */
 .rv{opacity:0;transform:translateY(26px);transition:opacity .6s,transform .6s}.rv.v{opacity:1;transform:none}
 .page{animation:fi .4s}@keyframes fi{from{opacity:0}}
@@ -146,8 +152,8 @@ nav{position:fixed;top:68px;left:0;right:0;background:#0412a0;flex-direction:col
 <button id="bg" onclick="nv.classList.toggle('o')">☰</button>
 <nav id="nv">
 <a href="#home">Home</a>
-<div class="dd"><a href="#voce/baiao">Para Você ▾</a><div id="d1"></div></div>
-<div class="dd"><a href="#empresas/baiao">Para Empresas ▾</a><div id="d2"></div></div>
+<div class="dd"><a href="#voce">Para Você ▾</a><div id="d1"></div></div>
+<div class="dd"><a href="#empresas">Para Empresas ▾</a><div id="d2"></div></div>
 <a href="#isp">ISP & Gov</a>
 <a href="#cobertura">Cobertura</a>
 <a href="#cliente" class="nav-cta">Área do Cliente</a>
@@ -156,7 +162,7 @@ nav{position:fixed;top:68px;left:0;right:0;background:#0412a0;flex-direction:col
 <footer><div class="w">
 <div class="fg">
 <div><a class="logo" href="#home" style="margin-bottom:12px">Rio Telecom</a><p>Conectando Você!</p><p style="margin-top:10px">📱 <a href="tel:+5591988897200">(91) 98889-7200</a><br>✉️ <a href="mailto:info@riotelecom.com.br">info@riotelecom.com.br</a></p></div>
-<div><h4>Planos</h4><ul><li><a href="#voce/baiao">Para Você</a></li><li><a href="#empresas/baiao">Para Empresas</a></li><li><a href="#isp">ISP & Gov</a></li></ul></div>
+<div><h4>Planos</h4><ul><li><a href="#voce">Para Você</a></li><li><a href="#empresas">Para Empresas</a></li><li><a href="#isp">ISP & Gov</a></li></ul></div>
 <div><h4>Empresa</h4><ul><li><a href="#sobre">Sobre nós</a></li><li><a href="#cobertura">Cobertura</a></li><li><a href="#trabalhe">Trabalhe conosco</a></li><li><a href="#imprensa">Imprensa</a></li></ul></div>
 <div><h4>Suporte</h4><ul><li><a href="#cliente">Área do Cliente</a></li><li><a href="#ajuda">Central de Ajuda</a></li><li><a href="#status">Status da Rede</a></li><li><a href="https://wa.me/5591988897200" target="_blank">WhatsApp 24h</a></li></ul></div>
 </div>
@@ -201,18 +207,19 @@ const ST=[["mocajuba","EDGE MOCAJUBA","45.161.29.32"],["cameta","EDGE CAMETÁ","
 
 const stats=(a)=>a.map(([n,l])=>`<div><b>${n}</b><span>${l}</span></div>`).join("");
 
+const sel=p=>`<div class="page">${sec(head(`Selecione sua <em>cidade</em>`,`Escolha onde você está para ver os planos ${p=="voce"?"residenciais":"empresariais"} disponíveis.`)+`<div class="g" style="max-width:900px;margin:auto">${Object.entries(C).map(([k,v])=>`<a href="#${p}/${k}" class="c ct rv"><div class="bd2"><svg viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></div><h3 style="font-size:1.3rem">${v}</h3><p class="d" style="margin-bottom:12px">Baixo Tocantins · PA</p><span class="go">Ver planos</span></a>`).join("")}</div>`)}</div>`;
 const P={
 home:()=>`<div class="page"><div class="hero"><div class="orb"></div><div class="w hg">
 <div><span class="tag">Rio, Conectando Você.</span><h1>Mais velocidade.<br><em>Mais possibilidades.</em><br>Mais longe.</h1><p class="s">Fibra óptica com múltiplas rotas*.</p>
-<a class="btn bl" href="#voce/baiao">Para Você</a> <a class="btn bo" href="#empresas/baiao">Para Empresas</a>
+<a class="btn bl" href="#voce">Para Você</a> <a class="btn bo" href="#empresas">Para Empresas</a>
 <div class="hs"><div><b data-n="99.8" data-s="%">0</b><span>Uptime</span></div><div><b>24h</b><span>Suporte</span></div><div><b data-n="1000" data-p="+" data-s=" clientes">0</b><span>Base ativa</span></div><div><b>1,2Tbps</b><span>Capacidade</span></div></div></div>
 <div>${plan("PLUS",600,120,1,[],`onclick="mp.textContent='PLUS 600 MEGA';md.classList.add('o')"`).replace('rv','v')}</div></div></div>
 ${sec(head("Planos para <em>Você</em>","Escolha o plano ideal e assine em poucos cliques.")+`<div class="g">${homePlans}</div>`)}
 ${sec(head("Por que a <em>Rio Telecom</em>?","Infraestrutura de nível carrier.")+`<div class="g">${[["🌐","01 — Backbone","Rotas","Infraestrutura aérea, subterrânea e subfluvial, projetada para manter sua conexão ativa o tempo todo."],["🏢","02 — Edge","Data Center","Até 1,2 Tbps com CDNs locais: streaming, jogos e navegação com máxima performance."],["⚡","03 — Energia","Alta Disponibilidade","Energia redundante com backup solar e gerador em 15s. Autonomia de até 7 dias."],["🔗","04 — Interligações","PTT","Múltiplas operadoras e presença nos principais pontos de troca de tráfego do país."]].map(([i,k,t,d])=>`<div class="c rv"><div class="ico">${i}</div><div class="k">${k}</div><h3>${t}</h3><p class="d">${d}</p></div>`).join("")}</div>`,1)}</div>`,
 
-voce:c=>`<div class="page">${sec(head(`Planos para <em>${C[c]}</em>`,`Fibra óptica de verdade até a sua casa em ${C[c]}.`)+`<div class="g">${V.map(p=>plan(p[0],p[1],p[2],p[3],[],`href="${wa("Olá! Gostaria de assinar o plano "+p[0]+" "+p[1]+" MEGA em "+C[c])}" target="_blank"`)).join("")}</div>`)}</div>`,
+voce:c=>!c?sel("voce"):`<div class="page">${sec(head(`Planos para <em>${C[c]}</em>`,`Fibra óptica de verdade até a sua casa em ${C[c]}.`)+`<div class="g">${V.map(p=>plan(p[0],p[1],p[2],p[3],[],`href="${wa("Olá! Gostaria de assinar o plano "+p[0]+" "+p[1]+" MEGA em "+C[c])}" target="_blank"`)).join("")}</div>`)}</div>`,
 
-empresas:c=>{const a=ip[c]?80:0;return`<div class="page">${sec(head(`Planos <em>Empresariais</em> — ${C[c]}`,`Fibra até a sua empresa em ${C[c]}.`)+`<div class="tg"><button class="${ip[c]?"":"on"}" onclick="ip.${c}=0;R()">IP Dinâmico</button><button class="${ip[c]?"on":""}" onclick="ip.${c}=1;R()">IP Fixo</button></div><div class="note">${ip[c]?"+ R$ 80,00 aplicados ao valor base":""}</div><div class="g">${B.map(p=>plan(p[0],p[1],p[2]+a,p[3],["IP "+(ip[c]?"Fixo":"Dinâmico")],`href="${wa("Olá! Gostaria de contratar o plano "+p[0]+" "+p[1]+" MEGA (IP "+(ip[c]?"Fixo":"Dinâmico")+") em "+C[c])}" target="_blank"`)).join("")}</div>`)}</div>`},
+empresas:c=>{if(!c)return sel("empresas");const a=ip[c]?80:0;return`<div class="page">${sec(head(`Planos <em>Empresariais</em> — ${C[c]}`,`Fibra até a sua empresa em ${C[c]}.`)+`<div class="tg"><button class="${ip[c]?"":"on"}" onclick="ip.${c}=0;R()">IP Dinâmico</button><button class="${ip[c]?"on":""}" onclick="ip.${c}=1;R()">IP Fixo</button></div><div class="note">${ip[c]?"+ R$ 80,00 aplicados ao valor base":""}</div><div class="g">${B.map(p=>plan(p[0],p[1],p[2]+a,p[3],["IP "+(ip[c]?"Fixo":"Dinâmico")],`href="${wa("Olá! Gostaria de contratar o plano "+p[0]+" "+p[1]+" MEGA (IP "+(ip[c]?"Fixo":"Dinâmico")+") em "+C[c])}" target="_blank"`)).join("")}</div>`)}</div>`},
 
 isp:()=>`<div class="page">${sec(head("Soluções <em>ISP & Gov</em>","Conectividade dedicada para operações críticas.")+`<div class="blue"><span class="tag">Infraestrutura de Missão Crítica</span><p>Máxima estabilidade, segurança e SLA que você pode confiar.</p><div class="bg">${["SLA 99,95%","NOC 24/7","Backbone 1,2Tbps","BGP Multihoming","4 PTTs","IPv4 & IPv6"].map(x=>`<span>${x}</span>`).join("")}</div><a class="btn bl" href="${wa("Olá! Gostaria de falar com um especialista ISP & Gov.")}" target="_blank">Fale com um especialista</a></div><div class="g">${SV.map(([k,t,s,l])=>`<div class="c rv"><div class="k">${k}</div><h3>${t}</h3><p class="d">${s}</p><ul class="ck">${l.map(x=>`<li>${x}</li>`).join("")}</ul><a class="btn bb" href="${wa("Olá! Gostaria de uma proposta de "+t+".")}" target="_blank">Solicitar Proposta</a></div>`).join("")}</div>`)}</div>`,
 
@@ -244,7 +251,7 @@ imprensa:()=>`<div class="page">${sec(head("Sala de <em>Imprensa</em>","Comunica
 let cur="home",arg="";
 function R(){
  const h=location.hash.slice(1)||"home",[p,a]=h.split("/");
- cur=P[p]?p:"home";arg=C[a]?a:"baiao";
+ cur=P[p]?p:"home";arg=C[a]?a:"";
  $("#m").innerHTML=P[cur](arg);
  document.querySelectorAll("nav a").forEach(x=>x.classList.toggle("on",x.getAttribute("href")=="#"+cur));
  if(C[a])$("#cs").value=a;
