@@ -1,1909 +1,293 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rio Telecom | Conectando Você!</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --blue-deep:   #0000a5;
-            --blue-main:   #0702ba;
-            --blue-mid:    #0e05cf;
-            --blue-light:  #1407e3;
-            --blue-pale:   #eeeeff;
-            --blue-glow:   rgba(27,9,248,0.18);
-            --white:       #FFFFFF;
-            --gray-100:    #F4F7FB;
-            --gray-200:    #E2E9F3;
-            --gray-400:    #8FA3BF;
-            --gray-600:    #4A607A;
-            --gray-800:    #1C2B3A;
-            --text-dark:   #0D1B2A;
-            --text-mid:    #3D5472;
-            --text-light:  #6B82A0;
-            --accent:      #1b09f8;
-            --success:     #00C48C;
-            --warning:     #FFB800;
-            --danger:      #FF3B3B;
-            --card-bg:     #FFFFFF;
-            --card-border: rgba(0,80,200,0.12);
-            --shadow-sm:   0 2px 8px rgba(0,50,135,0.08);
-            --shadow-md:   0 6px 24px rgba(0,50,135,0.13);
-            --shadow-lg:   0 16px 48px rgba(0,50,135,0.18);
-            --transition:  all 0.28s cubic-bezier(0.25,0.8,0.25,1);
-            --radius-sm:   6px;
-            --radius-md:   12px;
-            --radius-lg:   18px;
-        }
-
-        
-
-        * { margin:0; padding:0; box-sizing:border-box; font-family:'Montserrat',sans-serif; }
-        body { background:var(--gray-100); color:var(--text-dark); line-height:1.7; overflow-x:hidden; transition:background 0.3s, color 0.3s; font-size:15px; }
-
-        /* ── HEADER TOP BAR ── */
-        .header-topbar {
-            background:var(--blue-deep);
-            padding:0 5%;
-            display:flex; justify-content:space-between; align-items:stretch;
-            position:fixed; width:100%; top:0; z-index:1001;
-            height:34px; border-bottom:1px solid rgba(255,255,255,0.15);
-        }
-        .topbar-left { display:flex; gap:0; align-items:stretch; }
-        .topbar-right { display:flex; gap:0; align-items:stretch; }
-        .topbar-item {
-            display:flex; align-items:center; padding:0 16px;
-            font-size:12px; color:rgba(255,255,255,0.6); font-weight:600;
-            border-right:1px solid rgba(255,255,255,0.07); white-space:nowrap;
-            text-decoration:none; transition:var(--transition); cursor:pointer;
-            letter-spacing:0.3px;
-        }
-        .topbar-item:first-child { border-left:1px solid rgba(255,255,255,0.07); }
-        .topbar-right .topbar-item:last-child { border-right:none; }
-        .topbar-item:hover { color:#fff; background:rgba(255,255,255,0.05); }
-        .topbar-item.highlight { color:var(--accent); font-weight:700; }
-        .city-select {
-            background:transparent; border:none;
-            color:rgba(255,255,255,0.6); font-size:12px; font-family:'Montserrat',sans-serif; font-weight:600;
-            cursor:pointer; outline:none; padding:0 20px 0 0;
-            appearance:none; -webkit-appearance:none;
-            background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5'%3E%3Cpath d='M0 0l4 5 4-5z' fill='rgba(255,255,255,0.4)'/%3E%3C/svg%3E");
-            background-repeat:no-repeat; background-position:right 0px center;
-        }
-        .city-select option { background:var(--blue-deep); color:#fff; }
-        .city-select:hover { color:#fff; }
-
-        /* ── HEADER MAIN ── */
-        header {
-            background:var(--blue-deep);
-            padding:0 5%;
-            display:flex; justify-content:space-between; align-items:center;
-            position:fixed; width:100%; top:34px; z-index:1000;
-            height:70px;
-            border-bottom:3px solid rgba(255,255,255,0.12);
-            box-shadow:0 4px 20px rgba(0,0,0,0.3);
-        }
-        .logo-wrap { display:flex; align-items:center; gap:10px; cursor:pointer; flex-shrink:0; }
-        .logo-text { font-size:20px; font-weight:900; color:#fff; letter-spacing:0.5px; }
-        .logo-text span { color:var(--accent); }
-
-        /* Right side: nav + toggle + hamburger */
-        .header-right { display:flex; align-items:center; gap:4px; }
-
-        nav ul { display:flex; list-style:none; gap:0; align-items:stretch; height:70px; }
-        nav ul li { display:flex; align-items:stretch; }
-        nav a {
-            color:rgba(255,255,255,0.78); text-decoration:none; font-weight:700;
-            font-size:13px; text-transform:uppercase; letter-spacing:0.5px;
-            padding:0 16px; display:flex; align-items:center;
-            transition:var(--transition); white-space:nowrap; position:relative;
-        }
-        nav a::after {
-            content:''; position:absolute; bottom:0; left:0; right:0; height:3px;
-            background:transparent; transition:var(--transition);
-        }
-        nav a:hover { color:#fff; background:rgba(255,255,255,0.07); }
-        nav a:hover::after { background:rgba(255,255,255,0.3); }
-        nav a.active { color:#fff; }
-        nav a.active::after { background:var(--accent); }
-        .nav-cta {
-            background:var(--accent) !important; color:#fff !important; font-weight:900 !important;
-            margin-left:10px; border-radius:8px !important;
-            padding:8px 18px !important;
-            height:36px !important; line-height:1 !important;
-            align-self:center !important; display:flex !important;
-            align-items:center !important;
-            font-size:12px !important;
-        }
-        .nav-cta::after { display:none !important; }
-        .nav-cta:hover { background:#fff !important; color:var(--blue-deep) !important; box-shadow:0 2px 12px rgba(0,0,0,0.2) !important; }
-
-        /* ── PLANS STATIC GRID ── */
-        .plans-slider-section {
-            background:linear-gradient(180deg, var(--blue-deep) 0%, var(--blue-main) 65%, #f4f7fb 100%);
-            padding:48px 5% 64px; overflow:hidden;
-        }
-        .plans-slider-header { text-align:center; margin-bottom:36px; }
-        .plans-slider-tag {
-            display:inline-block; font-size:11px; font-weight:900; letter-spacing:2px;
-            text-transform:uppercase; color:#fff;
-            border:1px solid rgba(255,255,255,0.4); padding:5px 14px; border-radius:20px;
-            margin-bottom:10px;
-        }
-        .plans-slider-title { font-size:1.5rem; font-weight:900; color:#fff; text-transform:uppercase; margin:0; }
-
-        .plans-static-grid {
-            display:grid; grid-template-columns:repeat(4,1fr); gap:20px; max-width:1200px; margin:0 auto;
-        }
-        /* slider-card mirrors .card exactly */
-        .slider-card {
-            background:#fff; padding:36px 24px; border-radius:var(--radius-md);
-            border:1.5px solid var(--card-border);
-            display:flex; flex-direction:column; position:relative; box-shadow:var(--shadow-sm);
-            cursor:pointer;
-            opacity:0; transform:translateY(24px);
-            animation:cardReveal 0.5s ease forwards;
-        }
-        .slider-card:nth-child(1) { animation-delay:0.05s; }
-        .slider-card:nth-child(2) { animation-delay:0.15s; }
-        .slider-card:nth-child(3) { animation-delay:0.25s; }
-        .slider-card:nth-child(4) { animation-delay:0.35s; }
-        @keyframes cardReveal { to { opacity:1; transform:translateY(0); } }
-        /* transition only active after animation completes (class added by JS) */
-        .slider-card.ready { transition:var(--transition); animation:none; opacity:1; transform:translateY(0); }
-        .slider-card.ready:hover { border-color:var(--blue-mid); transform:translateY(-6px); box-shadow:var(--shadow-md); }
-        .slider-card.featured { border:2px solid var(--blue-mid); box-shadow:0 8px 32px rgba(0,80,200,0.18); }
-        .slider-card.featured.ready:hover { transform:translateY(-6px); box-shadow:0 12px 40px rgba(0,80,200,0.28); }
-        .slider-card.featured::before {
-            content:'MELHOR CUSTO-BENEFÍCIO'; position:absolute; top:-14px; left:50%;
-            transform:translateX(-50%); background:var(--blue-mid); color:#fff;
-            padding:4px 16px; font-size:10px; font-weight:900; border-radius:20px; white-space:nowrap;
-        }
-        .slider-card .sc-name { font-size:11px; font-weight:900; color:var(--blue-mid); letter-spacing:2px; text-transform:uppercase; margin-bottom:4px; }
-        .slider-card .sc-speed { font-size:3rem; font-weight:900; margin-bottom:18px; line-height:1; color:var(--blue-deep); }
-        .slider-card .sc-speed span { font-size:14px; color:var(--text-light); display:block; font-weight:600; }
-        .slider-card ul { list-style:none; margin-bottom:26px; flex-grow:1; border-top:1px solid var(--gray-200); padding-top:18px; }
-        .slider-card ul li { font-size:15px; font-weight:600; margin-bottom:10px; color:var(--text-dark); display:flex; align-items:center; gap:9px; }
-        .slider-card ul li::before { content:'✔'; color:var(--blue-mid); font-weight:900; font-size:12px; }
-        .slider-card .sc-price { font-size:2.4rem; font-weight:900; margin-bottom:18px; color:var(--blue-deep); }
-        .slider-card .sc-price small { font-size:14px; color:var(--text-mid); font-weight:700; }
-
-        @media (max-width:900px) {
-            .plans-static-grid { grid-template-columns:repeat(2,1fr); }
-        }
-        @media (max-width:540px) {
-            .plans-static-grid { grid-template-columns:1fr; }
-            .plans-slider-title { font-size:1.2rem; }
-            .slider-card .sc-speed { font-size:2.4rem; }
-        }
-
-        /* ── DROPDOWN SUBMENU ── */
-        .has-dropdown { position:relative; }
-        .dropdown {
-            position:absolute; top:100%; left:0; min-width:210px;
-            background:#fff; border:1px solid rgba(0,0,0,0.1);
-            border-top:3px solid var(--accent); border-radius:0 0 10px 10px;
-            box-shadow:0 8px 24px rgba(0,0,0,0.18);
-            opacity:0; visibility:hidden; transform:translateY(-6px);
-            transition:all 0.2s ease; z-index:2000; overflow:hidden;
-        }
-        .has-dropdown:hover .dropdown { opacity:1; visibility:visible; transform:translateY(0); }
-        .dropdown a {
-            display:flex !important; align-items:center; gap:10px;
-            padding:13px 18px !important; font-size:13px !important;
-            color:var(--blue-deep) !important; border-bottom:1px solid rgba(0,0,80,0.07);
-            text-transform:none !important; letter-spacing:0 !important; font-weight:700 !important;
-            white-space:nowrap; height:auto !important;
-        }
-        .dropdown a:last-child { border-bottom:none; }
-        .dropdown a::after { display:none !important; }
-        .dropdown a:hover { background:var(--blue-pale) !important; color:var(--blue-mid) !important; padding-left:22px !important; }
-        .city-dot { width:8px; height:8px; border-radius:50%; background:var(--accent); flex-shrink:0; }
-        .dropdown-arrow { font-size:9px; margin-left:4px; opacity:0.55; transition:transform 0.2s ease; display:inline-block; vertical-align:middle; }
-        .has-dropdown:hover .dropdown-arrow { transform:rotate(180deg); }
-
-        @media (max-width:960px) {
-            .dropdown {
-                position:static !important; opacity:1 !important; visibility:visible !important;
-                transform:none !important; box-shadow:none; border:none;
-                border-top:1px solid rgba(255,255,255,0.07); border-radius:0;
-                max-height:0; overflow:hidden; transition:max-height 0.3s ease;
-                background:rgba(255,255,255,0.97);
-            }
-            .has-dropdown.open .dropdown { max-height:300px; }
-            .dropdown a { padding:12px 0 12px 28px !important; color:var(--blue-deep) !important; }
-        }
-
-        /* HAMBURGER */
-        .menu-toggle { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:6px; }
-        .menu-toggle span { width:22px; height:2px; background:#fff; border-radius:2px; transition:var(--transition); display:block; }
-        .menu-toggle.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
-        .menu-toggle.open span:nth-child(2) { opacity:0; }
-        .menu-toggle.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
-
-        @media (max-width:960px) {
-            .header-topbar { display:none; }
-            header { top:0; }
-            nav ul { height:auto; }
-            nav a::after { display:none; }
-            .menu-toggle { display:flex; }
-            nav {
-                position:fixed; top:70px; left:0; width:100%; background:var(--blue-deep);
-                border-top:1px solid rgba(255,255,255,0.1); max-height:0; overflow:hidden;
-                transition:max-height 0.4s ease; z-index:999;
-            }
-            nav.open { max-height:600px; }
-            nav ul { flex-direction:column; padding:8px 5%; gap:0; align-items:flex-start; }
-            nav ul li { width:100%; border-bottom:1px solid rgba(255,255,255,0.07); }
-            nav a { display:flex; padding:14px 0; font-size:14px; }
-            .nav-cta { border-radius:6px !important; margin-left:0 !important; padding:12px 16px !important; display:inline-block; width:auto !important; }
-        }
-
-        /* ── BOTÕES ── */
-        .btn-primary {
-            padding:13px 28px; background:var(--blue-mid); border:none; border-radius:var(--radius-sm);
-            color:#fff; font-weight:900; text-transform:uppercase; font-size:13px; letter-spacing:0.5px;
-            cursor:pointer; font-family:'Montserrat',sans-serif; transition:var(--transition);
-        }
-        .btn-primary:hover { background:var(--blue-light); box-shadow:var(--shadow-md); transform:translateY(-1px); }
-        .btn-outline {
-            padding:13px 28px; background:transparent; border:2px solid var(--blue-mid);
-            border-radius:var(--radius-sm); color:var(--blue-mid); font-weight:900; text-transform:uppercase;
-            font-size:13px; cursor:pointer; font-family:'Montserrat',sans-serif; transition:var(--transition);
-        }
-        .btn-outline:hover { background:var(--blue-mid); color:#fff; box-shadow:var(--shadow-md); }
-        .btn-outline-white {
-            padding:13px 28px; background:transparent; border:2px solid rgba(255,255,255,0.6);
-            border-radius:var(--radius-sm); color:#fff; font-weight:900; text-transform:uppercase;
-            font-size:13px; cursor:pointer; font-family:'Montserrat',sans-serif; transition:var(--transition);
-        }
-        .btn-outline-white:hover { background:#fff; color:var(--blue-deep); }
-        .btn-accent {
-            padding:13px 28px; background:var(--accent); border:none; border-radius:var(--radius-sm);
-            color:#fff; font-weight:900; text-transform:uppercase; font-size:13px;
-            cursor:pointer; font-family:'Montserrat',sans-serif; transition:var(--transition);
-        }
-        .btn-accent:hover { box-shadow:0 0 24px rgba(27,9,248,0.5); transform:translateY(-1px); }
-
-        /* ── LAYOUT ── */
-        .page { display:none; padding-top:104px; animation:fadeIn 0.35s ease; }
-        .page.active { display:block; }
-        @keyframes fadeIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
-        .section-block { padding:64px 8%; }
-        .section-block.bg-white { background:#fff; }
-        .section-block.bg-blue { background:var(--blue-deep); color:#fff; }
-        .section-block.bg-pale { background:var(--blue-pale); }
-
-        .title-center { text-align:center; font-size:2rem; margin-bottom:14px; text-transform:uppercase; font-weight:900; color:var(--text-dark); }
-        .title-center span { color:var(--blue-mid); }
-        .title-center.on-dark { color:#fff; }
-        .title-center.on-dark span { color:#fff; }
-        .subtitle-center { text-align:center; font-size:16px; color:var(--text-light); max-width:600px; margin:0 auto 44px; line-height:1.7; }
-        .subtitle-center.on-dark { color:rgba(255,255,255,0.65); }
-
-        /* ── HERO ── */
-        .hero {
-            background:linear-gradient(135deg, var(--blue-deep) 0%, var(--blue-main) 55%, var(--blue-mid) 100%);
-            min-height:calc(100vh - 64px);
-            display:flex; align-items:center; padding:80px 8% 80px;
-            position:relative; overflow:visible;
-        }
-        .hero::after {
-            content:''; position:absolute; inset:0; pointer-events:none;
-            background:radial-gradient(ellipse 50% 80% at 80% 50%, rgba(27,9,248,0.12) 0%, transparent 70%),
-                        radial-gradient(ellipse 30% 50% at 10% 80%, rgba(255,255,255,0.04) 0%, transparent 60%);
-        }
-        .hero-grid { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; width:100%; position:relative; z-index:1; }
-        .hero-tag { display:inline-flex; align-items:center; gap:8px; font-size:11px; font-weight:700; letter-spacing:2px; text-transform:uppercase; color:#fff; background:rgba(27,9,248,0.12); border:1px solid rgba(27,9,248,0.3); padding:7px 16px; border-radius:20px; width:fit-content; margin-bottom:20px; }
-        .hero-tag::before { content:''; width:6px; height:6px; background:var(--accent); border-radius:50%; }
-        .hero-title { font-size:clamp(2rem,4.5vw,3.4rem); font-weight:900; line-height:1.1; text-transform:uppercase; color:#fff; margin-bottom:20px; }
-        .hero-title span { color:#fff; }
-        .hero-sub { font-size:16px; color:rgba(255,255,255,0.72); max-width:440px; line-height:1.75; margin-bottom:32px; }
-        .hero-cta { display:flex; gap:14px; flex-wrap:wrap; margin-bottom:36px; }
-        .hero-stats { display:flex; gap:32px; padding-top:24px; border-top:1px solid rgba(255,255,255,0.12); }
-        .hero-stat .num { font-size:1.9rem; font-weight:900; color:#fff; }
-        .hero-stat .lbl { font-size:11px; color:rgba(255,255,255,0.55); text-transform:uppercase; letter-spacing:1px; }
-
-        /* CARD DESTAQUE HERO */
-        .hero-card {
-            background:#fff; border-radius:var(--radius-lg); padding:36px 32px;
-            box-shadow:0 24px 64px rgba(0,0,0,0.28);
-            position:relative; color:var(--text-dark);
-        }
-        .hero-card::before {
-            content:'PLANO EM DESTAQUE'; position:absolute; top:-14px; left:50%;
-            transform:translateX(-50%); background:var(--accent); color:#fff;
-            padding:5px 20px; font-size:10px; font-weight:900; border-radius:20px; white-space:nowrap; letter-spacing:1px;
-        }
-        .hero-card .hc-name { font-size:11px; font-weight:900; color:var(--blue-mid); letter-spacing:3px; text-transform:uppercase; margin-bottom:4px; }
-        .hero-card .hc-speed { font-size:5rem; font-weight:900; line-height:1; color:var(--blue-deep); }
-        .hero-card .hc-speed span { font-size:1rem; color:var(--text-light); display:block; font-weight:600; }
-        .hero-card ul { list-style:none; margin:20px 0 24px; border-top:1px solid var(--gray-200); padding-top:18px; }
-        .hero-card ul li { font-size:14px; font-weight:600; margin-bottom:10px; color:var(--text-mid); display:flex; align-items:center; gap:10px; }
-        .hero-card ul li::before { content:'✔'; color:var(--blue-mid); font-weight:900; font-size:12px; }
-        .hero-card .hc-price { font-size:2.6rem; font-weight:900; color:var(--blue-deep); margin-bottom:18px; }
-        .hero-card .hc-price small { font-size:14px; color:var(--text-light); font-weight:600; }
-
-        /* DIFERENCIAIS */
-        .diff-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:20px; }
-        .diff-card {
-            background:#fff; border:1px solid var(--card-border); border-radius:var(--radius-md);
-            padding:32px 26px; transition:var(--transition); box-shadow:var(--shadow-sm);
-        }
-        .diff-card:hover { border-color:var(--blue-mid); transform:translateY(-4px); box-shadow:var(--shadow-md); }
-        .diff-num { font-size:11px; font-weight:900; color:var(--blue-mid); letter-spacing:2px; text-transform:uppercase; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
-        .diff-num::before { content:''; width:24px; height:2px; background:var(--blue-mid); border-radius:2px; }
-        .diff-icon { font-size:1.8rem; margin-bottom:12px; }
-        .diff-title { font-size:15px; font-weight:900; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:10px; color:var(--text-dark); }
-        .diff-desc { font-size:15px; font-weight:600; color:var(--text-mid); line-height:1.75; }
-
-        /* PLANOS */
-        .ip-selector-container { display:flex; flex-direction:column; align-items:center; margin-bottom:40px; gap:14px; }
-        .ip-selector { display:flex; background:var(--gray-200); padding:4px; border-radius:50px; }
-        .btn-ip { padding:11px 28px; border:none; background:transparent; color:var(--text-mid); font-weight:700; font-size:13px; cursor:pointer; border-radius:30px; transition:var(--transition); font-family:'Montserrat',sans-serif; }
-        .btn-ip.active { background:var(--blue-mid); color:#fff; box-shadow:var(--shadow-sm); }
-        .ip-info { font-size:12px; color:var(--blue-mid); font-weight:700; background:var(--blue-pale); padding:6px 16px; border-radius:20px; }
-
-        .plan-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:22px; }
-        .card {
-            background:#fff; padding:36px 24px; border-radius:var(--radius-md);
-            border:1.5px solid var(--card-border); transition:var(--transition);
-            display:flex; flex-direction:column; position:relative; box-shadow:var(--shadow-sm);
-        }
-        .card:hover { border-color:var(--blue-mid); transform:translateY(-6px); box-shadow:var(--shadow-md); }
-        .card.best-value { border:2px solid var(--blue-mid); box-shadow:0 8px 32px rgba(0,80,200,0.18); }
-        .card.best-value::before {
-            content:'MELHOR CUSTO-BENEFÍCIO'; position:absolute; top:-14px; left:50%;
-            transform:translateX(-50%); background:var(--blue-mid); color:#fff;
-            padding:4px 16px; font-size:10px; font-weight:900; border-radius:20px; white-space:nowrap;
-        }
-        .card .name { font-size:11px; font-weight:900; color:var(--blue-mid); letter-spacing:2px; text-transform:uppercase; margin-bottom:4px; }
-        .card .speed { font-size:3rem; font-weight:900; margin-bottom:18px; line-height:1; color:var(--blue-deep); }
-        .card .speed span { font-size:14px; color:var(--text-light); display:block; font-weight:600; }
-        .card ul { list-style:none; margin-bottom:26px; flex-grow:1; border-top:1px solid var(--gray-200); padding-top:18px; }
-        .card ul li { font-size:15px; font-weight:600; margin-bottom:10px; color:var(--text-dark); display:flex; align-items:center; gap:9px; }
-        .card ul li::before { content:'✔'; color:var(--blue-mid); font-weight:900; font-size:12px; }
-        .card .price { font-size:2.4rem; font-weight:900; margin-bottom:18px; color:var(--blue-deep); }
-        .card .price small { font-size:14px; color:var(--text-mid); font-weight:700; }
-
-        /* ISP */
-        .isp-banner { background:linear-gradient(135deg, var(--blue-deep), var(--blue-main)); border-radius:var(--radius-lg); padding:52px 44px; margin-bottom:50px; text-align:center; color:#fff; }
-        .isp-banner h3 { font-size:11px; font-weight:900; color:#fff; letter-spacing:3px; text-transform:uppercase; margin-bottom:14px; }
-        .isp-banner p { font-size:15px; color:rgba(255,255,255,0.75); max-width:660px; margin:0 auto 24px; line-height:1.75; }
-        .isp-badges { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-bottom:28px; }
-        .isp-badge { font-size:11px; font-weight:700; color:#fff; border:1px solid rgba(27,9,248,0.35); padding:5px 14px; border-radius:20px; text-transform:uppercase; letter-spacing:0.5px; }
-        .isp-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; }
-        .isp-card {
-            background:#fff; border:1.5px solid var(--card-border); border-radius:var(--radius-md);
-            padding:30px 26px; transition:var(--transition); display:flex; flex-direction:column;
-            box-shadow:var(--shadow-sm);
-        }
-        .isp-card:hover { border-color:var(--blue-mid); transform:translateY(-4px); box-shadow:var(--shadow-md); }
-        .isp-card .ic-tag { font-size:10px; font-weight:900; letter-spacing:2px; color:var(--blue-mid); text-transform:uppercase; margin-bottom:8px; }
-        .isp-card .ic-title { font-size:1.15rem; font-weight:900; margin-bottom:6px; color:var(--text-dark); }
-        .isp-card .ic-sub { font-size:14px; color:var(--text-light); margin-bottom:18px; line-height:1.6; }
-        .isp-card ul { list-style:none; margin-bottom:22px; flex-grow:1; }
-        .isp-card ul li { font-size:15px; font-weight:600; color:var(--text-mid); display:flex; align-items:flex-start; gap:8px; margin-bottom:9px; line-height:1.4; }
-        .isp-card ul li::before { content:'✔'; color:var(--blue-mid); font-weight:900; flex-shrink:0; margin-top:1px; }
-        .isp-card .ic-note { font-size:13px; color:var(--gray-400); margin-bottom:12px; }
-
-        /* ÁREA DO CLIENTE */
-        .client-wrapper { display:flex; justify-content:center; align-items:center; min-height:calc(100vh - 160px); padding:40px 5%; background:var(--gray-100); }
-        .client-box { background:#fff; border:1px solid var(--card-border); border-radius:var(--radius-lg); padding:50px 44px; width:100%; max-width:440px; text-align:center; box-shadow:var(--shadow-lg); }
-        .client-logo { font-size:20px; font-weight:900; color:var(--blue-deep); letter-spacing:0.5px; margin-bottom:6px; }
-        .client-logo span { color:#fff; }
-        .client-box h2 { font-size:1.4rem; font-weight:900; text-transform:uppercase; margin-bottom:8px; color:var(--text-dark); }
-        .client-box .client-sub { font-size:13px; color:var(--text-light); margin-bottom:28px; }
-        .form-group { margin-bottom:16px; text-align:left; }
-        .form-group label { font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:var(--text-mid); display:block; margin-bottom:6px; }
-        .form-group input {
-            width:100%; padding:13px 16px; background:var(--gray-100); border:1.5px solid var(--gray-200);
-            border-radius:var(--radius-sm); color:var(--text-dark); font-size:14px; font-family:'Montserrat',sans-serif;
-            transition:var(--transition); outline:none;
-        }
-        .form-group input:focus { border-color:var(--blue-mid); background:#fff; box-shadow:0 0 0 3px rgba(0,80,200,0.1); }
-        .form-group input::placeholder { color:var(--gray-400); }
-        .btn-login {
-            width:100%; padding:14px; background:var(--blue-mid); border:none; border-radius:var(--radius-sm);
-            color:#fff; font-weight:900; font-size:14px; text-transform:uppercase;
-            cursor:pointer; letter-spacing:0.5px; font-family:'Montserrat',sans-serif;
-            transition:var(--transition); margin-top:6px;
-        }
-        .btn-login:hover { background:var(--blue-light); box-shadow:var(--shadow-md); transform:translateY(-1px); }
-        .client-links { margin-top:18px; display:flex; flex-direction:column; gap:10px; }
-        .client-links a { font-size:12px; color:var(--text-light); text-decoration:none; transition:var(--transition); cursor:pointer; }
-        .client-links a:hover { color:var(--blue-mid); }
-        .client-divider { margin:22px 0; border:none; border-top:1px solid var(--gray-200); }
-        .client-external { background:var(--blue-pale); border:1px solid rgba(0,80,200,0.15); border-radius:var(--radius-sm); padding:16px; text-align:center; }
-        .client-external p { font-size:12px; color:var(--text-light); margin-bottom:10px; }
-        .client-apps { display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
-        .app-btn { padding:9px 18px; border:1.5px solid var(--blue-mid); border-radius:var(--radius-sm); font-size:12px; color:var(--blue-mid); cursor:pointer; transition:var(--transition); font-family:'Montserrat',sans-serif; font-weight:700; background:transparent; }
-        .app-btn:hover { background:var(--blue-mid); color:#fff; }
-
-        /* CENTRAL DE AJUDA */
-        .ajuda-search { background:linear-gradient(135deg,var(--blue-deep),var(--blue-main)); border-radius:var(--radius-lg); padding:44px; text-align:center; margin-bottom:48px; color:#fff; }
-        .ajuda-search h3 { font-size:1.2rem; font-weight:900; text-transform:uppercase; letter-spacing:1px; margin-bottom:10px; }
-        .ajuda-search p { color:rgba(255,255,255,0.7); font-size:14px; margin-bottom:22px; }
-        .search-bar { display:flex; gap:10px; max-width:500px; margin:0 auto; }
-        .search-bar input { flex:1; padding:13px 18px; background:rgba(255,255,255,0.12); border:1.5px solid rgba(255,255,255,0.2); border-radius:var(--radius-sm); color:#fff; font-size:14px; font-family:'Montserrat',sans-serif; outline:none; transition:var(--transition); }
-        .search-bar input:focus { background:rgba(255,255,255,0.18); border-color:#fff; }
-        .search-bar input::placeholder { color:rgba(255,255,255,0.45); }
-        .faq-categories { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:14px; margin-bottom:44px; }
-        .faq-cat { background:#fff; border:1.5px solid var(--card-border); border-radius:var(--radius-md); padding:22px 18px; text-align:center; cursor:pointer; transition:var(--transition); box-shadow:var(--shadow-sm); }
-        .faq-cat:hover { border-color:var(--blue-mid); transform:translateY(-3px); box-shadow:var(--shadow-md); }
-        .faq-cat.active { border-color:var(--blue-mid); background:var(--blue-pale); box-shadow:var(--shadow-md); }
-        .faq-cat.active .lbl { color:var(--blue-mid); }
-        .faq-cat .icon { font-size:1.6rem; margin-bottom:8px; }
-        .faq-cat .lbl { font-size:12px; font-weight:900; text-transform:uppercase; letter-spacing:0.5px; color:var(--text-dark); }
-        .faq-list { display:flex; flex-direction:column; gap:10px; }
-        .faq-item.hidden { display:none; }
-        .faq-item { background:#fff; border:1.5px solid var(--card-border); border-radius:var(--radius-md); overflow:hidden; box-shadow:var(--shadow-sm); }
-        .faq-q { padding:18px 22px; font-size:14px; font-weight:700; cursor:pointer; display:flex; justify-content:space-between; align-items:center; transition:var(--transition); color:var(--text-dark); }
-        .faq-q:hover { color:var(--blue-mid); }
-        .faq-q .arrow { font-size:10px; color:var(--blue-mid); transition:var(--transition); }
-        .faq-item.open .faq-q .arrow { transform:rotate(180deg); }
-        .faq-a { max-height:0; overflow:hidden; transition:max-height 0.3s ease; }
-        .faq-item.open .faq-a { max-height:300px; }
-        .faq-a p { padding:0 22px 18px; font-size:13px; color:var(--text-light); line-height:1.75; }
-        .contato-rapido { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:16px; margin-top:48px; }
-        .contato-card { background:#fff; border:1.5px solid var(--card-border); border-radius:var(--radius-md); padding:24px; text-align:center; box-shadow:var(--shadow-sm); transition:var(--transition); }
-        .contato-card:hover { border-color:var(--blue-mid); transform:translateY(-3px); }
-        .contato-card .icon { font-size:1.7rem; margin-bottom:10px; }
-        .contato-card .ttl { font-size:12px; font-weight:900; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:5px; color:var(--text-dark); }
-        .contato-card .info { font-size:13px; color:var(--text-light); line-height:1.6; }
-
-        /* STATUS */
-        .status-overall { display:flex; align-items:center; gap:16px; background:#fff; border:1.5px solid var(--card-border); border-radius:var(--radius-md); padding:24px 28px; margin-bottom:36px; box-shadow:var(--shadow-sm); }
-        .status-dot { width:14px; height:14px; border-radius:50%; flex-shrink:0; }
-        .status-dot.green { background:var(--success); box-shadow:0 0 10px var(--success); }
-        .status-dot.yellow { background:var(--warning); box-shadow:0 0 10px var(--warning); }
-        .status-dot.red { background:var(--danger); box-shadow:0 0 10px var(--danger); }
-        .status-overall h3 { font-size:1rem; font-weight:900; color:var(--text-dark); }
-        .status-overall p { font-size:13px; color:var(--text-light); }
-        .status-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:14px; margin-bottom:36px; }
-        .status-card { background:#fff; border:1.5px solid var(--card-border); border-radius:var(--radius-md); padding:20px; display:flex; align-items:center; gap:14px; box-shadow:var(--shadow-sm); }
-        .status-card .sdot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
-        .status-card .sname { font-size:14px; font-weight:700; color:var(--text-dark); }
-        .status-card .sstatus { font-size:12px; }
-        .status-card .stime { font-size:11px; color:var(--gray-400); margin-top:1px; }
-        .incidents { margin-top:36px; }
-        .incident-item { background:#fff; border-left:3px solid; border-radius:0 var(--radius-md) var(--radius-md) 0; padding:20px 24px; margin-bottom:12px; box-shadow:var(--shadow-sm); }
-        .incident-item.resolved { border-color:var(--success); }
-        .incident-item.investigating { border-color:var(--warning); }
-        .incident-item .ititle { font-size:14px; font-weight:900; margin-bottom:4px; color:var(--text-dark); }
-        .incident-item .idate { font-size:11px; color:var(--gray-400); margin-bottom:8px; }
-        .incident-item .idesc { font-size:13px; color:var(--text-light); line-height:1.65; }
-        .badge-status { font-size:10px; font-weight:900; padding:3px 10px; border-radius:20px; text-transform:uppercase; letter-spacing:1px; display:inline-block; margin-bottom:8px; }
-        .badge-resolved { background:rgba(0,196,140,0.1); color:var(--success); }
-        .badge-investigating { background:rgba(255,184,0,0.1); color:var(--warning); }
-
-        /* SOBRE */
-        .sobre-hero { display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; margin-bottom:60px; }
-        .sobre-text h2 { font-size:2rem; font-weight:900; text-transform:uppercase; line-height:1.2; margin-bottom:18px; color:var(--text-dark); }
-        .sobre-text h2 span { color:var(--blue-mid); }
-        .sobre-text p { font-size:14px; color:var(--text-light); line-height:1.85; margin-bottom:14px; }
-        .sobre-nums { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-        .sobre-num { background:#fff; border:1.5px solid var(--card-border); border-radius:var(--radius-md); padding:22px; text-align:center; box-shadow:var(--shadow-sm); }
-        .sobre-num .n { font-size:2rem; font-weight:900; color:var(--blue-mid); }
-        .sobre-num .l { font-size:11px; color:var(--text-light); text-transform:uppercase; letter-spacing:1px; }
-        .timeline { position:relative; padding-left:28px; border-left:2px solid var(--blue-pale); }
-        .tl-item { position:relative; margin-bottom:32px; }
-        .tl-item::before { content:''; width:12px; height:12px; background:var(--blue-mid); border-radius:50%; position:absolute; left:-35px; top:4px; box-shadow:0 0 0 3px var(--blue-pale); }
-        .tl-year { font-size:11px; font-weight:900; color:var(--blue-mid); letter-spacing:2px; text-transform:uppercase; margin-bottom:3px; }
-        .tl-title { font-size:14px; font-weight:900; margin-bottom:4px; color:var(--text-dark); }
-        .tl-desc { font-size:13px; color:var(--text-light); line-height:1.65; }
-        .team-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:18px; }
-        .team-card { background:#fff; border:1.5px solid var(--card-border); border-radius:var(--radius-md); padding:26px 20px; text-align:center; transition:var(--transition); box-shadow:var(--shadow-sm); }
-        .team-card:hover { border-color:var(--blue-mid); transform:translateY(-3px); box-shadow:var(--shadow-md); }
-        .team-avatar { width:60px; height:60px; border-radius:50%; background:var(--blue-pale); border:2px solid var(--blue-mid); display:flex; align-items:center; justify-content:center; font-size:1.2rem; font-weight:900; color:var(--blue-mid); margin:0 auto 12px; }
-        .team-name { font-size:14px; font-weight:900; margin-bottom:3px; color:var(--text-dark); }
-        .team-role { font-size:12px; color:var(--text-light); }
-
-        /* COBERTURA */
-        .cob-search { display:flex; gap:10px; max-width:500px; margin-bottom:36px; flex-wrap:wrap; }
-        .cob-search input { flex:1; padding:13px 18px; background:#fff; border:1.5px solid var(--gray-200); border-radius:var(--radius-sm); color:var(--text-dark); font-size:14px; font-family:'Montserrat',sans-serif; outline:none; transition:var(--transition); }
-        .cob-search input:focus { border-color:var(--blue-mid); }
-        .cob-search input::placeholder { color:var(--gray-400); }
-        .cob-map { background:#fff; border:1.5px solid var(--card-border); border-radius:var(--radius-lg); padding:30px; margin-bottom:36px; text-align:center; min-height:260px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; box-shadow:var(--shadow-sm); }
-        .cob-map .map-icon { font-size:3.5rem; opacity:0.25; }
-        .cob-map p { color:var(--text-light); font-size:14px; }
-        .cob-section-title { font-size:12px; font-weight:900; text-transform:uppercase; letter-spacing:2px; color:var(--text-mid); margin-bottom:16px; padding-bottom:8px; border-bottom:2px solid var(--blue-pale); }
-        .cob-cities { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; margin-bottom:32px; }
-        .cob-city { background:#fff; border:1.5px solid var(--card-border); border-radius:var(--radius-md); padding:22px; transition:var(--transition); box-shadow:var(--shadow-sm); }
-        .cob-city:hover { border-color:var(--blue-mid); transform:translateY(-2px); }
-        .cob-city .cname { font-size:15px; font-weight:900; margin-bottom:4px; color:var(--text-dark); }
-        .cob-city .cstate { font-size:11px; color:var(--blue-mid); font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-bottom:8px; }
-        .cob-city .cbairros { font-size:12px; color:var(--text-light); line-height:1.65; }
-        .cob-city .ctag { display:inline-block; font-size:10px; font-weight:900; padding:3px 10px; border-radius:10px; margin-top:10px; text-transform:uppercase; letter-spacing:0.5px; }
-        .ctag-ativo { background:rgba(0,196,140,0.1); color:var(--success); }
-        .ctag-expansao { background:rgba(0,80,200,0.08); color:var(--blue-mid); }
-        .ctag-breve { background:rgba(255,184,0,0.1); color:#946400; }
-
-        /* TRABALHE CONOSCO */
-        .vagas-filtro { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:26px; }
-        .filtro-btn { padding:9px 20px; border:1.5px solid var(--gray-200); background:#fff; color:var(--text-mid); font-size:12px; font-weight:700; font-family:'Montserrat',sans-serif; border-radius:20px; cursor:pointer; transition:var(--transition); text-transform:uppercase; }
-        .filtro-btn.active, .filtro-btn:hover { border-color:var(--blue-mid); color:var(--blue-mid); background:var(--blue-pale); }
-        .vagas-grid { display:flex; flex-direction:column; gap:12px; }
-        .vaga-card { background:#fff; border:1.5px solid var(--card-border); border-radius:var(--radius-md); padding:22px 26px; display:flex; justify-content:space-between; align-items:center; gap:18px; transition:var(--transition); box-shadow:var(--shadow-sm); flex-wrap:wrap; }
-        .vaga-card:hover { border-color:var(--blue-mid); box-shadow:var(--shadow-md); }
-        .vaga-title { font-size:15px; font-weight:900; margin-bottom:6px; color:var(--text-dark); }
-        .vaga-meta { display:flex; gap:10px; flex-wrap:wrap; }
-        .vaga-tag { font-size:11px; font-weight:700; padding:3px 10px; border-radius:10px; text-transform:uppercase; }
-        .vtag-dep { background:var(--blue-pale); color:var(--blue-mid); }
-        .vtag-loc { background:var(--gray-100); color:var(--text-mid); }
-        .vtag-tipo { background:var(--gray-100); color:var(--text-mid); }
-        .cultura-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; }
-        .cultura-card { background:#fff; border:1.5px solid var(--card-border); border-radius:var(--radius-md); padding:26px 20px; text-align:center; box-shadow:var(--shadow-sm); }
-        .cultura-card .icon { font-size:1.7rem; margin-bottom:10px; }
-        .cultura-card .ttl { font-size:12px; font-weight:900; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:7px; color:var(--text-dark); }
-        .cultura-card .dsc { font-size:12px; color:var(--text-light); line-height:1.65; }
-        .candidatura-box { background:linear-gradient(135deg,var(--blue-deep),var(--blue-main)); border-radius:var(--radius-lg); padding:40px; text-align:center; margin-top:36px; color:#fff; }
-        .candidatura-box h3 { font-size:1.2rem; font-weight:900; text-transform:uppercase; margin-bottom:10px; }
-        .candidatura-box p { font-size:14px; color:rgba(255,255,255,0.72); margin-bottom:20px; }
-
-        /* IMPRENSA */
-        .imprensa-kits { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:18px; margin-bottom:44px; }
-        .kit-card { background:#fff; border:1.5px solid var(--card-border); border-radius:var(--radius-md); padding:26px 20px; text-align:center; transition:var(--transition); box-shadow:var(--shadow-sm); }
-        .kit-card:hover { border-color:var(--blue-mid); transform:translateY(-3px); box-shadow:var(--shadow-md); }
-        .kit-card .icon { font-size:2.2rem; margin-bottom:12px; }
-        .kit-card .ktitle { font-size:13px; font-weight:900; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:6px; color:var(--text-dark); }
-        .kit-card .kdesc { font-size:12px; color:var(--text-light); line-height:1.55; margin-bottom:16px; }
-        .noticias-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); gap:18px; margin-bottom:44px; }
-        .noticia-card { background:#fff; border:1.5px solid var(--card-border); border-radius:var(--radius-md); overflow:hidden; transition:var(--transition); box-shadow:var(--shadow-sm); }
-        .noticia-card:hover { border-color:var(--blue-mid); transform:translateY(-3px); box-shadow:var(--shadow-md); }
-        .noticia-img { height:130px; display:flex; align-items:center; justify-content:center; font-size:2.8rem; background:var(--blue-pale); }
-        .noticia-body { padding:20px; }
-        .noticia-cat { font-size:10px; font-weight:900; color:var(--blue-mid); text-transform:uppercase; letter-spacing:2px; margin-bottom:7px; }
-        .noticia-title { font-size:14px; font-weight:900; line-height:1.4; margin-bottom:7px; color:var(--text-dark); }
-        .noticia-date { font-size:12px; color:var(--gray-400); }
-        .assessoria-box { background:#fff; border:1.5px solid var(--card-border); border-radius:var(--radius-md); padding:32px; display:flex; gap:26px; align-items:center; flex-wrap:wrap; box-shadow:var(--shadow-sm); }
-        .assessoria-box .icon { font-size:2.8rem; flex-shrink:0; }
-        .assessoria-box h3 { font-size:1rem; font-weight:900; text-transform:uppercase; margin-bottom:7px; color:var(--text-dark); }
-        .assessoria-box p { font-size:13px; color:var(--text-light); line-height:1.7; margin-bottom:14px; }
-        .assessoria-contatos { display:flex; gap:20px; flex-wrap:wrap; }
-        .ac-item { font-size:13px; color:var(--text-mid); }
-        .ac-item span { color:var(--blue-mid); font-weight:700; }
-
-        /* FOOTER */
-        footer { background:var(--blue-deep); color:#fff; padding:52px 8% 28px; margin-top:0; }
-        .footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:40px; margin-bottom:36px; }
-        .footer-brand .logo-text { font-size:20px; font-weight:900; margin-bottom:12px; display:block; color:#fff; }
-        .footer-brand .logo-text span { color:#fff; }
-        .footer-brand p { font-size:15px; color:rgba(255,255,255,0.55); line-height:1.75; max-width:260px; margin-bottom:16px; }
-        .footer-contact { font-size:16px; color:rgba(255,255,255,0.6); line-height:2; }
-        .footer-contact a { color:#fff; text-decoration:none; }
-        .footer-col h4 { font-size:13px; font-weight:900; text-transform:uppercase; letter-spacing:2px; color:#fff; margin-bottom:16px; }
-        .footer-col ul { list-style:none; }
-        .footer-col ul li { margin-bottom:9px; }
-        .footer-col ul li a { font-size:15px; color:rgba(255,255,255,0.55); text-decoration:none; transition:var(--transition); cursor:pointer; }
-        .footer-col ul li a:hover { color:#fff; }
-        .footer-addresses { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:28px; border-top:1px solid rgba(255,255,255,0.1); padding-top:24px; }
-        .footer-addr h5 { font-size:12px; font-weight:900; text-transform:uppercase; letter-spacing:1px; color:#fff; margin-bottom:4px; }
-        .footer-addr p { font-size:15px; color:rgba(255,255,255,0.55); line-height:1.65; }
-        .footer-bottom { border-top:1px solid rgba(255,255,255,0.1); padding-top:22px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px; }
-        .footer-bottom p { font-size:14px; color:rgba(255,255,255,0.4); }
-        .footer-social { display:flex; gap:8px; }
-        .social-btn { width:38px; height:38px; border:1px solid rgba(255,255,255,0.15); border-radius:6px; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:900; color:rgba(255,255,255,0.5); text-decoration:none; transition:var(--transition); cursor:pointer; }
-        .social-btn:hover { border-color:#fff; color:#fff; }
-
-        /* UTILITIES */
-        .info-box { background:var(--blue-pale); border:1px solid rgba(0,80,200,0.15); border-radius:var(--radius-md); padding:18px 22px; font-size:13px; color:var(--text-mid); }
-
-        /* ── RESPONSIVE — device-aware ── */
-
-        /* Large desktop 1440px+ */
-        @media (min-width:1440px) {
-            .section-block { padding:72px 10%; }
-            .hero { padding:90px 10% 90px; }
-            .hero-title { font-size:4rem; }
-            header { padding:0 10%; padding-top:4px; }
-        }
-
-        /* Standard desktop 1024–1439px: default styles apply */
-
-        /* Small laptop / large tablet landscape 900–1023px */
-        @media (max-width:1023px) {
-            nav a { font-size:11px; padding:7px 10px; }
-            .section-block { padding:52px 6%; }
-            .hero { padding:70px 6% 70px; }
-        }
-
-        /* Tablet portrait + large phone landscape 600–899px */
-        @media (max-width:900px) {
-            .hero-grid, .sobre-hero { grid-template-columns:1fr; }
-            .hero-card { max-width:400px; margin:32px auto 0; }
-            .footer-grid { grid-template-columns:1fr 1fr; }
-            .footer-addresses { grid-template-columns:1fr; }
-            .diff-grid { grid-template-columns:repeat(2,1fr); }
-            .plan-grid { grid-template-columns:repeat(2,1fr); }
-        }
-
-        /* Phone portrait 480–599px */
-        @media (max-width:599px) {
-            .page { padding-top:70px; }
-            .section-block { padding:36px 4%; }
-            .title-center { font-size:1.5rem; }
-            .hero { padding:36px 4% 48px; }
-            .hero-title { font-size:clamp(1.7rem,7vw,2.4rem); }
-            .hero-stats { flex-wrap:wrap; gap:18px; }
-            .footer-grid { grid-template-columns:1fr; }
-            .client-box { padding:30px 18px; }
-            .sobre-nums { grid-template-columns:1fr 1fr; }
-            .vaga-card { flex-direction:column; align-items:flex-start; }
-            .diff-grid { grid-template-columns:1fr; }
-            .plan-grid { grid-template-columns:1fr; }
-            .isp-grid { grid-template-columns:1fr; }
-            .hero-card { max-width:100%; }
-            .hero-cta { flex-direction:column; }
-            .btn-primary,.btn-accent,.btn-outline,.btn-outline-white { width:100%; text-align:center; }
-            .isp-banner { padding:32px 22px; }
-            .isp-banner p { font-size:13px; }
-            .cob-search { max-width:100%; }
-            .cob-search input { width:100%; }
-            .cob-search .btn-primary { width:100%; }
-            .cob-map { min-height:180px; }
-        }
-
-        /* Small phone 320–479px */
-        @media (max-width:479px) {
-            .section-block { padding:28px 4%; }
-            .title-center { font-size:1.3rem; }
-            .hero-title { font-size:clamp(1.5rem,8vw,2rem); }
-            .logo-text { font-size:16px; }
-            .hero-stat .num { font-size:1.4rem; }
-            .hero-stats { gap:14px; }
-            nav a { font-size:13px; }
-            .card .speed { font-size:2.4rem; }
-            .hero-card .hc-speed { font-size:4rem; }
-        }
-        /* ── CITY PICKER MODAL ── */
-        .city-modal-overlay {
-            display:none; position:fixed; inset:0; z-index:9000;
-            background:rgba(0,0,0,0.55); backdrop-filter:blur(4px);
-            align-items:center; justify-content:center;
-        }
-        .city-modal-overlay.open { display:flex; }
-        .city-modal {
-            background:#fff; border-radius:var(--radius-lg); padding:44px 40px 36px;
-            width:100%; max-width:420px; text-align:center;
-            box-shadow:0 24px 64px rgba(0,0,0,0.3);
-            animation:modalPop 0.28s cubic-bezier(0.34,1.56,0.64,1) forwards;
-            position:relative;
-        }
-        @keyframes modalPop { from { opacity:0; transform:scale(0.88) translateY(16px); } to { opacity:1; transform:scale(1) translateY(0); } }
-        .city-modal-close {
-            position:absolute; top:14px; right:16px;
-            background:none; border:none; font-size:20px; color:var(--gray-400);
-            cursor:pointer; line-height:1; padding:4px 8px; border-radius:6px;
-            transition:var(--transition);
-        }
-        .city-modal-close:hover { background:var(--gray-100); color:var(--text-dark); }
-        .city-modal-icon { font-size:2.4rem; margin-bottom:16px; }
-        .city-modal h3 { font-size:1.15rem; font-weight:900; color:var(--text-dark); margin-bottom:6px; text-transform:uppercase; }
-        .city-modal p { font-size:13px; color:var(--text-light); margin-bottom:24px; }
-        .city-modal-plan {
-            font-size:11px; font-weight:900; color:var(--blue-mid); letter-spacing:2px;
-            text-transform:uppercase; margin-top:10px; margin-bottom:20px;
-            background:var(--blue-pale); padding:6px 18px; border-radius:20px;
-            display:inline-block; white-space:nowrap; max-width:100%;
-            overflow:hidden; text-overflow:ellipsis;
-        }
-        .city-modal-btns { display:flex; flex-direction:column; gap:12px; }
-        .city-modal-btn {
-            display:flex; align-items:center; justify-content:center; gap:10px;
-            padding:16px 20px; border-radius:var(--radius-md);
-            border:1.5px solid var(--card-border); background:#fff;
-            cursor:pointer; transition:var(--transition); text-decoration:none;
-        }
-        .city-modal-btn:hover { border-color:var(--blue-mid); background:var(--blue-pale); transform:translateY(-2px); box-shadow:var(--shadow-sm); }
-        .city-modal-btn .cm-city { font-size:16px; font-weight:900; color:var(--text-dark); text-transform:uppercase; letter-spacing:1px; }
-        @media (max-width:480px) {
-            .city-modal { padding:36px 24px 28px; margin:16px; }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Rio Telecom | Conectando Você!</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--b:#071a8f;--b2:#1b3cff;--bp:#eef2ff;--l:#b9ff3b;--t:#0c1440;--m:#5a6690;--ln:#dfe5fb;--ok:#10c98f;--no:#ff4757;--r:18px}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font:15px/1.7 Inter,sans-serif;color:var(--t);background:#fff;overflow-x:hidden}
+h1,h2,h3,.sp,.pr,.logo{font-family:Sora,sans-serif}
+a{color:inherit;text-decoration:none}ul{list-style:none}
+.w{max-width:1180px;margin:auto;padding:0 5%}
+section{padding:80px 0}
+.alt{background:var(--bp)}
+/* topbar + header */
+.tb{background:#04106b;color:#b8c3ff;font-size:12px;padding:6px 0}
+.tb .w{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.tb a,.tb select{color:#b8c3ff;background:none;border:0;font:inherit;cursor:pointer}.tb select option{color:#000}
+.tb a:hover{color:var(--l)}
+header{position:sticky;top:0;z-index:50;background:rgba(7,26,143,.88);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.1)}
+header .w{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{font-weight:800;font-size:22px;color:#fff;display:flex;align-items:center;gap:8px}
+.logo:before{content:"";width:14px;height:14px;border-radius:50%;background:var(--l);box-shadow:0 0 16px var(--l)}
+nav{display:flex;align-items:center;gap:4px}
+nav>a,.dd>a{color:#dbe2ff;font:600 13px Sora;padding:10px 14px;border-radius:10px;display:block;transition:.25s}
+nav>a:hover,.dd:hover>a,nav a.on{color:#fff;background:rgba(255,255,255,.1)}
+.dd{position:relative}
+.dd div{position:absolute;top:100%;left:0;min-width:170px;background:#fff;border-radius:14px;padding:8px;box-shadow:0 20px 50px #0003;opacity:0;visibility:hidden;transform:translateY(8px);transition:.25s}
+.dd:hover div{opacity:1;visibility:visible;transform:none}
+.dd div a{display:block;padding:10px 14px;border-radius:9px;font-weight:600;color:var(--b)}
+.dd div a:hover{background:var(--bp)}
+.nav-cta{background:var(--l)!important;color:#04106b!important;margin-left:8px}
+.nav-cta:hover{box-shadow:0 0 24px #b9ff3b88}
+.logo.li:before{display:none}.logo img{height:44px;width:auto;display:block;border-radius:6px}footer .logo img{height:38px}
+#bg{display:none;background:none;border:0;color:#fff;font-size:26px;cursor:pointer}
+/* buttons */
+.btn{display:inline-block;padding:13px 26px;border-radius:12px;font:700 13px Sora;border:2px solid transparent;cursor:pointer;transition:.25s;text-align:center;letter-spacing:.3px}
+.bl{background:var(--l);color:#04106b}.bl:hover{transform:translateY(-2px);box-shadow:0 8px 30px #b9ff3b77}
+.bb{background:var(--b2);color:#fff}.bb:hover{transform:translateY(-2px);box-shadow:0 8px 30px #1b3cff55}
+.bo{border-color:#fff7;color:#fff}.bo:hover{background:#fff;color:var(--b)}
+.bd{border-color:var(--b2);color:var(--b2)}.bd:hover{background:var(--b2);color:#fff}
+/* hero */
+.hero{position:relative;background:radial-gradient(circle at 80% 20%,#2a4bff 0,transparent 45%),linear-gradient(135deg,#04106b,var(--b) 60%,#1230d6);color:#fff;padding:90px 0 110px;overflow:hidden}
+.hero:before{content:"";position:absolute;inset:0;background:linear-gradient(#ffffff0d 1px,transparent 1px),linear-gradient(90deg,#ffffff0d 1px,transparent 1px);background-size:48px 48px;mask-image:radial-gradient(circle at 50% 40%,#000,transparent 75%);animation:gd 20s linear infinite}
+@keyframes gd{to{background-position:48px 48px}}
+.orb{position:absolute;width:420px;height:420px;border-radius:50%;background:var(--l);filter:blur(130px);opacity:.22;top:-120px;right:-80px;animation:fl 8s ease-in-out infinite}
+@keyframes fl{50%{transform:translateY(40px)}}
+.hg{position:relative;display:grid;grid-template-columns:1.1fr .9fr;gap:50px;align-items:center}
+.tag{display:inline-block;font:700 11px Sora;letter-spacing:2px;text-transform:uppercase;color:var(--l);border:1px solid #b9ff3b66;padding:6px 16px;border-radius:30px;margin-bottom:18px}
+h1{font-size:clamp(2.2rem,5vw,3.8rem);line-height:1.08;margin-bottom:18px}
+h1 em{font-style:normal;color:var(--l)}
+.hero p.s{color:#c9d3ff;max-width:460px;margin-bottom:28px}
+.hs{display:flex;gap:30px;flex-wrap:wrap;margin-top:40px;padding-top:24px;border-top:1px solid #ffffff22}
+.hs b{display:block;font:800 1.8rem Sora;color:var(--l)}.hs span{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#aab6ff}
+/* titles */
+.ti{text-align:center;font-size:clamp(1.6rem,3vw,2.3rem);margin-bottom:10px}
+.ti em{font-style:normal;color:var(--b2);background:linear-gradient(transparent 62%,var(--l) 62%)}
+.su{text-align:center;color:var(--m);max-width:580px;margin:0 auto 44px}
+/* cards */
+.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:22px}
+.c{background:#fff;border:1.5px solid var(--ln);border-radius:var(--r);padding:30px 26px;transition:.3s;position:relative;display:flex;flex-direction:column}
+.c:hover{transform:translateY(-6px);border-color:var(--b2);box-shadow:0 18px 44px #1b3cff22}
+.pl small{font:700 11px Sora;letter-spacing:2px;color:var(--b2)}
+.sp{font-size:3.2rem;font-weight:800;line-height:1;color:var(--b);margin:6px 0 16px}
+.sp i,.pr i{display:block;font:600 13px Inter;color:var(--m)}.pr i{display:inline}
+.pl ul{border-top:1px solid var(--ln);padding:16px 0;flex:1}
+.pl li,.ck li{display:flex;gap:9px;font-weight:600;margin-bottom:8px;font-size:14px}
+.pl li:before,.ck li:before{content:"✔";color:var(--b2);font-size:12px;margin-top:3px}
+.pr{font-size:2.3rem;font-weight:800;color:var(--b);margin-bottom:16px}
+.hot{border:2px solid var(--b2);background:linear-gradient(#fff,#f3f6ff);box-shadow:0 14px 40px #1b3cff25}
+.hot:after{content:"MELHOR CUSTO-BENEFÍCIO";position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--l);color:#04106b;font:800 10px Sora;padding:4px 14px;border-radius:20px;white-space:nowrap}
+.hero .c{background:#fff;color:var(--t)}
+.ico{font-size:1.8rem;margin-bottom:8px}
+.k{font:700 11px Sora;letter-spacing:2px;color:var(--b2);text-transform:uppercase;margin-bottom:6px}
+.c h3{font-size:1.05rem;margin-bottom:8px}.c p.d{color:var(--m);font-size:14px;margin-bottom:14px}
+.ck{flex:1;margin-bottom:16px}
+.blue{background:linear-gradient(135deg,var(--b),var(--b2));color:#fff;border-radius:24px;padding:48px 30px;text-align:center;margin-bottom:50px}
+.blue p{color:#cdd6ff;max-width:640px;margin:10px auto 22px}
+.bg{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:22px}
+.bg span{border:1px solid #b9ff3b88;color:var(--l);font:700 11px Sora;padding:5px 14px;border-radius:20px}
+/* toggle */
+.tg{display:flex;justify-content:center;gap:4px;background:#e4e9fb;width:fit-content;margin:0 auto 14px;padding:4px;border-radius:40px}
+.tg button{border:0;background:none;padding:10px 26px;border-radius:30px;font:700 13px Sora;cursor:pointer;color:var(--m)}
+.tg .on{background:var(--b2);color:#fff}
+.note{text-align:center;color:var(--b2);font-weight:700;font-size:12px;margin-bottom:30px;height:18px}
+/* faq */
+.cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin:30px 0}
+.cats .c{align-items:center;padding:18px;cursor:pointer;text-align:center;font:700 12px Sora}.cats .on{background:var(--b2);color:#fff;border-color:var(--b2)}
+.fq{background:#fff;border:1.5px solid var(--ln);border-radius:14px;margin-bottom:10px;cursor:pointer;overflow:hidden}
+.fq b{display:flex;justify-content:space-between;padding:18px 22px;font-size:14px}
+.fq b:after{content:"+";color:var(--b2);font-size:20px;transition:.3s}.fq.o b:after{transform:rotate(45deg)}
+.fq p{max-height:0;overflow:hidden;padding:0 22px;color:var(--m);font-size:14px;transition:.35s}.fq.o p{max-height:200px;padding-bottom:18px}
+/* forms */
+.box{max-width:440px;margin:auto;background:#fff;border-radius:24px;padding:44px 36px;box-shadow:0 24px 70px #1b3cff2a;text-align:center}
+input{width:100%;padding:14px 16px;border:1.5px solid var(--ln);border-radius:12px;font:inherit;outline:0;margin:14px 0;background:#f7f9ff}
+input:focus{border-color:var(--b2);box-shadow:0 0 0 4px #1b3cff18}
+.ls{display:flex;flex-direction:column;gap:8px;margin-top:18px;font-size:13px;color:var(--m)}.ls a:hover{color:var(--b2)}
+/* status */
+.st{display:flex;align-items:center;gap:14px;padding:18px 22px}
+.dot{width:12px;height:12px;border-radius:50%;background:#9aa5d1;flex:none;transition:.3s}
+.st small{color:var(--m);font-size:11px;display:block}
+.inc{border-left:4px solid var(--ok);background:#fff;border-radius:0 14px 14px 0;padding:18px 22px;margin-bottom:12px}.inc.w2{border-color:#ffb800}
+.inc small{color:var(--m)}
+.info{background:var(--bp);border-radius:14px;padding:16px 20px;font-size:13px;margin-top:20px}
+/* misc */
+.tl{border-left:2px solid var(--ln);padding-left:26px;max-width:640px;margin:0 auto 60px}
+.tl div{position:relative;margin-bottom:26px}.tl div:before{content:"";position:absolute;left:-34px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--l);box-shadow:0 0 0 3px var(--b2)}
+.av{width:58px;height:58px;border-radius:50%;background:var(--bp);border:2px solid var(--b2);display:grid;place-items:center;font:800 1.1rem Sora;color:var(--b2);margin:0 auto 10px}
+.tc{text-align:center;align-items:center}
+.pill{display:inline-block;font:700 10px Sora;padding:3px 10px;border-radius:12px;text-transform:uppercase;background:var(--bp);color:var(--b2);margin:2px}
+.p-ok{background:#10c98f22;color:#078a63}.p-so{background:#ffb80025;color:#8a6200}
+.vg{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;flex-direction:row}
+.fl{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
+.fl button{border:1.5px solid var(--ln);background:#fff;border-radius:20px;padding:8px 20px;font:700 12px Sora;cursor:pointer}.fl .on{background:var(--b2);color:#fff;border-color:var(--b2)}
+.sr{display:flex;gap:10px;max-width:520px;margin:0 auto 24px}.sr input{margin:0}
+#rs{display:none;padding:16px 22px;border-radius:14px;font-weight:700;margin-bottom:24px}
+.sub{font:800 12px Sora;letter-spacing:2px;text-transform:uppercase;color:var(--m);margin:34px 0 16px}
+/* footer */
+footer{background:#04106b;color:#b8c3ff;padding:60px 0 24px;margin-top:0}
+.fg{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:36px;margin-bottom:34px}
+footer h4{color:#fff;font:700 12px Sora;letter-spacing:2px;text-transform:uppercase;margin-bottom:14px}
+footer li{margin-bottom:8px}footer a:hover{color:var(--l)}
+.fb{border-top:1px solid #ffffff1c;padding-top:20px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:13px}
+/* modal */
+#md{position:fixed;inset:0;background:#000a;backdrop-filter:blur(5px);z-index:99;display:none;place-items:center}#md.o{display:grid}
+#md .box{animation:pop .3s}@keyframes pop{from{opacity:0;transform:scale(.9)}}
+#md a{display:block;padding:15px;border:1.5px solid var(--ln);border-radius:12px;margin-top:10px;font:800 14px Sora;text-transform:uppercase;color:var(--b)}#md a:hover{background:var(--bp);border-color:var(--b2)}
+/* reveal */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .6s,transform .6s}.rv.v{opacity:1;transform:none}
+.page{animation:fi .4s}@keyframes fi{from{opacity:0}}
+@media(max-width:960px){
+.tb{display:none}#bg{display:block}
+nav{position:fixed;top:68px;left:0;right:0;background:var(--b);flex-direction:column;align-items:stretch;padding:0 5%;max-height:0;overflow:hidden;transition:.4s}nav.o{max-height:80vh;padding:10px 5%;overflow:auto}
+.dd div{position:static;opacity:1;visibility:visible;transform:none;background:none;box-shadow:none;display:flex;padding:0 0 0 10px}.dd div a{color:#b8c3ff}
+.hg{grid-template-columns:1fr}.fg{grid-template-columns:1fr 1fr}section{padding:56px 0}}
+@media(max-width:560px){.fg{grid-template-columns:1fr}.sr{flex-direction:column}}
+</style>
 </head>
 <body>
-
-<!-- TOPBAR -->
-<div class="header-topbar" id="topbar">
-    <div class="topbar-left">
-        <span class="topbar-item">📱 (91) 98889-7200</span>
-        <span class="topbar-item">✉ info@riotelecom.com.br</span>
-    </div>
-    <div class="topbar-right">
-        <span class="topbar-item" onclick="showPage('status')" style="cursor:pointer">● Status da Rede</span>
-        <span class="topbar-item">
-            <select class="city-select" id="citySelect" onchange="selectCityFromSelect(this.value)">
-                <option value="baiao">📍 Baião — PA</option>
-                <option value="cameta">📍 Cametá — PA</option>
-                <option value="mocajuba">📍 Mocajuba — PA</option>
-            </select>
-        </span>
-    </div>
+<div class="tb"><div class="w"><span>📱 (91) 98889-7200 &nbsp;·&nbsp; ✉ info@riotelecom.com.br</span><span><a href="#status">● Status da Rede</a> &nbsp; <select onchange="location.hash='voce/'+this.value" id="cs"><option value="baiao">📍 Baião — PA</option><option value="cameta">📍 Cametá — PA</option><option value="mocajuba">📍 Mocajuba — PA</option></select></span></div></div>
+<header><div class="w">
+<a class="logo" href="#home">Rio Telecom</a>
+<button id="bg" onclick="nv.classList.toggle('o')">☰</button>
+<nav id="nv">
+<a href="#home">Home</a>
+<div class="dd"><a href="#voce/baiao">Para Você ▾</a><div id="d1"></div></div>
+<div class="dd"><a href="#empresas/baiao">Para Empresas ▾</a><div id="d2"></div></div>
+<a href="#isp">ISP & Gov</a>
+<a href="#cobertura">Cobertura</a>
+<a href="#cliente" class="nav-cta">Área do Cliente</a>
+</nav></div></header>
+<main id="m"></main>
+<footer><div class="w">
+<div class="fg">
+<div><a class="logo" href="#home" style="margin-bottom:12px">Rio Telecom</a><p>Conectando Você!</p><p style="margin-top:10px">📱 <a href="tel:+5591988897200">(91) 98889-7200</a><br>✉️ <a href="mailto:info@riotelecom.com.br">info@riotelecom.com.br</a></p></div>
+<div><h4>Planos</h4><ul><li><a href="#voce/baiao">Para Você</a></li><li><a href="#empresas/baiao">Para Empresas</a></li><li><a href="#isp">ISP & Gov</a></li></ul></div>
+<div><h4>Empresa</h4><ul><li><a href="#sobre">Sobre nós</a></li><li><a href="#cobertura">Cobertura</a></li><li><a href="#trabalhe">Trabalhe conosco</a></li><li><a href="#imprensa">Imprensa</a></li></ul></div>
+<div><h4>Suporte</h4><ul><li><a href="#cliente">Área do Cliente</a></li><li><a href="#ajuda">Central de Ajuda</a></li><li><a href="#status">Status da Rede</a></li><li><a href="https://wa.me/5591988897200" target="_blank">WhatsApp 24h</a></li></ul></div>
 </div>
-
-<!-- CITY PICKER MODAL -->
-<div class="city-modal-overlay" id="cityModal" onclick="closeCityModal(event)">
-    <div class="city-modal">
-        <button class="city-modal-close" onclick="closeCityModal()">✕</button>
-        <div class="city-modal-icon">📍</div>
-        <h3>Selecione sua cidade</h3>
-        <p>Escolha a cidade para continuar com a assinatura do plano.</p>
-        <div class="city-modal-plan" id="modalPlanName">PLANO PLUS 500</div>
-        <div class="city-modal-btns">
-            <button class="city-modal-btn" onclick="chooseCityAndGo('baiao')">
-                <div class="cm-city">Baião</div>
-            </button>
-            <button class="city-modal-btn" onclick="chooseCityAndGo('cameta')">
-                <div class="cm-city">Cametá</div>
-            </button>
-            <button class="city-modal-btn" onclick="chooseCityAndGo('mocajuba')">
-                <div class="cm-city">Mocajuba</div>
-            </button>
-        </div>
-    </div>
-</div>
-
-<!-- HEADER -->
-<header>
-    <div class="logo-wrap" onclick="showPage('home')">
-        <img src='data:image/png;base64,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' style='height:52px;width:auto;display:block;border-radius:6px;' alt='Rio Telecom'>
-        
-    </div>
-    <div class="header-right">
-        <nav id="mainNav">
-            <ul>
-                <li><a href="#" onclick="showPage('home')" id="link-home" class="active">Home</a></li>
-                <li class="has-dropdown">
-                    <a href="#" onclick="selectCity('baiao')" id="link-voce">Para Você <span class="dropdown-arrow">▼</span></a>
-                    <div class="dropdown">
-                        <a href="#" onclick="selectCity('baiao')"><span class="city-dot"></span>Baião</a>
-                        <a href="#" onclick="selectCity('cameta')"><span class="city-dot"></span>Cametá</a>
-                        <a href="#" onclick="selectCity('mocajuba')"><span class="city-dot"></span>Mocajuba</a>
-                    </div>
-                </li>
-                <li class="has-dropdown">
-                    <a href="#" onclick="selectEmpresasCity('baiao')" id="link-empresas">Para Empresas <span class="dropdown-arrow">▼</span></a>
-                    <div class="dropdown">
-                        <a href="#" onclick="selectEmpresasCity('baiao')"><span class="city-dot"></span>Baião</a>
-                        <a href="#" onclick="selectEmpresasCity('cameta')"><span class="city-dot"></span>Cametá</a>
-                        <a href="#" onclick="selectEmpresasCity('mocajuba')"><span class="city-dot"></span>Mocajuba</a>
-                    </div>
-                </li>
-                <li><a href="#" onclick="showPage('isp')" id="link-isp">ISP & Gov</a></li>
-                <li><a href="#" onclick="showPage('cliente')" id="link-cliente" class="nav-cta">Área do Cliente</a></li>
-            </ul>
-        </nav>
-        <div class="menu-toggle" id="menuToggle" onclick="toggleMenu()">
-            <span></span><span></span><span></span>
-        </div>
-    </div>
-</header>
-
-<!-- HOME -->
-<div id="home" class="page active">
-    <section class="hero">
-        <div class="hero-grid">
-            <div class="hero-left">
-                <div class="hero-tag">Rio, Conectando Você.</div>
-                <h1 class="hero-title">Mais velocidade.<br><span>Mais possibilidades.</span><br>Mais longe.</h1>
-                <p class="hero-sub">Fibra Óptica com múltiplas rotas*.</p>
-                <div class="hero-cta">
-                    <button class="btn-accent" onclick="showPage('voce')">Para Você</button>
-                    <button class="btn-outline-white" onclick="selectEmpresasCity('baiao')">Para Empresas</button>
-                </div>
-                <div class="hero-stats">
-                    <div class="hero-stat"><div class="num">99,8%</div><div class="lbl">Uptime</div></div>
-                    <div class="hero-stat"><div class="num">24h</div><div class="lbl">Suporte</div></div>
-                    <div class="hero-stat"><div class="num">+1mil</div><div class="lbl">Clientes</div></div>
-                    <div class="hero-stat"><div class="num">1,2Tbps</div><div class="lbl">Capacidade</div></div>
-                </div>
-            </div>
-            <div><div class="hero-card" id="hero-destaque"></div></div>
-        </div>
-    </section>
-
-    <!-- PLANOS RESIDENCIAIS — GRID ESTÁTICO -->
-    <section class="plans-slider-section">
-        <div class="plans-slider-header">
-            <span class="plans-slider-tag">Planos para Você</span>
-            <h3 class="plans-slider-title">Escolha o plano ideal para você</h3>
-        </div>
-        <div class="plans-static-grid" id="plansTrack"></div>
-    </section>
-
-    <section class="section-block bg-white">
-        <h2 class="title-center">Por que a <span>Rio Telecom</span>?</h2>
-        <p class="subtitle-center">Infraestrutura de nível carrier.</p>
-        <div class="diff-grid">
-            <div class="diff-card">
-                <div class="diff-num">01 — Backbone</div>
-                <div class="diff-icon">🌐</div>
-                <div class="diff-title">ROTAS</div>
-                <div class="diff-desc">Infraestrutura aérea, subterrânea e subfluvial.<br>Projetada para manter sua conexão ativa o tempo todo.</div>
-            </div>
-            <div class="diff-card">
-                <div class="diff-num">02 — Edge</div>
-                <div class="diff-icon">🏢</div>
-                <div class="diff-title">DATA CENTER</div>
-                <div class="diff-desc">Infraestrutura de até 1,2 Tbps com CDNs locais.<br>Streaming, jogos e navegação com máxima performance.</div>
-            </div>
-            <div class="diff-card">
-                <div class="diff-num">03 — Energia</div>
-                <div class="diff-icon">⚡</div>
-                <div class="diff-title">Alta Disponibilidade Elétrica</div>
-                <div class="diff-desc">Energia redundante com backup solar e gerador automático em 15 segundos. Autonomia de até 7 dias de operação ininterrupta.</div>
-            </div>
-            <div class="diff-card">
-                <div class="diff-num">04 — Interligações</div>
-                <div class="diff-icon">🔗</div>
-                <div class="diff-title">PTT</div>
-                <div class="diff-desc">Múltiplas operadoras.<br>Presença nos principais pontos de troca de tráfego do país.<br>Mais estabilidade para você.</div>
-            </div>
-        </div>
-    </section>
-</div>
-
-<!-- PARA VOCÊ -->
-<div id="voce" class="page">
-    <section class="section-block">
-        <h2 class="title-center">Planos para <span>Você</span></h2>
-        <p class="subtitle-center">Fibra até a sua casa.</p>
-        <div class="plan-grid" id="grid-voce"></div>
-    </section>
-</div>
-
-<!-- PARA VOCÊ — CAMETÁ -->
-<div id="voce-cameta" class="page">
-    <section class="section-block">
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
-            <h2 class="title-center" style="margin-bottom:0">Planos para <span>Cametá</span></h2>
-        </div>
-        <p class="subtitle-center">Fibra óptica de verdade até a sua casa em Cametá.</p>
-        <div class="plan-grid" id="grid-voce-cameta"></div>
-    </section>
-</div>
-
-<!-- PARA VOCÊ — MOCAJUBA -->
-<div id="voce-mocajuba" class="page">
-    <section class="section-block">
-        <h2 class="title-center">Planos para <span>Mocajuba</span></h2>
-        <p class="subtitle-center">Fibra óptica de verdade até a sua casa em Mocajuba.</p>
-        <div class="plan-grid" id="grid-voce-mocajuba"></div>
-    </section>
-</div>
-
-<!-- PARA VOCÊ — BAIÃO -->
-<div id="voce-baiao" class="page">
-    <section class="section-block">
-        <h2 class="title-center">Planos para <span>Baião</span></h2>
-        <p class="subtitle-center">Fibra óptica de verdade até a sua casa em Baião.</p>
-        <div class="plan-grid" id="grid-voce-baiao"></div>
-    </section>
-</div>
-
-<!-- PARA EMPRESAS -->
-<div id="empresas" class="page">
-    <section class="section-block">
-        <h2 class="title-center">Planos <span>Business</span></h2>
-        <p class="subtitle-center">Fibra até a sua empresa.</p>
-        <div class="ip-selector-container">
-            <div class="ip-selector">
-                <button class="btn-ip active" onclick="updateBusinessPlans('dinamico', this)">IP Dinâmico</button>
-                <button class="btn-ip" onclick="updateBusinessPlans('fixo', this)">IP Fixo</button>
-            </div>
-            <div id="ip-alert" class="ip-info" style="display:none">+ R$ 80,00 aplicados ao valor base</div>
-        </div>
-        <div class="plan-grid" id="grid-empresas"></div>
-    </section>
-</div>
-
-<!-- PARA EMPRESAS — BAIÃO -->
-<div id="empresas-baiao" class="page">
-    <section class="section-block">
-        <h2 class="title-center">Planos <span>Empresariais — Baião</span></h2>
-        <p class="subtitle-center">Fibra até a sua empresa em Baião.</p>
-        <div class="ip-selector-container">
-            <div class="ip-selector">
-                <button class="btn-ip active" onclick="updateCityBusinessPlans('baiao','dinamico',this)">IP Dinâmico</button>
-                <button class="btn-ip" onclick="updateCityBusinessPlans('baiao','fixo',this)">IP Fixo</button>
-            </div>
-            <div id="ip-alert-baiao" class="ip-info" style="display:none">+ R$ 80,00 aplicados ao valor base</div>
-        </div>
-        <div class="plan-grid" id="grid-empresas-baiao"></div>
-    </section>
-</div>
-
-<!-- PARA EMPRESAS — CAMETÁ -->
-<div id="empresas-cameta" class="page">
-    <section class="section-block">
-        <h2 class="title-center">Planos <span>Empresariais — Cametá</span></h2>
-        <p class="subtitle-center">Fibra até a sua empresa em Cametá.</p>
-        <div class="ip-selector-container">
-            <div class="ip-selector">
-                <button class="btn-ip active" onclick="updateCityBusinessPlans('cameta','dinamico',this)">IP Dinâmico</button>
-                <button class="btn-ip" onclick="updateCityBusinessPlans('cameta','fixo',this)">IP Fixo</button>
-            </div>
-            <div id="ip-alert-cameta" class="ip-info" style="display:none">+ R$ 80,00 aplicados ao valor base</div>
-        </div>
-        <div class="plan-grid" id="grid-empresas-cameta"></div>
-    </section>
-</div>
-
-<!-- PARA EMPRESAS — MOCAJUBA -->
-<div id="empresas-mocajuba" class="page">
-    <section class="section-block">
-        <h2 class="title-center">Planos <span>Empresariais — Mocajuba</span></h2>
-        <p class="subtitle-center">Fibra até a sua empresa em Mocajuba.</p>
-        <div class="ip-selector-container">
-            <div class="ip-selector">
-                <button class="btn-ip active" onclick="updateCityBusinessPlans('mocajuba','dinamico',this)">IP Dinâmico</button>
-                <button class="btn-ip" onclick="updateCityBusinessPlans('mocajuba','fixo',this)">IP Fixo</button>
-            </div>
-            <div id="ip-alert-mocajuba" class="ip-info" style="display:none">+ R$ 80,00 aplicados ao valor base</div>
-        </div>
-        <div class="plan-grid" id="grid-empresas-mocajuba"></div>
-    </section>
-</div>
-
-<!-- ISP & GOV -->
-<div id="isp" class="page">
-    <section class="section-block">
-        <h2 class="title-center">Soluções <span>ISP & Gov</span></h2>
-        <div class="isp-banner">
-            <h3>Infraestrutura de Missão Crítica</h3>
-            <p>Conectividade dedicada para operações críticas.<br>Máxima estabilidade, segurança e SLA que você pode confiar.</p>
-            <div class="isp-badges">
-                <span class="isp-badge">SLA 99,95%</span><span class="isp-badge">NOC 24/7</span>
-                <span class="isp-badge">Backbone 1,2Tbps</span><span class="isp-badge">BGP Multihoming</span>
-                <span class="isp-badge">4 PTTs</span><span class="isp-badge">IPv4 & IPv6</span>
-            </div>
-            <button class="btn-outline-white" onclick="alert('Equipe comercial: (91) 98889-7200 | info@riotelecom.com.br')">FALE COM UM ESPECIALISTA</button>
-        </div>
-        <h2 class="title-center" style="margin-bottom:10px">Nossos <span>Serviços</span></h2>
-        <p class="subtitle-center">Soluções sob medida para provedores, governo e empresas de grande porte.</p>
-        <div class="isp-grid">
-            <div class="isp-card">
-                <div class="ic-tag">Conectividade</div>
-                <div class="ic-title">Link Dedicado</div>
-                <div class="ic-sub">Serviço de conectividade dedicada com banda exclusiva, sem oversubscription.</div>
-                <ul>
-                    <li>Velocidade simétrica garantida</li>
-                    <li>SLA contratual de 99,95%</li>
-                    <li>Endereçamento IP fixo dedicado</li>
-                    <li>Monitoramento proativo NOC 24x7</li>
-                    <li>Baixa latência para aplicações críticas</li>
-                </ul>
-                <button class="btn-primary" style="width:100%">Solicitar Proposta</button>
-            </div>
-            <div class="isp-card">
-                <div class="ic-tag">WAN</div>
-                <div class="ic-title">Transporte de Dados (WAN)</div>
-                <div class="ic-sub">Solução de interconexão segura entre unidades com alta disponibilidade.</div>
-                <ul>
-                    <li>Circuitos ponto a ponto e multiponto</li>
-                    <li>Baixa latência e jitter controlado</li>
-                    <li>Gerenciamento centralizado de rede</li>
-                    <li>Criptografia de enlace (opcional)</li>
-                    <li>Redundância com failover automático</li>
-                </ul>
-                <button class="btn-primary" style="width:100%">Solicitar Proposta</button>
-            </div>
-            <div class="isp-card">
-                <div class="ic-tag">LAN Estendida</div>
-                <div class="ic-title">LAN Estendida (LAN2LAN)</div>
-                <div class="ic-sub">Extensão de rede camada 2 entre localidades distintas.</div>
-                <ul>
-                    <li>Transparência total de camada 2</li>
-                    <li>Operação sem necessidade de VPN</li>
-                    <li>Alta capacidade com baixa latência</li>
-                    <li>Segmentação via VLAN (802.1Q)</li>
-                    <li>Suporte técnico especializado</li>
-                </ul>
-                <button class="btn-primary" style="width:100%">Solicitar Proposta</button>
-            </div>
-            <div class="isp-card">
-                <div class="ic-tag">Temporário</div>
-                <div class="ic-title">Link Temporário</div>
-                <div class="ic-sub">Conectividade sob demanda para eventos e operações temporárias.</div>
-                <ul>
-                    <li>Provisionamento ágil (até 48h)</li>
-                    <li>Contratação flexível (diária/mensal)</li>
-                    <li>Banda dedicada durante o período contratado</li>
-                    <li>Suporte técnico on-site (opcional)</li>
-                    <li>Equipamentos inclusos</li>
-                </ul>
-                <button class="btn-primary" style="width:100%">Solicitar Proposta</button>
-            </div>
-            <div class="isp-card">
-                <div class="ic-tag">Metro Ethernet</div>
-                <div class="ic-title">Rede Metro-Ethernet</div>
-                <div class="ic-sub">Infraestrutura metropolitana de alta capacidade para interligação urbana.</div>
-                <ul>
-                    <li>Cobertura municipal ampla</li>
-                    <li>Capacidade de até 10 Gbps</li>
-                    <li>Topologia em anel com proteção</li>
-                    <li>QoS configurável por serviço</li>
-                    <li>Compatibilidade com MPLS/VPLS</li>
-                </ul>
-                <button class="btn-primary" style="width:100%">Solicitar Proposta</button>
-            </div>
-            <div class="isp-card">
-                <div class="ic-tag">Endereçamento IP</div>
-                <div class="ic-title">Endereçamento IP (IPv4 / IPv6)</div>
-                <div class="ic-sub">Serviço de alocação de blocos IP para operação própria.</div>
-                <ul>
-                    <li>Blocos IPv4 (/24 até /20)</li>
-                    <li>Blocos IPv6 (/48 ou superiores)</li>
-                    <li>Anúncio BGP incluso</li>
-                    <li>Suporte a documentação ASN</li>
-                    <li>Apoio técnico em roteamento</li>
-                </ul>
-                <button class="btn-primary" style="width:100%">Solicitar Proposta</button>
-            </div>
-            <div class="isp-card">
-                <div class="ic-tag">Infraestrutura Passiva</div>
-                <div class="ic-title">Fibra Apagada (Dark Fiber)</div>
-                <div class="ic-sub">Disponibilização de infraestrutura óptica dedicada.</div>
-                <ul>
-                    <li>Pares de fibra monomodo (OS2)</li>
-                    <li>Rotas diversas sob consulta</li>
-                    <li>Contratos de longo prazo (IRU)</li>
-                    <li>Certificação e testes OTDR</li>
-                    <li>Manutenção preventiva inclusa</li>
-                </ul>
-                <button class="btn-primary" style="width:100%">Solicitar Proposta</button>
-            </div>
-    </section>
-</div>
-
-<!-- ÁREA DO CLIENTE -->
-<div id="cliente" class="page" style="background:var(--gray-100)">
-    <div class="client-wrapper">
-        <div class="client-box">
-            <div class="client-logo" style="font-family:'Ubuntu',sans-serif;font-size:26px;font-weight:700;letter-spacing:1px;color:var(--blue-deep);margin-bottom:6px;">Rio Telecom</div>
-            <h2>Área do Cliente</h2>
-            <p class="client-sub">Informe seu CPF ou CNPJ para acessar o portal do cliente.</p>
-
-            <!--
-                Tentativa 1 — POST direto ao Beesweb.
-                Se o servidor aceitar, o browser envia as credenciais e redireciona.
-                Se bloquear (CSRF/CORS), o JS captura o erro e abre o portal normalmente.
-            -->
-            <form id="login-form"
-                  action="https://rio.beesweb.com.br/login"
-                  method="POST"
-                  target="_blank"
-                  onsubmit="return handleLogin(event)">
-
-                <div class="form-group">
-                    <label>CPF ou CNPJ</label>
-                    <input type="text" id="login-cpf" name="login"
-                           placeholder="000.000.000-00" autocomplete="username"
-                           required autofocus>
-                </div>
-                <input type="hidden" name="redirect" value="/dashboard">
-
-                <button type="submit" class="btn-login">Acessar Portal</button>
-            </form>
-
-            <div class="client-links" style="margin-top:16px">
-                <a href="https://rio.beesweb.com.br/password/reset" target="_blank">Esqueci minha senha</a>
-                <a href="https://rio.beesweb.com.br/register" target="_blank">Primeira vez? Ative seu cadastro</a>
-                <a onclick="showPage('ajuda')">Problemas com acesso? Central de Ajuda</a>
-            </div>
-            <hr class="client-divider">
-            <div class="client-external">
-                <p>Prefere acessar direto pelo portal?</p>
-                <div class="client-apps">
-                    <button class="app-btn" onclick="window.open('https://rio.beesweb.com.br/login','_blank')">Acessar Portal Web</button>
-                    <button class="app-btn">App Android</button>
-                    <button class="app-btn">App iOS</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- CENTRAL DE AJUDA -->
-<div id="ajuda" class="page">
-    <section class="section-block">
-        <h2 class="title-center">Central de <span>Ajuda</span></h2>
-        <div class="ajuda-search">
-            <h3>Como podemos ajudar?</h3>
-            <p>Encontre respostas para as dúvidas mais comuns ou entre em contato com nossa equipe.</p>
-            <div class="search-bar">
-                <input type="text" placeholder="Buscar na central de ajuda...">
-                <button class="btn-accent">Buscar</button>
-            </div>
-        </div>
-        <h3 style="font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-mid);margin-bottom:18px">Categorias</h3>
-        <div class="faq-categories">
-            <div class="faq-cat active" data-cat="conexao" onclick="filterFaq(this)"><div class="icon">📶</div><div class="lbl">Conexão</div></div>
-            <div class="faq-cat" data-cat="financeiro" onclick="filterFaq(this)"><div class="icon">💳</div><div class="lbl">Financeiro</div></div>
-            <div class="faq-cat" data-cat="instalacao" onclick="filterFaq(this)"><div class="icon">🔧</div><div class="lbl">Instalação</div></div>
-            <div class="faq-cat" data-cat="app" onclick="filterFaq(this)"><div class="icon">📱</div><div class="lbl">App & Portal</div></div>
-            <div class="faq-cat" data-cat="contrato" onclick="filterFaq(this)"><div class="icon">📋</div><div class="lbl">Contrato</div></div>
-            <div class="faq-cat" data-cat="upgrade" onclick="filterFaq(this)"><div class="icon">🔄</div><div class="lbl">Upgrade</div></div>
-        </div>
-        <h3 style="font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-mid);margin-bottom:18px">Perguntas Frequentes</h3>
-        <div class="faq-list" id="faqList">
-
-            <!-- CONEXÃO (5) -->
-            <div class="faq-item" data-cat="conexao" onclick="toggleFaq(this)"><div class="faq-q">Minha internet está lenta. O que fazer? <span class="arrow">▼</span></div><div class="faq-a"><p>Reinicie o roteador desligando da tomada por 30 segundos. Verifique se outros dispositivos também estão lentos. Se persistir, faça um teste de velocidade em fast.com e abra um chamado pelo WhatsApp (91) 98889-7200.</p></div></div>
-            <div class="faq-item" data-cat="conexao" onclick="toggleFaq(this)"><div class="faq-q">O Wi-Fi está caindo com frequência. Como resolver? <span class="arrow">▼</span></div><div class="faq-a"><p>Verifique se o roteador está em local elevado e afastado de paredes grossas, micro-ondas e outros roteadores. Reinicie o equipamento. Se o problema persistir, nosso suporte 24h está disponível pelo WhatsApp (91) 98889-7200.</p></div></div>
-            <div class="faq-item" data-cat="conexao" onclick="toggleFaq(this)"><div class="faq-q">Como faço um teste de velocidade? <span class="arrow">▼</span></div><div class="faq-a"><p>Acesse fast.com ou speedtest.net com o dispositivo conectado via cabo (para resultado mais preciso) ou Wi-Fi. Feche outros programas antes do teste. O resultado deve ser próximo ao valor do plano contratado.</p></div></div>
-            <div class="faq-item" data-cat="conexao" onclick="toggleFaq(this)"><div class="faq-q">Quantos dispositivos posso conectar ao mesmo tempo? <span class="arrow">▼</span></div><div class="faq-a"><p>O roteador Wi-Fi 6 suporta múltiplas conexões simultâneas com alta estabilidade. A quantidade de dispositivos com boa performance depende do plano contratado. Planos acima de 500 Mega são ideais para residências com muitos dispositivos ativos.</p></div></div>
-            <div class="faq-item" data-cat="conexao" onclick="toggleFaq(this)"><div class="faq-q">A internet caiu completamente. O que devo fazer? <span class="arrow">▼</span></div><div class="faq-a"><p>Verifique se as luzes do roteador e da ONU (conversor óptico) estão normais. Reinicie ambos os equipamentos. Se o problema persistir após 5 minutos, consulte a página de Status da Rede ou entre em contato com nosso suporte 24h pelo WhatsApp (91) 98889-7200.</p></div></div>
-
-            <!-- FINANCEIRO (5) -->
-            <div class="faq-item hidden" data-cat="financeiro" onclick="toggleFaq(this)"><div class="faq-q">Como faço para pagar minha fatura? <span class="arrow">▼</span></div><div class="faq-a"><p>Você pode pagar via Pix, boleto bancário ou cartão de crédito diretamente na Área do Cliente em rio.beesweb.com.br. O vencimento padrão é todo dia 10, podendo ser alterado mediante solicitação.</p></div></div>
-            <div class="faq-item hidden" data-cat="financeiro" onclick="toggleFaq(this)"><div class="faq-q">Posso alterar a data de vencimento da fatura? <span class="arrow">▼</span></div><div class="faq-a"><p>Sim! A data de vencimento pode ser alterada uma vez por contrato. Entre em contato pelo WhatsApp (91) 98889-7200 ou acesse a Área do Cliente e solicite a alteração com pelo menos 5 dias de antecedência.</p></div></div>
-            <div class="faq-item hidden" data-cat="financeiro" onclick="toggleFaq(this)"><div class="faq-q">O que acontece se eu atrasar o pagamento? <span class="arrow">▼</span></div><div class="faq-a"><p>Após o vencimento, incidirá multa de 2% e juros de 1% ao mês. Após 30 dias de inadimplência, o serviço poderá ser suspenso. Entre em contato para negociar antes de atingir este prazo.</p></div></div>
-            <div class="faq-item hidden" data-cat="financeiro" onclick="toggleFaq(this)"><div class="faq-q">Como obtenho a segunda via da fatura? <span class="arrow">▼</span></div><div class="faq-a"><p>A segunda via está disponível na Área do Cliente em rio.beesweb.com.br, na seção "Financeiro". Você também pode solicitá-la pelo WhatsApp (91) 98889-7200 informando seu CPF ou CNPJ.</p></div></div>
-            <div class="faq-item hidden" data-cat="financeiro" onclick="toggleFaq(this)"><div class="faq-q">Posso pagar via débito automático? <span class="arrow">▼</span></div><div class="faq-a"><p>Sim! O débito automático está disponível para contas bancárias parceiras. Para cadastrar, acesse a Área do Cliente ou entre em contato com nosso atendimento. Com o débito automático você nunca esquece o vencimento.</p></div></div>
-
-            <!-- INSTALAÇÃO (5) -->
-            <div class="faq-item hidden" data-cat="instalacao" onclick="toggleFaq(this)"><div class="faq-q">Qual é o prazo para instalação após a contratação? <span class="arrow">▼</span></div><div class="faq-a"><p>O prazo padrão é de até 5 dias úteis após a confirmação do pagamento da primeira mensalidade. Em algumas regiões pode ser realizado em até 48h. Nossa equipe entrará em contato para agendar.</p></div></div>
-            <div class="faq-item hidden" data-cat="instalacao" onclick="toggleFaq(this)"><div class="faq-q">O que preciso ter no local para a instalação? <span class="arrow">▼</span></div><div class="faq-a"><p>Um adulto responsável deve estar presente durante a instalação. O técnico instalará a fibra, o conversor óptico (ONU) e o roteador Wi-Fi 6. Recomenda-se ter uma tomada elétrica disponível próxima ao local desejado.</p></div></div>
-            <div class="faq-item hidden" data-cat="instalacao" onclick="toggleFaq(this)"><div class="faq-q">A instalação é gratuita? <span class="arrow">▼</span></div><div class="faq-a"><p>Sim! A instalação é totalmente gratuita em todos os planos e em qualquer endereço dentro da nossa área de cobertura. Não há taxa de adesão nem custo de visita técnica para a instalação inicial.</p></div></div>
-            <div class="faq-item hidden" data-cat="instalacao" onclick="toggleFaq(this)"><div class="faq-q">Posso reagendar a visita técnica de instalação? <span class="arrow">▼</span></div><div class="faq-a"><p>Sim, você pode reagendar pelo WhatsApp (91) 98889-7200 com até 2 horas de antecedência. Reagendamentos frequentes podem afetar o prazo de instalação. Nossa equipe atende de segunda a sábado.</p></div></div>
-            <div class="faq-item hidden" data-cat="instalacao" onclick="toggleFaq(this)"><div class="faq-q">E se meu endereço for em área de difícil acesso? <span class="arrow">▼</span></div><div class="faq-a"><p>Entre em contato com nosso suporte para verificar a viabilidade técnica no seu endereço. Nossa equipe realizará uma vistoria prévia sem custo para avaliar as condições de instalação e informar o prazo adequado.</p></div></div>
-
-            <!-- APP & PORTAL (5) -->
-            <div class="faq-item hidden" data-cat="app" onclick="toggleFaq(this)"><div class="faq-q">Como acesso a Área do Cliente? <span class="arrow">▼</span></div><div class="faq-a"><p>Acesse rio.beesweb.com.br ou clique em "Área do Cliente" no menu do site. Informe seu CPF ou CNPJ cadastrado. Na primeira vez, utilize a opção "Ativar Cadastro" para criar sua senha.</p></div></div>
-            <div class="faq-item hidden" data-cat="app" onclick="toggleFaq(this)"><div class="faq-q">O app está disponível para Android e iOS? <span class="arrow">▼</span></div><div class="faq-a"><p>Sim! O aplicativo Rio Telecom está disponível na Google Play Store e na Apple App Store. Pelo app você acessa faturas, abre chamados de suporte e monitora o status da sua conexão.</p></div></div>
-            <div class="faq-item hidden" data-cat="app" onclick="toggleFaq(this)"><div class="faq-q">Esqueci minha senha. Como recuperar? <span class="arrow">▼</span></div><div class="faq-a"><p>Na tela de login da Área do Cliente, clique em "Esqueci minha senha" e informe o e-mail ou CPF cadastrado. Você receberá um link para redefinir a senha. Se não tiver acesso ao e-mail, entre em contato pelo WhatsApp (91) 98889-7200.</p></div></div>
-            <div class="faq-item hidden" data-cat="app" onclick="toggleFaq(this)"><div class="faq-q">O que posso fazer pela Área do Cliente? <span class="arrow">▼</span></div><div class="faq-a"><p>Na Área do Cliente você pode: visualizar e pagar faturas, acompanhar chamados de suporte, verificar seu plano atual, solicitar upgrade, atualizar dados cadastrais e consultar o histórico de consumo.</p></div></div>
-            <div class="faq-item hidden" data-cat="app" onclick="toggleFaq(this)"><div class="faq-q">Como abro um chamado de suporte pelo portal? <span class="arrow">▼</span></div><div class="faq-a"><p>Acesse a Área do Cliente, vá em "Suporte" ou "Chamados" e clique em "Abrir Novo Chamado". Descreva o problema com o máximo de detalhes possível. Nossa equipe retornará em até 2 horas em dias úteis.</p></div></div>
-
-            <!-- CONTRATO (5) -->
-            <div class="faq-item hidden" data-cat="contrato" onclick="toggleFaq(this)"><div class="faq-q">O roteador é meu ou da Rio Telecom? <span class="arrow">▼</span></div><div class="faq-a"><p>O roteador Wi-Fi 6 é fornecido em comodato (empréstimo) pela Rio Telecom. Deve ser devolvido em caso de cancelamento. Em caso de danos causados pelo cliente, será cobrada uma taxa referente ao equipamento.</p></div></div>
-            <div class="faq-item hidden" data-cat="contrato" onclick="toggleFaq(this)"><div class="faq-q">Posso cancelar o contrato a qualquer momento? <span class="arrow">▼</span></div><div class="faq-a"><p>Contratos sem fidelidade podem ser cancelados com 30 dias de aviso prévio. Contratos com fidelidade têm multa rescisória proporcional conforme previsto em contrato. Entre em contato pelo (91) 98889-7200.</p></div></div>
-            <div class="faq-item hidden" data-cat="contrato" onclick="toggleFaq(this)"><div class="faq-q">O contrato tem fidelidade? <span class="arrow">▼</span></div><div class="faq-a"><p>Oferecemos planos com e sem fidelidade. Planos com fidelidade (12 meses) têm condições especiais e podem incluir benefícios adicionais. Consulte nosso atendimento para verificar as opções disponíveis para o seu perfil.</p></div></div>
-            <div class="faq-item hidden" data-cat="contrato" onclick="toggleFaq(this)"><div class="faq-q">Posso transferir o contrato para outro endereço? <span class="arrow">▼</span></div><div class="faq-a"><p>Sim, a mudança de endereço é possível desde que o novo endereço esteja dentro da nossa área de cobertura. Entre em contato com pelo menos 5 dias de antecedência pelo WhatsApp (91) 98889-7200 para agendar a transferência sem custos adicionais.</p></div></div>
-            <div class="faq-item hidden" data-cat="contrato" onclick="toggleFaq(this)"><div class="faq-q">Como funciona a garantia de qualidade (SLA)? <span class="arrow">▼</span></div><div class="faq-a"><p>Garantimos 99,9% de disponibilidade do serviço. Em caso de interrupção superior ao previsto em contrato, você tem direito a crédito proporcional na próxima fatura. Consulte seu contrato ou entre em contato para mais detalhes.</p></div></div>
-
-            <!-- UPGRADE (5) -->
-            <div class="faq-item hidden" data-cat="upgrade" onclick="toggleFaq(this)"><div class="faq-q">Como faço o upgrade do meu plano? <span class="arrow">▼</span></div><div class="faq-a"><p>Solicite direto na Área do Cliente em "Meu Plano > Fazer Upgrade" ou pelo WhatsApp (91) 98889-7200. A mudança ocorre em até 24h sem necessidade de visita técnica na maioria dos casos.</p></div></div>
-            <div class="faq-item hidden" data-cat="upgrade" onclick="toggleFaq(this)"><div class="faq-q">Posso fazer downgrade para um plano menor? <span class="arrow">▼</span></div><div class="faq-a"><p>Sim, o downgrade é possível mediante solicitação. Pode estar sujeito a carência ou período mínimo de permanência no plano atual. Consulte nosso suporte para verificar as condições do seu contrato.</p></div></div>
-            <div class="faq-item hidden" data-cat="upgrade" onclick="toggleFaq(this)"><div class="faq-q">O upgrade é cobrado proporcionalmente no mês? <span class="arrow">▼</span></div><div class="faq-a"><p>Sim! O valor cobrado no mês do upgrade é calculado proporcionalmente aos dias restantes do ciclo de cobrança. A partir do próximo vencimento, você já paga o valor integral do novo plano.</p></div></div>
-            <div class="faq-item hidden" data-cat="upgrade" onclick="toggleFaq(this)"><div class="faq-q">Precisa de visita técnica para mudar de plano? <span class="arrow">▼</span></div><div class="faq-a"><p>Na maioria dos casos não é necessária visita técnica — a mudança de velocidade é feita remotamente em até 24h. Apenas em situações específicas, como troca de equipamento, o técnico precisará ir ao endereço.</p></div></div>
-            <div class="faq-item hidden" data-cat="upgrade" onclick="toggleFaq(this)"><div class="faq-q">Qual é o plano mais recomendado para minha casa? <span class="arrow">▼</span></div><div class="faq-a"><p>Para uso básico (navegação e streaming): plano de 300 Mega. Para famílias com vários dispositivos e streaming 4K: 500 ou 600 Mega. Para home office, games e streaming simultâneo em múltiplas telas: 800 Mega. Fale com nosso atendimento para uma recomendação personalizada.</p></div></div>
-
-        </div>
-        <h3 style="font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-mid);margin:44px 0 18px">Fale Conosco</h3>
-        <div class="contato-rapido">
-            <div class="contato-card"><div class="icon">📱</div><div class="ttl">WhatsApp</div><div class="info">(91) 98889-7200<br>Atendimento 24h</div></div>
-            <div class="contato-card"><div class="icon">✉️</div><div class="ttl">E-mail</div><div class="info">info@riotelecom.com.br<br>Resp. em até 24h</div></div>
-            <div class="contato-card"><div class="icon">🏢</div><div class="ttl">Escritório Cametá</div><div class="info">Av. Dom Pedro I, 305<br>Brasília — Cametá, PA</div></div>
-            <div class="contato-card"><div class="icon">🏢</div><div class="ttl">Escritório Mocajuba</div><div class="info">Av. Getúlio Vargas, 140<br>Fazenda — Mocajuba, PA</div></div>
-        </div>
-    </section>
-</div>
-
-<!-- STATUS DA REDE -->
-<div id="status" class="page">
-    <section class="section-block">
-        <h2 class="title-center">Status da <span>Rede</span></h2>
-
-        <!-- Overall status banner — updated by JS -->
-        <div class="status-overall" id="status-overall-banner">
-            <div class="status-dot" id="overall-dot" style="background:var(--gray-400)"></div>
-            <div>
-                <h3 id="overall-title">Verificando sistemas...</h3>
-                <p id="overall-sub">Aguarde enquanto consultamos os serviços em tempo real.</p>
-            </div>
-            <button onclick="runChecks()" class="btn-outline" style="margin-left:auto;padding:8px 18px;font-size:12px">↻ Atualizar</button>
-        </div>
-
-        <!-- Bordas / IPs reais -->
-        <h3 style="font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-mid);margin-bottom:18px">Pontos de Presença — Verificação em Tempo Real</h3>
-        <div class="status-grid" style="margin-bottom:40px">
-            <div class="status-card" id="sc-mocajuba">
-                <div class="sdot" id="dot-mocajuba" style="background:var(--gray-400)"></div>
-                <div style="flex:1">
-                    <div class="sname">EDGE MOCAJUBA</div>
-                    <div class="sstatus" id="st-mocajuba" style="color:var(--gray-400)">Verificando…</div>
-                    <div class="stime" id="tm-mocajuba">45.161.29.32</div>
-                </div>
-            </div>
-            <div class="status-card" id="sc-cameta">
-                <div class="sdot" id="dot-cameta" style="background:var(--gray-400)"></div>
-                <div style="flex:1">
-                    <div class="sname">EDGE CAMETÁ</div>
-                    <div class="sstatus" id="st-cameta" style="color:var(--gray-400)">Verificando…</div>
-                    <div class="stime" id="tm-cameta">45.161.29.32</div>
-                </div>
-            </div>
-            <div class="status-card" id="sc-baiao">
-                <div class="sdot" id="dot-baiao" style="background:var(--gray-400)"></div>
-                <div style="flex:1">
-                    <div class="sname">EDGE BAIÃO</div>
-                    <div class="sstatus" id="st-baiao" style="color:var(--gray-400)">Verificando…</div>
-                    <div class="stime" id="tm-baiao">45.161.29.32</div>
-                </div>
-            </div>
-            <div class="status-card" id="sc-dns1">
-                <div class="sdot" id="dot-dns1" style="background:var(--gray-400)"></div>
-                <div style="flex:1">
-                    <div class="sname">SERVIDOR DNS PRIMÁRIO</div>
-                    <div class="sstatus" id="st-dns1" style="color:var(--gray-400)">Verificando…</div>
-                    <div class="stime" id="tm-dns1">ns1.riotelecom.com.br</div>
-                </div>
-            </div>
-            <div class="status-card" id="sc-dns2">
-                <div class="sdot" id="dot-dns2" style="background:var(--gray-400)"></div>
-                <div style="flex:1">
-                    <div class="sname">SERVIDOR DNS SECUNDÁRIO</div>
-                    <div class="sstatus" id="st-dns2" style="color:var(--gray-400)">Verificando…</div>
-                    <div class="stime" id="tm-dns2">ns2.riotelecom.com.br</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Operadoras / Uplinks lado a lado -->
-        <h3 style="font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-mid);margin-bottom:18px">Uplinks & Operadoras</h3>
-        <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:40px">
-            <div class="status-card" style="flex:1;min-width:180px">
-                <div class="sdot" id="dot-edge" style="background:var(--gray-400)"></div>
-                <div style="flex:1">
-                    <div class="sname">EDGE DATA CENTER</div>
-                    <div class="sstatus" id="st-edge" style="color:var(--gray-400)">Verificando…</div>
-                    <div class="stime">STATUS</div>
-                </div>
-            </div>
-            <div class="status-card" style="flex:1;min-width:180px">
-                <div class="sdot" id="dot-cdns" style="background:var(--gray-400)"></div>
-                <div style="flex:1">
-                    <div class="sname">CDNs</div>
-                    <div class="sstatus" id="st-cdns" style="color:var(--gray-400)">Verificando…</div>
-                    <div class="stime">STATUS</div>
-                </div>
-            </div>
-            <div class="status-card" style="flex:1;min-width:180px">
-                <div class="sdot" id="dot-backbone1" style="background:var(--gray-400)"></div>
-                <div style="flex:1">
-                    <div class="sname">AUX1 — ROUTE ABAETETUBA</div>
-                    <div class="sstatus" id="st-backbone1" style="color:var(--gray-400)">Verificando…</div>
-                    <div class="stime">STATUS</div>
-                </div>
-            </div>
-            <div class="status-card" style="flex:1;min-width:180px">
-                <div class="sdot" id="dot-backbone2" style="background:var(--gray-400)"></div>
-                <div style="flex:1">
-                    <div class="sname">AUX2 — ROUTE TAILÂNDIA</div>
-                    <div class="sstatus" id="st-backbone2" style="color:var(--gray-400)">Verificando…</div>
-                    <div class="stime">STATUS</div>
-                </div>
-            </div>
-            <div class="status-card" style="flex:1;min-width:180px">
-                <div class="sdot" id="dot-claro" style="background:var(--gray-400)"></div>
-                <div style="flex:1">
-                    <div class="sname">CLARO</div>
-                    <div class="sstatus" id="st-claro" style="color:var(--gray-400)">Verificando…</div>
-                    <div class="stime">STATUS</div>
-                </div>
-            </div>
-            <div class="status-card" style="flex:1;min-width:180px">
-                <div class="sdot" id="dot-tim" style="background:var(--gray-400)"></div>
-                <div style="flex:1">
-                    <div class="sname">TIM / SPARKLE</div>
-                    <div class="sstatus" id="st-tim" style="color:var(--gray-400)">Verificando…</div>
-                    <div class="stime">STATUS</div>
-                </div>
-            </div>
-            <div class="status-card" style="flex:1;min-width:180px">
-                <div class="sdot" id="dot-vivo" style="background:var(--gray-400)"></div>
-                <div style="flex:1">
-                    <div class="sname">VIVO / TELEFÔNICA</div>
-                    <div class="sstatus" id="st-vivo" style="color:var(--gray-400)">Verificando…</div>
-                    <div class="stime">STATUS</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="incidents">
-            <h3 style="font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-mid);margin-bottom:18px">Histórico de Incidentes</h3>
-            <div class="incident-item resolved">
-                <span class="badge-status badge-resolved">Em reparo</span>
-                <div class="ititle">Falha Limitada — PA-151 (MOCAJUBA/PA)</div>
-                <div class="idate">04 de Abril de 2026 — 16:34 </div>
-                <div class="idesc">Rompimento na PA-151 entre a Vila de Areião e a cidade de Mocajuba. Equipes já se encontram no local, previsão de normalização às 23:00h.</div>
-            </div>
-            <div class="incident-item resolved">
-                <span class="badge-status badge-resolved">Normalizado</span>
-                <div class="ititle">Falha Limitada — Indisponibilidade</div>
-                <div class="idate">28 de Fevereiro de 2026 — 02:00 às 03:15</div>
-                <div class="idesc">Rompimento em um ramal que atende as Avenidas Cônego Siqueira e Coronel Raimundo Leão no Bairro Brasília. Equipe de campo acionada e reparo concluído às 03h15.</div>
-            </div>
-        </div>
-        <div class="info-box" style="margin-top:24px">🔔 <strong>Ative as notificações:</strong> Envie "STATUS" para (91) 98889-7200 no WhatsApp para receber alertas automáticos de incidentes na sua região.</div>
-    </section>
-</div>
-
-<!-- SOBRE NÓS -->
-<div id="sobre" class="page">
-    <section class="section-block bg-white">
-        <div class="sobre-hero">
-            <div class="sobre-text">
-                <h2>Conectando o <span>Pará</span> ao futuro</h2>
-                <p>A Rio Telecom nasceu com o propósito de levar conectividade de qualidade para cidades do interior do Pará que historicamente ficaram às margens da revolução digital.</p>
-                <p>Com infraestrutura própria de fibra óptica, DATA CENTER com 1,2 Tbps de capacidade, equipe técnica local e atendimento humanizado, construímos nossa reputação na confiança de mais de 5.000 famílias e empresas atendidas.</p>
-                <p>Acreditamos que internet de alta performance não é luxo — é infraestrutura essencial para educação, trabalho, saúde e desenvolvimento regional.</p>
-            </div>
-            <div class="sobre-nums">
-                <div class="sobre-num"><div class="n">2018</div><div class="l">Fundação</div></div>
-                <div class="sobre-num"><div class="n">+5mil</div><div class="l">Clientes</div></div>
-                <div class="sobre-num"><div class="n">1,2Tbps</div><div class="l">Capacidade</div></div>
-                <div class="sobre-num"><div class="n">99,9%</div><div class="l">Uptime</div></div>
-            </div>
-        </div>
-        <h2 class="title-center">Nossa <span>Trajetória</span></h2>
-        <div class="timeline" style="max-width:650px;margin:0 auto 60px">
-            <div class="tl-item"><div class="tl-year">2018</div><div class="tl-title">Fundação em Cametá</div><div class="tl-desc">A Rio Telecom é fundada com foco em atender a região de Cametá com conexão de qualidade via fibra óptica.</div></div>
-            <div class="tl-item"><div class="tl-year">2019</div><div class="tl-title">Backbone próprio</div><div class="tl-desc">Investimento em infraestrutura própria com 6 rotas de backbone incluindo cabos aéreos, subterrâneos e subfluviais.</div></div>
-            <div class="tl-item"><div class="tl-year">2021</div><div class="tl-title">Abertura de Mocajuba</div><div class="tl-desc">Inauguração do segundo escritório em Mocajuba, expandindo a cobertura para novos municípios da região e Baião.</div></div>
-            <div class="tl-item"><div class="tl-year">2023</div><div class="tl-title">DATA CENTER e ISP & Gov</div><div class="tl-desc">Inauguração do DATA CENTER com 1,2 Tbps e lançamento das soluções para provedores e órgãos governamentais.</div></div>
-            <div class="tl-item"><div class="tl-year">2025</div><div class="tl-title">5.000 clientes e Wi-Fi 6</div><div class="tl-desc">Marca histórica de 5.000 clientes ativos, modernização para Wi-Fi 6 e presença em 4 PTTs nacionais.</div></div>
-        </div>
-        <h2 class="title-center">Nosso <span>Time</span></h2>
-        <div class="team-grid">
-            <div class="team-card"><div class="team-avatar">RL</div><div class="team-name">Ricardo Lima</div><div class="team-role">CEO & Fundador</div></div>
-            <div class="team-card"><div class="team-avatar">AC</div><div class="team-name">Ana Carvalho</div><div class="team-role">Diretora Comercial</div></div>
-            <div class="team-card"><div class="team-avatar">MS</div><div class="team-name">Marcos Silva</div><div class="team-role">Diretor de TI & NOC</div></div>
-            <div class="team-card"><div class="team-avatar">JP</div><div class="team-name">João Pedro</div><div class="team-role">Gerente de Infraestrutura</div></div>
-            <div class="team-card"><div class="team-avatar">FM</div><div class="team-name">Fernanda Melo</div><div class="team-role">Gerente Financeira</div></div>
-            <div class="team-card"><div class="team-avatar">BR</div><div class="team-name">Bruno Rocha</div><div class="team-role">Suporte & Atendimento</div></div>
-        </div>
-    </section>
-</div>
-
-<!-- COBERTURA -->
-<div id="cobertura" class="page">
-    <section class="section-block">
-        <h2 class="title-center">Área de <span>Cobertura</span></h2>
-        <p class="subtitle-center">Atendimento em todo Estado do Pará!</p>
-        <div class="cob-search" style="flex-wrap:wrap">
-            <input type="text" id="cob-input" placeholder="Digite seu município ou bairro..."
-                   oninput="checkCoverage()" onkeydown="if(event.key==='Enter')checkCoverage()">
-            <button class="btn-primary" onclick="checkCoverage()">Verificar</button>
-        </div>
-        <div id="cob-result" style="display:none;margin-bottom:24px;padding:18px 22px;border-radius:var(--radius-md);font-size:15px;font-weight:700;display:none;align-items:center;gap:12px;"></div>
-        <div class="cob-map">
-            <div class="map-icon">🗺️</div>
-            <p style="font-weight:700;color:var(--text-dark)">Mapa Interativo de Cobertura</p>
-            <p>Consulte cobertura no seu endereço exato pelo nosso WhatsApp.</p>
-            <button class="btn-outline" onclick="window.open('https://wa.me/5591988897200','_blank')">Consultar pelo WhatsApp</button>
-        </div>
-
-        <div class="cob-section-title">Cidades atendidas</div>
-        <div class="cob-cities">
-            <div class="cob-city"><div class="cname">Cametá</div><div class="cstate">PA — Baixo Tocantins</div><div class="cbairros">Disponível em todos os bairros</div><span class="ctag ctag-ativo">Ativo</span></div>
-            <div class="cob-city"><div class="cname">Mocajuba</div><div class="cstate">PA — Baixo Tocantins</div><div class="cbairros">Disponível em todos os bairros</div><span class="ctag ctag-ativo">Ativo</span></div>
-            <div class="cob-city"><div class="cname">Baião</div><div class="cstate">PA — Baixo Tocantins</div><div class="cbairros">Disponível em todos os bairros</div><span class="ctag ctag-ativo">Ativo</span></div>
-        </div>
-
-        <div class="cob-section-title" style="margin-top:32px">Em breve</div>
-        <div class="cob-cities">
-            <div class="cob-city"><div class="cname">Oeiras do Pará</div><div class="cstate">PA — Baixo Tocantins</div><div class="cbairros">Previsão de expansão — 2026</div><span class="ctag ctag-breve">Em breve</span></div>
-            <div class="cob-city"><div class="cname">Limoeiro do Ajurú</div><div class="cstate">PA — Baixo Tocantins</div><div class="cbairros">Previsão de expansão — 2026</div><span class="ctag ctag-breve">Em breve</span></div>
-            <div class="cob-city"><div class="cname">Igarapé-Miri</div><div class="cstate">PA — Baixo Tocantins</div><div class="cbairros">Previsão de expansão — 2026</div><span class="ctag ctag-breve">Em breve</span></div>
-            <div class="cob-city"><div class="cname">Portel</div><div class="cstate">PA — Marajó</div><div class="cbairros">Previsão de expansão — 2026/2027</div><span class="ctag ctag-breve">Em breve</span></div>
-        </div>
-
-        <div style="margin-top:36px;background:#fff;border:1.5px solid var(--card-border);border-radius:var(--radius-md);padding:28px;text-align:center;box-shadow:var(--shadow-sm);overflow:hidden">
-            <h3 style="font-size:1rem;font-weight:900;text-transform:uppercase;margin-bottom:10px;color:var(--text-dark)">Sua cidade não está na lista?</h3>
-            <p style="font-size:14px;color:var(--text-light);margin-bottom:20px">Estamos sempre expandindo. Registre seu interesse — cidades com maior demanda têm prioridade na nossa expansão.</p>
-            <button class="btn-primary" onclick="window.open('https://wa.me/5591988897200','_blank')">Registrar Interesse pelo WhatsApp</button>
-        </div>
-    </section>
-</div>
-
-<!-- TRABALHE CONOSCO -->
-<div id="trabalhe" class="page">
-    <section class="section-block bg-white">
-        <h2 class="title-center">Trabalhe <span>Conosco</span></h2>
-        <p class="subtitle-center">Fazemos parte do crescimento digital do interior do Pará. Venha construir isso com a gente.</p>
-        <div class="cultura-grid" style="margin-bottom:50px">
-            <div class="cultura-card"><div class="icon">🤝</div><div class="ttl">Time Unido</div><div class="dsc">Ambiente colaborativo onde cada pessoa importa e contribui para o todo.</div></div>
-            <div class="cultura-card"><div class="icon">📈</div><div class="ttl">Crescimento Real</div><div class="dsc">Treinamentos e plano de carreira para todos os colaboradores.</div></div>
-            <div class="cultura-card"><div class="icon">🌍</div><div class="ttl">Impacto Local</div><div class="dsc">Nosso trabalho transforma a vida de milhares de pessoas na região.</div></div>
-            <div class="cultura-card"><div class="icon">⚡</div><div class="ttl">Inovação</div><div class="dsc">Trabalhamos com tecnologia de ponta e incentivamos novas ideias.</div></div>
-        </div>
-        <h3 style="font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-mid);margin-bottom:18px">Vagas Abertas</h3>
-        <div class="vagas-filtro">
-            <button class="filtro-btn active">Todas</button>
-            <button class="filtro-btn">Técnico</button>
-            <button class="filtro-btn">Comercial</button>
-            <button class="filtro-btn">TI</button>
-        </div>
-        <div class="vagas-grid">
-            <div class="vaga-card"><div><div class="vaga-title">Técnico de Fibra Óptica</div><div class="vaga-meta"><span class="vaga-tag vtag-dep">Infraestrutura</span><span class="vaga-tag vtag-loc">Cametá, PA</span><span class="vaga-tag vtag-tipo">CLT</span></div></div><button class="btn-outline" style="white-space:nowrap">Ver Vaga</button></div>
-            <div class="vaga-card"><div><div class="vaga-title">Analista de Suporte N2</div><div class="vaga-meta"><span class="vaga-tag vtag-dep">TI / NOC</span><span class="vaga-tag vtag-loc">Cametá, PA</span><span class="vaga-tag vtag-tipo">CLT</span></div></div><button class="btn-outline" style="white-space:nowrap">Ver Vaga</button></div>
-            <div class="vaga-card"><div><div class="vaga-title">Consultor Comercial B2B</div><div class="vaga-meta"><span class="vaga-tag vtag-dep">Comercial</span><span class="vaga-tag vtag-loc">Mocajuba, PA</span><span class="vaga-tag vtag-tipo">CLT + Comissão</span></div></div><button class="btn-outline" style="white-space:nowrap">Ver Vaga</button></div>
-            <div class="vaga-card"><div><div class="vaga-title">Atendente de Suporte</div><div class="vaga-meta"><span class="vaga-tag vtag-dep">Suporte</span><span class="vaga-tag vtag-loc">Remoto / Híbrido</span><span class="vaga-tag vtag-tipo">CLT</span></div></div><button class="btn-outline" style="white-space:nowrap">Ver Vaga</button></div>
-            <div class="vaga-card"><div><div class="vaga-title">Engenheiro de Redes</div><div class="vaga-meta"><span class="vaga-tag vtag-dep">TI</span><span class="vaga-tag vtag-loc">Cametá, PA</span><span class="vaga-tag vtag-tipo">CLT</span></div></div><button class="btn-outline" style="white-space:nowrap">Ver Vaga</button></div>
-        </div>
-        <div class="candidatura-box">
-            <h3>Não encontrou sua vaga?</h3>
-            <p>Envie seu currículo para nosso banco de talentos. Quando surgir uma oportunidade alinhada ao seu perfil, entraremos em contato.</p>
-            <button class="btn-accent" onclick="window.location.href='mailto:info@riotelecom.com.br?subject=Currículo Espontâneo'">Enviar Currículo por E-mail</button>
-        </div>
-    </section>
-</div>
-
-<!-- IMPRENSA -->
-<div id="imprensa" class="page">
-    <section class="section-block">
-        <h2 class="title-center">Sala de <span>Imprensa</span></h2>
-        <p class="subtitle-center">Comunicados, materiais de mídia, dados sobre a empresa e contato direto com nossa assessoria.</p>
-        <h3 style="font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-mid);margin-bottom:18px">Kits de Mídia</h3>
-        <div class="imprensa-kits" style="align-items:stretch">
-            <div class="kit-card" style="display:flex;flex-direction:column;justify-content:space-between">
-                <div><div class="icon">🖼️</div><div class="ktitle">Logotipo e Marca</div><div class="kdesc">Arquivos SVG, PNG em versões claro e escuro.</div></div>
-                <button class="btn-outline" style="width:100%;margin-top:16px" onclick="window.open('https://wa.me/5591988897200?text=Olá!%20Gostaria%20de%20solicitar%20o%20Kit%20de%20Logotipo%20e%20Marca%20da%20Rio%20Telecom.','_blank')">Solicitar via WhatsApp</button>
-            </div>
-            <div class="kit-card" style="display:flex;flex-direction:column;justify-content:space-between">
-                <div><div class="icon">📄</div><div class="ktitle">Press Kit Corporativo</div><div class="kdesc">Histórico, dados, missão, visão, valores e ficha técnica.</div></div>
-                <button class="btn-outline" style="width:100%;margin-top:16px" onclick="window.open('https://wa.me/5591988897200?text=Olá!%20Gostaria%20de%20solicitar%20o%20Press%20Kit%20Corporativo%20da%20Rio%20Telecom.','_blank')">Solicitar via WhatsApp</button>
-            </div>
-            <div class="kit-card" style="display:flex;flex-direction:column;justify-content:space-between">
-                <div><div class="icon">📊</div><div class="ktitle">Dados & Números</div><div class="kdesc">Estatísticas de cobertura, clientes e indicadores.</div></div>
-                <button class="btn-outline" style="width:100%;margin-top:16px" onclick="window.open('https://wa.me/5591988897200?text=Olá!%20Gostaria%20de%20solicitar%20os%20Dados%20e%20Números%20da%20Rio%20Telecom.','_blank')">Solicitar via WhatsApp</button>
-            </div>
-            <div class="kit-card" style="display:flex;flex-direction:column;justify-content:space-between">
-                <div><div class="icon">📸</div><div class="ktitle">Fotos Institucionais</div><div class="kdesc">Imagens de alta resolução da equipe e infraestrutura.</div></div>
-                <button class="btn-outline" style="width:100%;margin-top:16px" onclick="window.open('https://wa.me/5591988897200?text=Olá!%20Gostaria%20de%20solicitar%20as%20Fotos%20Institucionais%20da%20Rio%20Telecom.','_blank')">Solicitar via WhatsApp</button>
-            </div>
-        </div>
-        <h3 style="font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-mid);margin-bottom:18px">Últimas Notícias</h3>
-        <div class="noticias-grid">
-            <div class="noticia-card"><div class="noticia-img">📡</div><div class="noticia-body"><div class="noticia-cat">Expansão</div><div class="noticia-title">Rio Telecom inicia expansão para Bagre, Breves, Melgaço e Portel no primeiro trimestre de 2027.</div><div class="noticia-date">10 de março de 2026</div></div></div>
-            <div class="noticia-card"><div class="noticia-img">🏛️</div><div class="noticia-body"><div class="noticia-cat">Governo</div><div class="noticia-title">Rio Telecom firma contrato com prefeituras para conectividade de escolas municipais</div><div class="noticia-date">28 de fevereiro de 2026</div></div></div>
-            <div class="noticia-card"><div class="noticia-img">🏆</div><div class="noticia-body"><div class="noticia-cat">Reconhecimento</div><div class="noticia-title">Rio Telecom é premiada como melhor provedor do Baixo Tocantins</div><div class="noticia-date">15 de janeiro de 2026</div></div></div>
-        </div>
-        <div class="assessoria-box">
-            <div class="icon">📰</div>
-            <div>
-                <h3>Assessoria de Imprensa</h3>
-                <p>Para entrevistas, informações adicionais, pauta ou cobertura jornalística, entre em contato com nossa equipe de comunicação.</p>
-                <div class="assessoria-contatos">
-                    <div class="ac-item"><span>Telefone:</span> (91) 98889-7200</div>
-                    <div class="ac-item"><span>E-mail:</span> info@riotelecom.com.br</div>
-                    <div class="ac-item"><span>Horário:</span> Seg–Sex, 8h–18h</div>
-                </div>
-            </div>
-        </div>
-    </section>
-</div>
-
-<!-- FOOTER -->
-<footer id="main-footer">
-    <div class="footer-grid">
-        <div class="footer-brand">
-            <img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAB4AZADASIAAhEBAxEB/8QAHQABAAIDAQEBAQAAAAAAAAAAAAcIBQYJBAMBAv/EAFQQAAEDAwIEAgIJEAYGCwAAAAEAAgMEBREGBwgSITETQSJRCRQVGEJhcYGzMjY3RlJiZ3R1hJGhpbLD4xY4Q1VykjOTlMHR0xcjJkRjdoKiseHx/8QAHAEBAAEFAQEAAAAAAAAAAAAAAAQBAgMFBwYI/8QAOREAAgEDAgMEBgoBBQEAAAAAAAECAwQRBSESMUEGE1FhInGBkbHRFBYyNVOhorLB8IIVI0JS4fH/2gAMAwEAAhEDEQA/AKooil7hy2V/6X/dz/tH7je5Xgf9z8fxfF8T79uMcnx5yu93V1StKTrVniK5v8uhq4xcnhEQoree8s/CN+xv5ye8s/CN+xv5y031q0r8X9MvkZO4n4FQ0VvPeWfhG/Y385PeWfhG/Y385PrVpX4v6ZfIdxPwKhoree8s/CN+xv5ye8s/CN+xv5yfWrSvxf0y+Q7ifgVDRW895Z+Eb9jfzk95Z+Eb9jfzk+tWlfi/pl8h3E/AqGit57yz8I37G/nLz3Lg1FFbqmsO4fP4EL5OX3HxzcrScZ8b4lVdqdKbwqv6ZfIdzPwKloiL0BiCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCt57HL9vH5j/HVQ1bz2OX7ePzH+OvPdqvuqr/j+5GWj9tFvURFx02ARM/L+hM/L+hAETPy/oTPy/oQBEyiALHam+ty5fikv7hWRWO1N9bly/FJf3Cr6f20Gcl0RF9AGqCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCt57HL9vH5j/HVQ1bz2OX7ePzH+OvPdqvuqr/AI/uRlo/bRb1CiFcdNgcu90L7e49y9Uxx3i4MY281bWtbVPAAEz8ADK1z+kF+/vq5f7XJ/xWS3U+yfqv8tVn071ra7zbUodzDZcl8DWN7mS/pBfv76uX+1yf8V7bJWavvd1prVaa281tdVSCOCCGokc97j5AA/8A4vvtvoXUu4Oo4rFpmgdU1DvSlkd6MUDM9XyO+C0fpPYAnougWw2y2m9rLSH07W3C/Tx8tXcpGYcfWyMfAZ8Xc+ZPQDT61rVrpkMYUpvkv5fgviX06cp+o1jhy2MqdGxwaj1rdKm6ahID4qY1T309DkeXXD5OvV3YfB+6M8Ii5ReXta8qurVeW/cvJE6MVFYQWkb1a703oPQ1dcNQVoi9sQyQ0tOzrLUSFpAaxvn3GT2HmVh9+d5dO7V2XNS5tffKhhNFbY34c7795+BHnz7nsM9cc+Nxdb6j19qSa/alr3VVVJ6MbB0jgZnoyNvwWj9fc5PVb/QOzlW/kq1X0aa979XzMVWso7Lma4iIutEEIiIAiIgCKedveFvXGsNL27UcN5sFFRXCnbUQNllldJyOGRkNZgH51sFZwb64ZA51JqfT08gHRj/GjB+fkK09TX9OpzcJVVlesyKlN74KzIt13O2s1vtzURt1RZn09PM7lhq4nCWCU+oPHY/enB+Jblwibd6a3F3FqqHVDnTUdDQmqbRtlMZqHc7W4JBB5RzZOCD28sqVW1GhStXdJ8UEs7blqg3LhIYRWD4ztrtH7d3aw1Wk4zRR3RkwmoDM6QRmMsw9pcS4A85GCcZHTzVfFfYXtO+t416ecS8efgJRcXhhERSy0IilDZXZLU261vuNbYbjaKRlvmZFKK2SRpcXNJBHKx3Tp5rBc3NK1pupWliK6lUnJ4RF6KyPvOtxf7/0t/r5/wDlJ7zrcX+/9Lf6+f8A5S1v1h0z8ZF/dT8CtyKSt7NmtSbTx2p9/uFqqxczKIfaUkjuXw+XPNzMb92MYz5qNVs7e5pXNNVaUsxfUsaaeGERSjwu6OsOut3KLT+pKWSqt8lNPK+Jkzoy5zGZHVpBxn41S6uI21GVafKKy/YIrLwRcisnxt7faO0FHpCDSVigtbaoVfjlj3vdLy+Dy8znEk45j+lVsWHT76F/bxuKaaUs8+eza/grOLi8MIiKaWhERAEREAREQBERAEREAREQBW89jl+3j8x/jqoat57HL9vH5j/HXnu1X3VV/wAf3Iy0ftot6vJeblb7Pa6i6XWsgoqKmYZJ55nhrI2juSSsLuNrnTegNOS33U1wZS07fRjYPSlnf5Mjb3c4/oHckDquf+/W9epN07oYZXPt2n4ZOaltsb8t6dnyn4b/ANQ8h3J53oug19TnlejBc3/C8X8CXUqqHrNG1/X0t013qC50Mni0tXc6meB/KRzMfK5zTg9RkEd1uWxOzOpd07uBSMdQWSB4FZc5WZYz1sYPhvx5DoPMjpnduG7hzueuzT6l1Y2e26ZyHxR9Wz14+982Rn7vufg+sXosNotlitFNabPQwUNDSsEcMELA1jGj1D/f3J6lex1vtNTsY/RrR5mts9F83+S/Ij06LlvIwm2egdNbeacjsemqEU8Iw6aZ3pTVD8fVyO+Ef1DsAAtpRD0XM6tWdWbnN5b5tkxLGyCgfiS4g7Vt3BPp/TzoLlqlzcFh9KKhyOjpMd3+pnznAwDpvEzxLxWo1Wkduqtk1eMxVl3jIcynPYshPZz/AFv7N8snqKZ1E0tRPJPPK+WWRxe973FznOJySSepJPmvbdn+yrrYuLxYj0j4+vy8uvq5x6tfG0T2agvN01Beaq8Xqunr6+qeZJp5nZc8/wC4eQA6AdAvAiLpMYqKSisJEMIiKoCIiAIEQIDpvw+uLNhdIPb3bZYSP8iqHauK7dajuTZq2e03Kna/L6eWhawObnqA5mCDjz6/OrfcPLWv2J0c131Js0AP+Vappvhx2Wgrm19NZvdQwvzyz3B80Yd39JoOD8hyPiXJrO80+2uLn6ZT48y22Txu888Y6E6UZtR4Wbnrmgtm4Oy9cy4UYbTXWz+2WMl6uheYvEY7/E12Dn4lQvhq0ddtbblsttk1RU6Zrqajkq46+nY5z28pa0tGHNPXm9fzFWp4tN57fobTlZoi0Qzu1BcqIxtd4JZFSwSAtLw4jDnYyAG5APcjGDBPAT9nGb8jVH78S22iQuLTSLivjCe8c7+3D/rwWVMSqJGF4rdBX/ROp7VLqPW1ZqytuVM9/tipicx0TWODQwZe7p1z0xj1LDbHbLap3Vq5pLaYrfaKZ/JU3GoaSxrsZ5GNHV78dcdAOmSMjMueyI/XVpP8RqPpGqwu3dLRbb8O1DPSU7HNtlgNwmaBjxZfBM0hPyuJ+bClT124t9IoThh1KmUtlhbvotvBFqpp1GuiIbm4MbQaEsh11Xir5ekj6BhjJ/wh2cfOq47y7Vao2tvkdvv0UctNUAuo66DJhqAO+M9Q4ZGWnqM+YwVmdPb97mUWvYNTVmqrlWRmpa+poXzE0skZd6UYi+paMZAwAR3yricXdhodRbBXyomja6a3RsuFLIR1Y5jhnHysc4fOrlfanpV3Rp3lRThU25cnt5LllDhhOLcVjBzmUh7Tbxax2yoa6j0y63iKulZLN7ZpvEPM0EDHUY6FR4e6L2Ne3pXEHTqxUovoyOm08ovTwj7yay3M1Je6HUzreYaOjjmi9rU3hnmMnKcnJz0Xm4tN6ta7aa4tdo0063CmqbaKmT2zS+I7n8V7ehyOmGhaH7Hf9emqPydF9KvF7IX9lGw/kRv08q8FHTrX6wOh3a4McsbciVxy7rOSONa6/wBwt9L1YrBWUlLXV8UsjKGGipvDLnSBvNkkkYAYDk4AAJKmvSfBrz2xkuqNYvhrXtBdBb6YPZGfVzvPpf5QvJ7Hjp2kqLvqfU88bH1NHFDR0xIyWCTmdIR6iQxo+TKk3iF293n1zqiF2kdYUNksFNC0RQNuE9PLJL1Lnv8ADYc+QHU4A8iSs2o6nK3u/wDT7WcaMILd46vfC9/xKQhmPHJZIB3w4ZNQaBsdRqOyXNt/tFMOeqHg+FUU7PN5bkhzR5kHI74xkjw8D32frf8AiNV9Grq7WWfVdFt1TWLcSuobxdGNkp56iF7pG1EJJDecua0l3KcHp1x5klU+4S7fHaeKia1REmOj90adpJz0ZzNH6glrq9a90+7o15KThF4kuq3EqajOLRu3sjX+k0R8ld/AVcdqtvNSbk6mbYtOUzXvDfEqKiUlsNPHnHO936gBknyCsd7Iz/pNEfJXfwFIPApp6kteykd5jiaKq81k0s0nmWxuMTG/IOVx+VxV9pqctN7PU6sFmTbS9blL5FJQ46rRpdv4MbWKBor9c1rqwt9J0FAwRtPyOcSR84UHb8bG6m2pkhrKmeK62Sok8OG4QMLOV/cMkYc8jiASOpBx3z0Vg9f7WcRGoNwazUtu3BtttgbUudb6WG51EccEQd6DSwR8pOMc2QcnOcqVt7bNNfOHrUVDqBtLJXx2N9ROYusYqYY/E5mEgHHOzp0HRQrfXru2r0nUrxqxm/SSX2c+xFzpRaeFg506J0tfNZakpdPadoX1twqThjG9A0Du5xPRrQOpJVpdN8GcJt7H6i1pIKxwy6KgpAY2H1Bzzl3y8oWS9j107SRaT1Dq10TTWVFaKBjz3ZFGxryB6sueM/4Qo74r95Nbv3VuumrFqC42a1WiQUzI6Gd0LpZA0F73ubgnqSAM4AA6Zytrd39/fajKyspKCgt3z8PmWRjGMOKRrHEnslTbRi1TQanF1Zc3yNjgkpfClYGBpLiQ4gj0gPLuvTsXw5an3Itsd+raxlhsUhIhqJYjJLUAHBMbMj0e45iQPVlaA2+6m3F1Tp2zamv9fdOaqiooJKqUyPjbLK0O9I9T3889lfvfzUsu2Gxlxr9NxR0s9HBDRW8BoLYOZzY2kA9PRbkgHpkBV1LUNQsaVG0U1KtUeOLG3PC2x5rp4iEYybl0RDF84MqM295smt6gVjRlrayib4bz6iWHLR8eD8iq3uDo6/6E1PUad1JRmlrYcOGDzMlYfqXsd8Jpx3+UHBBCmLhi3i123eO0Wq9alul4t15qfatRBW1Dpg1zweV7ObPIQ7HbAIyFLPsg2nqWp0DY9TiNorKK4e1C/HV0UrHOwT54cwEfKVS1v9QsNRhZ3s1NTWzxjD/ISjGUOKO2CI9jOGqs3J0bS6rm1XT2uiqZJGMiZRmaX0HlpzlzQOo+NSVV8GFqNI8Umu61tTj0XS29hZn4wHg/rUicE/8AV6sv4zVfTuUDbN7oa4j4nmWat1Pdbhaq28VNFLR1VU+WIMLpA3la4kNLSG4xjtjsoFW/1W5ublUK3CqTe2Fuk35eXUvUYJRyuZktI8HF/qKuo/pRqmhoKeORzYRQxGd8zR2d6XKGZ9XUpuPwgXS1WOe5aP1EbzPAwvNBUUwiklA6kMc1xBd6mkDPrUpcceodRab20tNdp2+3C0yzXVsEz6OYxOewxSOxzN692jsVm+DnV971ls5HWagr5q+toq+ajNTMeaSRjQxzS4+ZAfjJ6nHVRXrGrq0jqPerhzjhwvl/JXu6fFwYOdrmuY4tcC1wOCCOoK/FuW+NDDbd49YUVO0MhjvNUGNHZoMhIH61pq6PRqKrTjUXVJ+8iNYeAp14X92rJtRprWddXwyVlyrfajbfRM6eM5vjcxc7s1g5m5Pfr0BUFLJ6XsF51PfKayWG3z3C4VLuWKCFuSfWT5ADuScADuo9/a0bq3lSr/Y2b6cnnn7CsW4vKMzuNrnVW5eqjdr/AFUlZVSO8Ompomnw4Wk9I4mdcDOPWSe5JVmeGzhjbSmm1XuVRtkm6SUllkGWs8w6ceZ/8PsPhZ+pG/8ADlw92bbqCC+34QXTVLm5EuMw0WR1bED3d63nr6sDOZ1XPta7TR4Pomn+jBbZW3sXgvPm/jKp0f8AlM/GNaxgYxoa0DAAGAAv1F8p6mngkhimnijfO/kia94BkdgnDQe5wCcDyBXisNkk+q17cnTT9X6Hu2m47rV2p9fTmJtVSvLXxnv5d2nGHDzBI81sKK6nUlTmpx5rcNZOUmv9JXvRGqqzTmoKU09bSvwcdWSMP1MjD5tcOoPzdwQsCuknEdtBbt09KFkYiptQULXOt1YRjr3MTz5sd/7T1HmDzov1puNivFXZ7vRy0dfSSmKeCUYcxw7j/wC+xHULseg61DVKOXtNc1/K8n+Rr6tNwfkeJERb0xBERAEREAQIiA6bbAfYC0j+RIf3FSPhl3Sn2z3Fjkq53+4FyeKe5xZ9Foz6MwHrYTn42lwX30vxH7l6c0xQadttVa20NDTNpoRJQtc4MAwMnPUqHiSXEnuV5TTNAnT+lQuUnGq9set/nujPOrnhx0OifFXtjBuTtu+utcTJb7ao3VVukjwTOzGXw58w4DI++A9ZVbeAsEb5Tg9D7jVH78SwGleJLdHTmnaCxUNxoJKWhhbBA6ooxJIGN+pBcT1wMAfEAtS0hubqXSeva/WljFvprnXCVsrRSgwtEjg5wazOG9R09Sw2WjX9CwrWU2mnnhefHx22XX3lZVIuSkidPZEfrq0n+I1H0jVO+weorTudsHRUMszXyC2m0XSJpHOx4j8N2R5czcOHy/EqKbrbnap3LraGr1PLSSS0MTooTBTiIBriCc4PXqF4Nu9eaq0BeTddK3aWgneA2ZgAdFM0fBew9HD1Z6jyIVavZyrW0ulbuSVSnun05sKqlNvoyctP8I+tWa+gprtWWw6dhqQ6WsjmJkmhDs8rY8ZDyOnXoMnqcdZt409Y0Gm9mK2x+NGLjfS2kpoQfS8MODpX4+5DRy59bgoBm4vdzn0Htdlv01FNjHthtJIXfLgycufmwoT1rqzUOs77Le9TXWe410g5fElIw1vk1rRgNaPUAAraWkale3dKtqEo8NPkl1f9Sz8A6kIxah1MIepREXsiOWk9jv8Ar01R+TovpV4vZC/so2H8iN+nlUN7Vbmao20uFbXaYlpI5q2FsMxngEo5Q7mGAT06r57p7i6k3JvNNdtTS0slTTU/taMwQCIcnMXdQO5y4rza0mutad7twYx58sGbjXd8JN/ABrKhtOrr1pKvnZC68xRy0ZecB80XNlg+MtcSP8Cmrf8A0PvDdr3He9s9c1NFA+JrKi1vqzC1rm9OeN2COoxkHHUZyc4HPqnmmpqiOop5XwzROD45GOLXMcDkEEdQQfNTnpPiq3UsdDHR1U1rvjY28rZbhTOMuPLL43N5j8ZyfjUTVdCuZXv0204W2t4yW3h/eRdCquHhkb1dtH8UVn0xdtQ3bX89LTWujkq5IhczLLI1jeYhoa3GcA9yFHnBxdh7422VNyqi6evZVsMsjur5Xxud1PrJB+cr6ax4o9ztR2mrtZNlttNVwvgmFJREucxwIcMyOdjIJHRQnRVVTRVkNZRzy09TA9skUsTi17HNOQ4EdQQfNTLPTrqpa1qVzGEXNYXCvLr/APS2U4qSaL4cau2d611pe2Xyyz0gOn2VU1VFPJyc0LmNc5zTjGW+H2OM5Xk4DNYUNz2xm0i6drbjZqmSQQk9XU8rucPHrAeXA+rp6wq8XDiS3OueirhpW61lur6avpH0k1TLS8tRyOHKcOYQM4yMkHuou01frzpq8wXmw3Kpt1fTnMc8D+Vw9Y+MHzB6HzWuo9nrqppkrG4klwvMGvbz97LnVip8SLm7p7dcQ0erK2r0PuDWVlmqZnSwQS3DwZaYOOfDIcMFozgEHt3CjHd6x8Qmjtuai8ax15PNbquYUE9FFXulc5krXA8/ohvKccvQnuvFaeLvdCjpBBVUenbjIBjx56R7Xk+shj2t/QAtO3U371/uNZH2O9zW2ntkkjZH01JSBgc5py3LnFzuh9RCrYabqdOpCNanT4VjLwste7n7EJTg1s2Tf7Hvq+hbb79oepnbHVuqBcaRjiB4rSwMkDfWW8jDj1EnyK/OJHhs1VqjcOt1bo2WhqYbmWyVFLPP4T4pQ0NcWkjDmnGe4IJKqRabjX2i5U9ytdZPRVtM8SQzwSFj43DsQR1BU66f4td0rbRMpqyOxXdzW48eqpHNkPy+G9oP6FlvdIvqF/K9sGsyW6f98s9CkakXHhkaprranW2znuBqq/C3B7rgHQRU85kcx8XLIOY8oAzjpgnsVdzWVss++Gxs1Naa+NlPe6Rk9HUH0vBla4PaHAep7eVw7jqqN7wb2603Qt9PbdQi2Q0NPUe2I4KOm5AH8paDzOLndnHpnCx+1e7mudtpJG6auobRyu55aKpZ4tO933XKfqT26tIJx1S+0i/vqFKtOSjXg21jlzyvgI1IxbXRk/8ADzw1au01ufQ6m1fJb4KK0yGaCOnqPFdUS4IYe3otBPN169AMd8ev2QXWVELTZNCU07ZKs1HujVsaQTExrXMjDvUXFzjj1NB8wo6vfFvujcKB1NSQWC1yObg1FNSPdIPjHiPc0foKgm8XK4Xi6VF0utZPW1tS8yTTzvL3yOPmSe6WekX9xfRvdQa9BbJf3zyJVIqPDE6BcE/9Xmy/jNV9O5VS2p/raW3/AMzzfSSLx7d7+bg6D0rTaasFRbmUFM9742zUYkdl7i45dn1laTY9W3ez65h1lRPgF1hrHVjXPiBZ4hJJ9H1ZJ6LJa6NcUq15OWMVc438c8/eJVE1HyLkeyC/Yjsv5cj+gmXs4AfsK135cn+ihVVd0t6tcbkWGnsupp6CSkp6kVMYgpBG7nDXNHUHthx6L+9sN79dbdaeksWm6igjo5Kl1S4T0gkdzua1p6k9sNChvs/dvR1ZbcfFnntj3F3ex7ziPBxD/Zy1p+Waj99aGsnqu+V+pdSXC/3R0bq24VD6icxs5Wl7jk4HkFjF6+1pulQhCXNJL3Ijt5eQrc+xzwwun1tUOijMzG0TGyFo5g0mYkA98EtGR8Q9SqMreexy/bx+Y/x1pu1X3VV9n7kZKP20W9RFEXEJvlYdrbc6ii8O5alnjzTUAd0jB7STEdWt9Q7u8sDJHJLW1rXdVUqMcyZPlJRWWbJvHujpnbDTpud8qPEqpQRR0ETh41S8eQHk0ebj0HxnAPPzcndrWWuNaw6orrnLSTUcvPbYKZ5bHRYOR4f33QZcep+TAGu631XftZ6jqb/qO4S11dUHq93RrG+TGN7NaPIBYRdX0Ps7R06HFP0qj5vovJfPqQalVz9R0Q4Yt7qLc6xi13Z8VNqqijBqYR6Lapg6eNGP3mj6kn1EKaVyX01e7ppu+0d8stbLRXCjlEsE0Z6tI/8AkEdCD0IJBXRfh33ftW6mlhL/ANVSX+ja1txoQex7CVmepjcf8p6HyJ8f2l7POyk7igv9t81/1fy8PcZ6NXi2fMlFQLxX7IQ7h2Z2o9PU7I9U0MWA0YHt6If2bvvx8F3/AKT0wRPSLzVle1bKtGtReGv7h+RmlFSWGciaiGWnnkgnifFNG4sfG9pa5rgcEEHqCD5L+FdTjF2L926ep3C0hRZukTee6UcLetUwDrMwD+0A7j4QGe460rXZtK1SlqVBVafPqvB/3ka+cHB4YREWzLAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAreexy/bx+Y/x1UNbrt/uZqTQumdQ2fTc4opr74DZq1hImiZH4mWxn4Jd4n1XcY6YPUarW7KpfWU7enzlj4pv8i+nJRllluuJfiLotENqNL6OlgrtSYLJ6jo+GgPx+T5fvew+F9yaNXa4112uVRcrnVzVlZUyGSaeZ5c+Rx7kk9yvM9znvL3uLnE5JJySV+Kmk6PQ0ylwU1mT5vq/wDzyKzqOb3CIi2xjCzmhNV3zRWqKPUenqx1LXUrstPdsjfhMePhNI6Ef78FYNFbOEakXCaymVTwdO9jt0LJulpCO724tgrocR3ChLsvppMfrYepa7zHxggb8uWO1evb9tzq6m1FYZ8SR+hPA8nw6mIn0o3j1H19wcEdlZL36n4Of2z/ACVzHVOyF1Cu3Zx4oPzSx5btewmQrxa9It4qV8YuxfuLUVO4WkKLFslcX3Wjhb0pXk9ZmAf2ZP1Q+CTnsemX9+n+Dn9s/wAlfxUcZ0VRBJBPtoyWKRpY+N93DmuaRgggw4II8k0rSdb02uqtOlt1XFHde/3CdSnNYbKjIstrCus9z1HW19hs77Nb55OeKhdU+P4Ge7Q/lbluc4yMgYHXusSunQk5RTax5EIIiK4BERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQH//2Q==" style="height:36px;width:auto;display:block;border-radius:4px;margin-bottom:14px;" alt="Rio Telecom">
-            <p>Conectando Você!</p>
-            <div class="footer-contact">
-                <div>📱 <a href="tel:+5591988897200">(91) 98889-7200</a></div>
-                <div>✉️ <a href="mailto:info@riotelecom.com.br">info@riotelecom.com.br</a></div>
-            </div>
-        </div>
-        <div class="footer-col">
-            <h4>Planos</h4>
-            <ul>
-                <li><a onclick="showPage('voce')">Para Você</a></li>
-                <li><a onclick="selectEmpresasCity('baiao')">Para Empresas</a></li>
-                <li><a onclick="showPage('isp')">ISP & Gov</a></li>
-            </ul>
-        </div>
-        <div class="footer-col">
-            <h4>Empresa</h4>
-            <ul>
-                <li><a onclick="showPage('sobre')">Sobre nós</a></li>
-                <li><a onclick="showPage('cobertura')">Cobertura</a></li>
-                <li><a onclick="showPage('trabalhe')">Trabalhe conosco</a></li>
-                <li><a onclick="showPage('imprensa')">Imprensa</a></li>
-            </ul>
-        </div>
-        <div class="footer-col">
-            <h4>Suporte</h4>
-            <ul>
-                <li><a onclick="showPage('cliente')">Área do Cliente</a></li>
-                <li><a onclick="showPage('ajuda')">Central de Ajuda</a></li>
-                <li><a onclick="showPage('status')">Status da Rede</a></li>
-                <li><a href="https://wa.me/5591988897200" target="_blank">WhatsApp 24h</a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="footer-addresses">
-        <div class="footer-addr"><h5>Escritório Cametá</h5><p>Avenida Dom Pedro I, 305<br>Brasília — Cametá, PA</p></div>
-        <div class="footer-addr"><h5>Escritório Mocajuba</h5><p>Avenida Getúlio Vargas, 140<br>Fazenda — Mocajuba, PA</p></div>
-    </div>
-    <div class="footer-bottom">
-        <p>RIO TELECOMUNICAÇÕES LTDA &copy; 2026 &nbsp;|&nbsp; CNPJ: 48.246.579/0001-01</p>
-        <div class="footer-social">
-            <a class="social-btn" title="LinkedIn">in</a>
-            <a class="social-btn" title="Instagram">ig</a>
-            <a class="social-btn" title="Facebook">fb</a>
-            <a class="social-btn" title="YouTube">yt</a>
-        </div>
-    </div>
-</footer>
+<div class="fg" style="grid-template-columns:1fr 1fr;border-top:1px solid #ffffff1c;padding-top:22px;font-size:14px">
+<div><h4>Escritório Cametá</h4>Avenida Dom Pedro I, 305<br>Brasília — Cametá, PA</div>
+<div><h4>Escritório Mocajuba</h4>Avenida Getúlio Vargas, 140<br>Fazenda — Mocajuba, PA</div></div>
+<div class="fb"><span>RIO TELECOMUNICAÇÕES LTDA © 2026 | CNPJ: 48.246.579/0001-01</span><span>in · ig · fb · yt</span></div>
+</div></footer>
+<div id="md" onclick="if(event.target==this)this.classList.remove('o')"><div class="box"><div style="font-size:2.2rem">📍</div><h3>Selecione sua cidade</h3><p style="color:var(--m);font-size:13px">Escolha a cidade para continuar com a assinatura.</p><span class="pill" id="mp" style="margin:14px 0 4px"></span><div id="mc"></div></div></div>
 
 <script>
-    const padrao = ["Wi-Fi 6", "IPv4 & IPv6", "Suporte Premium 24h", "Instalação Grátis"];
-    const planosVoce = [
-        { nome: "START",  mega: 400, preco: 100 },
-        { nome: "PLUS",   mega: 600, preco: 120, destaque: true },
-        { nome: "PRO",    mega: 800, preco: 150 },
-        { nome: "ULTRA",  mega: 1000, preco: 200 }
-    ];
-    const planosEmpresas = [
-        { nome: "BUSINESS START", mega: 400, precoBase: 180 },
-        { nome: "BUSINESS PLUS",  mega: 600, precoBase: 200, destaque: true },
-        { nome: "BUSINESS PRO",   mega: 800, precoBase: 230 },
-        { nome: "BUSINESS ULTRA", mega: 1000, precoBase: 280 }
-    ];
-    let ipTipo = 'dinamico';
+const LOGO="https://lh3.googleusercontent.com/aQC2U0aZKnRVSdLx-5x6x9WXpoN_MD5DoSLvswqA27JehW_iM6-bc6GQDAIrdhFKzbu8j2h4y7l0_rfMFw=w1801",
+$=s=>document.querySelector(s),F=["Wi-Fi 6","IPv4 & IPv6","Suporte Premium 24h","Instalação grátis"],
+C={baiao:"Baião",cameta:"Cametá",mocajuba:"Mocajuba"},
+V=[["START",400,100],["PLUS",600,120,1],["PRO",800,150],["ULTRA",1000,200]],
+B=[["BUSINESS START",400,180],["BUSINESS PLUS",600,200,1],["BUSINESS PRO",800,230],["BUSINESS ULTRA",1000,280]],
+wa=t=>"https://wa.me/5591988897200?text="+encodeURIComponent(t),
+ip={baiao:0,cameta:0,mocajuba:0},
+cityL=(p)=>Object.entries(C).map(([k,v])=>`<a href="#${p}/${k}">${v}</a>`).join("");
+if(LOGO)document.querySelectorAll("a.logo").forEach(a=>{a.classList.add("li");a.innerHTML=`<img src="${LOGO}" alt="Rio Telecom">`});
+$("#d1").innerHTML=cityL("voce");$("#d2").innerHTML=cityL("empresas");
+$("#mc").innerHTML=Object.entries(C).map(([k,v])=>`<a href="#voce/${k}" onclick="md.classList.remove('o')">${v}</a>`).join("");
 
-    function renderVoce() {
-        document.getElementById('grid-voce').innerHTML = planosVoce.map(p => `
-            <div class="card ${p.destaque ? 'best-value' : ''}">
-                <div class="name">${p.nome}</div>
-                <div class="speed">${p.mega}<span>MEGA</span></div>
-                <ul>${padrao.map(i => `<li>${i}</li>`).join('')}</ul>
-                <div class="price">R$ ${p.preco}<small>,00/mês</small></div>
-                <button class="btn-primary" style="width:100%" onclick="window.open('https://wa.me/5591988897200?text=Ol%C3%A1!%20Gostaria%20de%20assinar%20o%20plano%20' + encodeURIComponent(p.nome + ' ' + p.mega + ' MEGA'), '_blank')">Assinar</button>
-            </div>`).join('');
-    }
+const plan=(n,m,pr,hot,extra,act)=>`<div class="c pl rv ${hot?"hot":""}"><small>${n}</small><b class="sp">${m}<i>MEGA</i></b><ul>${[...F,...extra].map(i=>`<li>${i}</li>`).join("")}</ul><p class="pr">R$ ${pr}<i>,00/mês</i></p><a class="btn bl" ${act}>Assinar</a></div>`,
+head=(t,s,dark)=>`<h2 class="ti">${t}</h2><p class="su">${s}</p>`,
+sec=(h,alt)=>`<section class="${alt?"alt":""}"><div class="w">${h}</div></section>`;
+const homePlans=V.map(p=>plan(p[0],p[1],p[2],p[3],[],`onclick="mp.textContent='${p[0]} ${p[1]} MEGA';md.classList.add('o')"`)).join("");
 
-    // ── PLANS STATIC GRID ──
-    function buildSlider() {
-        const track = document.getElementById('plansTrack');
-        if (!track) return;
-        track.innerHTML = planosVoce.map(p => `
-            <div class="slider-card ${p.destaque ? 'featured' : ''}" onclick="selectCity('baiao')">
-                <div class="sc-name">${p.nome}</div>
-                <div class="sc-speed">${p.mega}<span>MEGA</span></div>
-                <ul>${padrao.map(i => `<li>${i}</li>`).join('')}</ul>
-                <div class="sc-price">R$ ${p.preco}<small>,00/mês</small></div>
-                <button class="btn-primary" style="width:100%;margin-top:auto"
-                    onclick="event.stopPropagation();openCityModal('${p.nome} ${p.mega} MEGA')">Assinar Agora</button>
-            </div>`).join('');
-        // Add 'ready' class after animation ends so hover transition kicks in
-        track.querySelectorAll('.slider-card').forEach(card => {
-            card.addEventListener('animationend', () => card.classList.add('ready'), { once: true });
-        });
-    }
+const FAQ={
+"📶 Conexão":[["Minha internet está lenta. O que fazer?","Desligue o roteador da tomada por 30s e religue. Teste em fast.com e, se persistir, chame o suporte 24h no WhatsApp (91) 98889-7200."],["O Wi-Fi cai com frequência.","Deixe o roteador em local elevado, longe de paredes grossas e micro-ondas. Reinicie o equipamento e, persistindo, chame o suporte."],["Como faço um teste de velocidade?","Use fast.com ou speedtest.net, de preferência via cabo e com outros programas fechados. O resultado deve ser próximo ao plano contratado."],["Quantos dispositivos posso conectar?","O roteador Wi-Fi 6 suporta muitas conexões simultâneas. Para muitos dispositivos ativos, prefira planos a partir de 600 Mega."],["A internet caiu completamente.","Verifique as luzes da ONU e do roteador e reinicie ambos. Após 5 minutos, consulte o Status da Rede ou chame o suporte."]],
+"💳 Financeiro":[["Como pago minha fatura?","Via Pix, boleto ou cartão na Área do Cliente. O vencimento padrão é dia 10 e pode ser alterado."],["Posso alterar o vencimento?","Sim, uma vez por contrato, com 5 dias de antecedência, pela Área do Cliente ou WhatsApp."],["E se eu atrasar o pagamento?","Multa de 2% e juros de 1% ao mês. Após 30 dias o serviço pode ser suspenso — procure-nos para negociar antes."],["Como obtenho a 2ª via?","Na Área do Cliente, seção Financeiro, ou pelo WhatsApp informando CPF/CNPJ."],["Existe débito automático?","Sim, para bancos parceiros. Cadastre na Área do Cliente ou com nosso atendimento."]],
+"🔧 Instalação":[["Qual o prazo de instalação?","Até 5 dias úteis após a confirmação do pagamento; em algumas regiões, até 48h."],["O que preciso ter no local?","Um adulto responsável e uma tomada próxima. O técnico instala a fibra, a ONU e o roteador Wi-Fi 6."],["A instalação é gratuita?","Sim, em todos os planos e endereços dentro da cobertura, sem taxa de adesão."],["Posso reagendar a visita?","Sim, pelo WhatsApp com até 2h de antecedência. Atendemos de segunda a sábado."],["E se meu endereço for de difícil acesso?","Fazemos vistoria prévia gratuita para avaliar a viabilidade e informar o prazo."]],
+"📱 App & Portal":[["Como acesso a Área do Cliente?","Pelo menu do site, com CPF ou CNPJ. No primeiro acesso, use “Ative seu cadastro”."],["Há app para Android e iOS?","Sim, nas lojas Google Play e App Store: faturas, chamados e status da conexão."],["Esqueci minha senha.","Clique em “Esqueci minha senha” na tela de login e siga o link enviado por e-mail."],["O que posso fazer no portal?","Pagar faturas, abrir chamados, ver seu plano, pedir upgrade e atualizar dados."],["Como abro um chamado?","Área do Cliente › Suporte › Abrir novo chamado. Respondemos em até 2h úteis."]],
+"📋 Contrato":[["O roteador é meu?","É fornecido em comodato e deve ser devolvido no cancelamento. Danos causados pelo cliente são cobrados."],["Posso cancelar quando quiser?","Sem fidelidade: aviso prévio de 30 dias. Com fidelidade: multa proporcional conforme contrato."],["Há fidelidade?","Temos planos com e sem fidelidade (12 meses, com benefícios extras)."],["Posso mudar de endereço?","Sim, dentro da cobertura, com 5 dias de antecedência e sem custo adicional."],["Como funciona o SLA?","Garantimos 99,9% de disponibilidade, com crédito proporcional na fatura em caso de falha."]],
+"🔄 Upgrade":[["Como faço upgrade?","Na Área do Cliente (Meu Plano › Upgrade) ou pelo WhatsApp. Ocorre em até 24h."],["Posso fazer downgrade?","Sim, sujeito ao período mínimo de permanência do contrato."],["O upgrade é proporcional?","Sim, o primeiro mês é cobrado pelos dias restantes do ciclo."],["Precisa de visita técnica?","Normalmente não; a troca de velocidade é remota."],["Qual plano é ideal para mim?","400 Mega para o básico; 600 para famílias e 4K; 800–1000 para home office, games e várias telas."]]};
 
-    function renderCityVoce(city) {
-        const grid = document.getElementById('grid-voce-' + city);
-        if (!grid) return;
-        grid.innerHTML = planosVoce.map(p => `
-            <div class="card ${p.destaque ? 'best-value' : ''}">
-                <div class="name">${p.nome}</div>
-                <div class="speed">${p.mega}<span>MEGA</span></div>
-                <ul>${padrao.map(i => `<li>${i}</li>`).join('')}</ul>
-                <div class="price">R$ ${p.preco}<small>,00/mês</small></div>
-                <button class="btn-primary" style="width:100%" onclick="window.open('https://wa.me/5591988897200?text=Ol%C3%A1!%20Gostaria%20de%20assinar%20o%20plano%20' + encodeURIComponent(p.nome + ' ' + p.mega + ' MEGA'), '_blank')">Assinar</button>
-            </div>`).join('');
-    }
+const SV=[["Conectividade","Link Dedicado","Banda exclusiva, sem oversubscription.",["Velocidade simétrica garantida","SLA contratual 99,95%","IP fixo dedicado","Monitoramento NOC 24x7"]],["WAN","Transporte de Dados","Interconexão segura entre unidades.",["Ponto a ponto e multiponto","Baixa latência e jitter","Criptografia opcional","Failover automático"]],["LAN Estendida","LAN2LAN","Camada 2 entre localidades.",["Transparência total L2","Sem necessidade de VPN","Segmentação VLAN 802.1Q","Suporte especializado"]],["Temporário","Link Temporário","Para eventos e operações pontuais.",["Provisionamento em até 48h","Contratação diária/mensal","Equipamentos inclusos","Suporte on-site opcional"]],["Metro Ethernet","Rede Metro-Ethernet","Alta capacidade urbana.",["Até 10 Gbps","Topologia em anel","QoS configurável","Compatível com MPLS/VPLS"]],["Endereçamento","IPv4 / IPv6","Blocos IP para operação própria.",["IPv4 /24 até /20","IPv6 /48 ou superior","Anúncio BGP incluso","Apoio em roteamento"]],["Infraestrutura","Fibra Apagada","Fibra óptica dedicada.",["Pares monomodo OS2","Contratos IRU","Testes OTDR","Manutenção preventiva"]]];
 
-    const cityNames = { cameta: 'Cametá', mocajuba: 'Mocajuba', baiao: 'Baião' };
-    const citySelectIndex = { baiao: 0, cameta: 1, mocajuba: 2 };
+const VG=[["Técnico de Fibra Óptica","Técnico","Cametá, PA","CLT"],["Analista de Suporte N2","TI","Cametá, PA","CLT"],["Consultor Comercial B2B","Comercial","Mocajuba, PA","CLT + Comissão"],["Atendente de Suporte","Técnico","Remoto / Híbrido","CLT"],["Engenheiro de Redes","TI","Cametá, PA","CLT"]];
 
-    function selectCity(city) {
-        // Sync topbar selector
-        const sel = document.getElementById('citySelect');
-        if (sel) sel.selectedIndex = citySelectIndex[city] || 0;
-        // Render city plans if not yet done
-        renderCityVoce(city);
-        showPage('voce-' + city);
-        // Mark Para Você link as active
-        document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
-        const lv = document.getElementById('link-voce');
-        if (lv) lv.classList.add('active');
-    }
+const ST=[["mocajuba","EDGE MOCAJUBA","45.161.29.32"],["cameta","EDGE CAMETÁ","45.161.29.32"],["baiao","EDGE BAIÃO","45.161.29.32"],["dns1","DNS PRIMÁRIO","ns1.riotelecom.com.br"],["dns2","DNS SECUNDÁRIO","ns2.riotelecom.com.br"],["edge","EDGE DATA CENTER","Status"],["cdns","CDNs","Status"],["b1","AUX1 — ROUTE ABAETETUBA","Status"],["b2","AUX2 — ROUTE TAILÂNDIA","Status"],["claro","CLARO","Status"],["tim","TIM / SPARKLE","Status"],["vivo","VIVO / TELEFÔNICA","Status"]];
 
-    function selectEmpresasCity(city) {
-        const sel = document.getElementById('citySelect');
-        if (sel) sel.selectedIndex = citySelectIndex[city] || 0;
-        renderCityEmpresas(city);
-        showPage('empresas-' + city);
-        document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
-        const le = document.getElementById('link-empresas');
-        if (le) le.classList.add('active');
-    }
+const stats=(a)=>a.map(([n,l])=>`<div><b>${n}</b><span>${l}</span></div>`).join("");
 
-    const cityIpTipo = { baiao: 'dinamico', cameta: 'dinamico', mocajuba: 'dinamico' };
+const P={
+home:()=>`<div class="page"><div class="hero"><div class="orb"></div><div class="w hg">
+<div><span class="tag">Rio, Conectando Você.</span><h1>Mais velocidade.<br><em>Mais possibilidades.</em><br>Mais longe.</h1><p class="s">Fibra óptica com múltiplas rotas*.</p>
+<a class="btn bl" href="#voce/baiao">Para Você</a> <a class="btn bo" href="#empresas/baiao">Para Empresas</a>
+<div class="hs"><div><b data-n="99.8" data-s="%">0</b><span>Uptime</span></div><div><b>24h</b><span>Suporte</span></div><div><b data-n="1000" data-p="+" data-s=" clientes">0</b><span>Base ativa</span></div><div><b>1,2Tbps</b><span>Capacidade</span></div></div></div>
+<div>${plan("PLUS",600,120,1,[],`onclick="mp.textContent='PLUS 600 MEGA';md.classList.add('o')"`).replace('rv','v')}</div></div></div>
+${sec(head("Planos para <em>Você</em>","Escolha o plano ideal e assine em poucos cliques.")+`<div class="g">${homePlans}</div>`)}
+${sec(head("Por que a <em>Rio Telecom</em>?","Infraestrutura de nível carrier.")+`<div class="g">${[["🌐","01 — Backbone","Rotas","Infraestrutura aérea, subterrânea e subfluvial, projetada para manter sua conexão ativa o tempo todo."],["🏢","02 — Edge","Data Center","Até 1,2 Tbps com CDNs locais: streaming, jogos e navegação com máxima performance."],["⚡","03 — Energia","Alta Disponibilidade","Energia redundante com backup solar e gerador em 15s. Autonomia de até 7 dias."],["🔗","04 — Interligações","PTT","Múltiplas operadoras e presença nos principais pontos de troca de tráfego do país."]].map(([i,k,t,d])=>`<div class="c rv"><div class="ico">${i}</div><div class="k">${k}</div><h3>${t}</h3><p class="d">${d}</p></div>`).join("")}</div>`,1)}</div>`,
 
-    function renderCityEmpresas(city) {
-        const grid = document.getElementById('grid-empresas-' + city);
-        if (!grid) return;
-        const tipo = cityIpTipo[city] || 'dinamico';
-        const ad = tipo === 'fixo' ? 80 : 0;
-        grid.innerHTML = planosEmpresas.map(p => `
-            <div class="card ${p.destaque ? 'best-value' : ''}">
-                <div class="name">${p.nome}</div>
-                <div class="speed">${p.mega}<span>MEGA</span></div>
-                <ul>${padrao.map(i => `<li>${i}</li>`).join('')}<li>IP ${tipo === 'fixo' ? 'Fixo' : 'Dinâmico'}</li></ul>
-                <div class="price">R$ ${p.precoBase + ad}<small>,00/mês</small></div>
-                <button class="btn-primary" style="width:100%">Contratar</button>
-            </div>`).join('');
-    }
+voce:c=>`<div class="page">${sec(head(`Planos para <em>${C[c]}</em>`,`Fibra óptica de verdade até a sua casa em ${C[c]}.`)+`<div class="g">${V.map(p=>plan(p[0],p[1],p[2],p[3],[],`href="${wa("Olá! Gostaria de assinar o plano "+p[0]+" "+p[1]+" MEGA em "+C[c])}" target="_blank"`)).join("")}</div>`)}</div>`,
 
-    function updateCityBusinessPlans(city, tipo, btn) {
-        cityIpTipo[city] = tipo;
-        // Reset buttons in this city's selector
-        btn.closest('.ip-selector').querySelectorAll('.btn-ip').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        const alert = document.getElementById('ip-alert-' + city);
-        if (alert) alert.style.display = tipo === 'fixo' ? 'block' : 'none';
-        renderCityEmpresas(city);
-    }
+empresas:c=>{const a=ip[c]?80:0;return`<div class="page">${sec(head(`Planos <em>Empresariais</em> — ${C[c]}`,`Fibra até a sua empresa em ${C[c]}.`)+`<div class="tg"><button class="${ip[c]?"":"on"}" onclick="ip.${c}=0;R()">IP Dinâmico</button><button class="${ip[c]?"on":""}" onclick="ip.${c}=1;R()">IP Fixo</button></div><div class="note">${ip[c]?"+ R$ 80,00 aplicados ao valor base":""}</div><div class="g">${B.map(p=>plan(p[0],p[1],p[2]+a,p[3],["IP "+(ip[c]?"Fixo":"Dinâmico")],`href="${wa("Olá! Gostaria de contratar o plano "+p[0]+" "+p[1]+" MEGA (IP "+(ip[c]?"Fixo":"Dinâmico")+") em "+C[c])}" target="_blank"`)).join("")}</div>`)}</div>`},
 
-    function selectCityFromSelect(value) {
-        selectCity(value);
-    }
+isp:()=>`<div class="page">${sec(head("Soluções <em>ISP & Gov</em>","Conectividade dedicada para operações críticas.")+`<div class="blue"><span class="tag">Infraestrutura de Missão Crítica</span><p>Máxima estabilidade, segurança e SLA que você pode confiar.</p><div class="bg">${["SLA 99,95%","NOC 24/7","Backbone 1,2Tbps","BGP Multihoming","4 PTTs","IPv4 & IPv6"].map(x=>`<span>${x}</span>`).join("")}</div><a class="btn bl" href="${wa("Olá! Gostaria de falar com um especialista ISP & Gov.")}" target="_blank">Fale com um especialista</a></div><div class="g">${SV.map(([k,t,s,l])=>`<div class="c rv"><div class="k">${k}</div><h3>${t}</h3><p class="d">${s}</p><ul class="ck">${l.map(x=>`<li>${x}</li>`).join("")}</ul><a class="btn bb" href="${wa("Olá! Gostaria de uma proposta de "+t+".")}" target="_blank">Solicitar Proposta</a></div>`).join("")}</div>`)}</div>`,
 
-    function renderEmpresas() {
-        const ad = ipTipo === 'fixo' ? 80 : 0;
-        document.getElementById('grid-empresas').innerHTML = planosEmpresas.map(p => `
-            <div class="card ${p.destaque ? 'best-value' : ''}">
-                <div class="name">${p.nome}</div>
-                <div class="speed">${p.mega}<span>MEGA</span></div>
-                <ul>${padrao.map(i => `<li>${i}</li>`).join('')}<li>IP ${ipTipo === 'fixo' ? 'Fixo' : 'Dinâmico'}</li></ul>
-                <div class="price">R$ ${p.precoBase + ad}<small>,00/mês</small></div>
-                <button class="btn-primary" style="width:100%">Contratar</button>
-            </div>`).join('');
-    }
+cliente:()=>`<div class="page"><section class="alt"><div class="box"><div class="logo" style="color:var(--b);justify-content:center">Rio Telecom</div><h2 style="font-size:1.3rem;margin:8px 0">Área do Cliente</h2><p style="color:var(--m);font-size:13px">Informe seu CPF ou CNPJ para acessar o portal.</p>
+<form action="https://rio.beesweb.com.br/login" method="POST" target="_blank"><input name="login" placeholder="000.000.000-00" autocomplete="username" required><input type="hidden" name="redirect" value="/dashboard"><button class="btn bb" style="width:100%">Acessar Portal</button></form>
+<div class="ls"><a href="https://rio.beesweb.com.br/password/reset" target="_blank">Esqueci minha senha</a><a href="https://rio.beesweb.com.br/register" target="_blank">Primeira vez? Ative seu cadastro</a><a href="#ajuda">Problemas com acesso? Central de Ajuda</a></div>
+<div class="info"><a class="btn bd" href="https://rio.beesweb.com.br/login" target="_blank">Portal Web</a> <a class="btn bd">App Android</a> <a class="btn bd">App iOS</a></div></div></section></div>`,
 
-    function renderHeroDestaque() {
-        const p = planosVoce.find(x => x.destaque);
-        document.getElementById('hero-destaque').innerHTML = `
-            <div class="hc-name">${p.nome}</div>
-            <div class="hc-speed">${p.mega}<span>MEGA</span></div>
-            <ul>${padrao.map(i => `<li>${i}</li>`).join('')}</ul>
-            <div class="hc-price">R$ ${p.preco}<small>,00/mês</small></div>
-            <button class="btn-accent" style="width:100%" onclick="openCityModal('${p.nome} ${p.mega} MEGA')">Assinar Agora</button>`;
-    }
+ajuda:()=>`<div class="page">${sec(head("Central de <em>Ajuda</em>","Respostas rápidas ou fale direto com nossa equipe.")+`<div class="cats">${Object.keys(FAQ).map((k,i)=>`<div class="c ${i?"":"on"}" onclick="fq(this,${i})">${k}</div>`).join("")}</div><div id="fl"></div><div class="sub">Fale Conosco</div><div class="g">${[["📱","WhatsApp","(91) 98889-7200 · 24h"],["✉️","E-mail","info@riotelecom.com.br"],["🏢","Cametá","Av. Dom Pedro I, 305"],["🏢","Mocajuba","Av. Getúlio Vargas, 140"]].map(([i,t,d])=>`<div class="c tc"><div class="ico">${i}</div><h3>${t}</h3><p class="d">${d}</p></div>`).join("")}</div>`)}</div>`,
 
-    function updateBusinessPlans(tipo, btn) {
-        ipTipo = tipo;
-        document.querySelectorAll('.btn-ip').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        document.getElementById('ip-alert').style.display = tipo === 'fixo' ? 'block' : 'none';
-        renderEmpresas();
-    }
+status:()=>`<div class="page">${sec(head("Status da <em>Rede</em>","Verificação em tempo real dos nossos pontos de presença.")+`<div class="c st" style="flex-direction:row;margin-bottom:30px"><i class="dot" id="od"></i><div style="flex:1"><h3 id="ot">Verificando sistemas…</h3><small id="os">Aguarde.</small></div><a class="btn bd" onclick="chk()">↻ Atualizar</a></div><div class="g">${ST.map(([i,n,s])=>`<div class="c st" style="flex-direction:row"><i class="dot" id="d-${i}"></i><div><b>${n}</b><small id="s-${i}">${s}</small></div></div>`).join("")}</div><div class="sub">Histórico de Incidentes</div><div class="inc w2"><span class="pill p-so">Em reparo</span><h3>Falha limitada — PA-151 (Mocajuba)</h3><small>04/04/2026 — 16:34</small><p class="d">Rompimento entre a Vila de Areião e Mocajuba. Equipes no local, normalização prevista às 23:00h.</p></div><div class="inc"><span class="pill p-ok">Normalizado</span><h3>Falha limitada — Indisponibilidade</h3><small>28/02/2026 — 02:00 às 03:15</small><p class="d">Rompimento em ramal das Avenidas Cônego Siqueira e Coronel Raimundo Leão (Bairro Brasília). Reparo concluído às 03h15.</p></div><div class="info">🔔 Envie “STATUS” para (91) 98889-7200 no WhatsApp para receber alertas da sua região.</div>`)}</div>`,
 
-    function handleLogin(e) {
-        const cpf = document.getElementById('login-cpf').value.trim();
-        if (!cpf) {
-            e && e.preventDefault();
-            document.getElementById('login-cpf').focus();
-            return false;
-        }
-        // Submit form via POST to Beesweb; if blocked, fallback opens portal
-        setTimeout(() => {
-            window.open('https://rio.beesweb.com.br/login', '_blank');
-        }, 600);
-        return true;
-    }
+sobre:()=>`<div class="page">${sec(`<div class="g" style="align-items:center;margin-bottom:60px"><div><h2 class="ti" style="text-align:left">Conectando o <em>Pará</em> ao futuro</h2><p style="color:var(--m);margin-bottom:12px">A Rio Telecom nasceu para levar conectividade de qualidade ao interior do Pará, historicamente à margem da revolução digital.</p><p style="color:var(--m);margin-bottom:12px">Com fibra própria, Data Center de 1,2 Tbps, equipe técnica local e atendimento humanizado, conquistamos a confiança de mais de 5.000 famílias e empresas.</p><p style="color:var(--m)">Internet de alta performance não é luxo: é infraestrutura essencial para educação, trabalho, saúde e desenvolvimento regional.</p></div><div class="g" style="grid-template-columns:1fr 1fr">${[["2018","Fundação"],["+5mil","Clientes"],["1,2Tbps","Capacidade"],["99,9%","Uptime"]].map(([n,l])=>`<div class="c tc rv"><b class="sp" style="font-size:2rem;margin:0">${n}</b><small>${l}</small></div>`).join("")}</div></div>
+<h2 class="ti">Nossa <em>Trajetória</em></h2><div class="tl" style="margin-top:34px">${[["2018","Fundação em Cametá","Início com fibra óptica de qualidade na região de Cametá."],["2019","Backbone próprio","6 rotas de backbone: aéreas, subterrâneas e subfluviais."],["2021","Abertura de Mocajuba","Segundo escritório e expansão para novos municípios e Baião."],["2023","Data Center e ISP & Gov","Data Center de 1,2 Tbps e soluções para provedores e governo."],["2025","5.000 clientes e Wi-Fi 6","Marca histórica, Wi-Fi 6 e presença em 4 PTTs nacionais."]].map(([y,t,d])=>`<div><div class="k">${y}</div><h3>${t}</h3><p class="d">${d}</p></div>`).join("")}</div>
+<h2 class="ti">Nosso <em>Time</em></h2><div class="g" style="margin-top:34px">${[["Ricardo Lima","CEO & Fundador"],["Ana Carvalho","Diretora Comercial"],["Marcos Silva","Diretor de TI & NOC"],["João Pedro","Gerente de Infraestrutura"],["Fernanda Melo","Gerente Financeira"],["Bruno Rocha","Suporte & Atendimento"]].map(([n,r])=>`<div class="c tc rv"><div class="av">${n.split(" ").map(x=>x[0]).join("")}</div><h3>${n}</h3><p class="d">${r}</p></div>`).join("")}</div>`)}</div>`,
 
-    const pagesNoFooter = ['cliente'];
+cobertura:()=>`<div class="page">${sec(head("Área de <em>Cobertura</em>","Atendimento em todo o Estado do Pará!")+`<div class="sr"><input id="ci" placeholder="Digite seu município ou bairro…" oninput="cov()"><a class="btn bb" onclick="cov()">Verificar</a></div><div id="rs"></div>
+<div class="c tc" style="margin-bottom:30px;padding:40px"><div class="ico" style="font-size:3rem">🗺️</div><h3>Mapa interativo de cobertura</h3><p class="d">Consulte o seu endereço exato pelo WhatsApp.</p><a class="btn bd" href="${wa("Olá! Quero consultar a cobertura no meu endereço.")}" target="_blank">Consultar pelo WhatsApp</a></div>
+<div class="sub">Cidades atendidas</div><div class="g">${Object.values(C).map(n=>`<div class="c rv"><h3>${n}</h3><p class="d">PA — Baixo Tocantins<br>Disponível em todos os bairros</p><span class="pill p-ok" style="width:fit-content">Ativo</span></div>`).join("")}</div>
+<div class="sub">Em breve</div><div class="g">${[["Oeiras do Pará","2026"],["Limoeiro do Ajurú","2026"],["Igarapé-Miri","2026"],["Portel","2026/2027"]].map(([n,y])=>`<div class="c rv"><h3>${n}</h3><p class="d">Previsão de expansão — ${y}</p><span class="pill p-so" style="width:fit-content">Em breve</span></div>`).join("")}</div>
+<div class="blue" style="margin:44px 0 0"><h3>Sua cidade não está na lista?</h3><p>Registre seu interesse — cidades com maior demanda têm prioridade.</p><a class="btn bl" href="${wa("Olá! Quero registrar interesse de cobertura na minha cidade.")}" target="_blank">Registrar interesse</a></div>`)}</div>`,
 
-    function showPage(id) {
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
-        const el = document.getElementById(id);
-        if (!el) return;
-        el.classList.add('active');
-        // For city pages, highlight Para Você link
-        const linkId = id.startsWith('voce-') ? 'link-voce' : 'link-' + id;
-        const link = document.getElementById(linkId);
-        if (link) link.classList.add('active');
-        document.getElementById('main-footer').style.display = pagesNoFooter.includes(id) ? 'none' : 'block';
-        window.scrollTo(0, 0);
-        document.getElementById('mainNav').classList.remove('open');
-        document.getElementById('menuToggle').classList.remove('open');
-        document.querySelectorAll('.has-dropdown').forEach(d => d.classList.remove('open'));
-        if (id === 'status') setTimeout(runChecks, 300);
-    }
+trabalhe:()=>`<div class="page">${sec(head("Trabalhe <em>Conosco</em>","Faça parte do crescimento digital do interior do Pará.")+`<div class="g" style="margin-bottom:40px">${[["🤝","Time Unido","Ambiente colaborativo."],["📈","Crescimento Real","Treinamentos e plano de carreira."],["🌍","Impacto Local","Transformamos a vida de milhares de pessoas."],["⚡","Inovação","Tecnologia de ponta e novas ideias."]].map(([i,t,d])=>`<div class="c tc rv"><div class="ico">${i}</div><h3>${t}</h3><p class="d">${d}</p></div>`).join("")}</div><div class="sub">Vagas abertas</div><div class="fl">${["Todas","Técnico","Comercial","TI"].map((x,i)=>`<button class="${i?"":"on"}" onclick="vf(this,'${x}')">${x}</button>`).join("")}</div><div id="vg"></div><div class="blue" style="margin:40px 0 0"><h3>Não encontrou sua vaga?</h3><p>Envie seu currículo para o banco de talentos.</p><a class="btn bl" href="mailto:info@riotelecom.com.br?subject=Currículo Espontâneo">Enviar currículo</a></div>`)}</div>`,
 
-    // Mobile dropdown toggle
-    document.addEventListener('DOMContentLoaded', () => {
-        document.querySelectorAll('.has-dropdown > a').forEach(link => {
-            link.addEventListener('click', function(e) {
-                if (window.innerWidth <= 960) {
-                    e.preventDefault();
-                    this.parentElement.classList.toggle('open');
-                }
-            });
-        });
-        // Pre-render all city pages
-        ['cameta','mocajuba','baiao'].forEach(c => { renderCityVoce(c); renderCityEmpresas(c); });
-    });
+imprensa:()=>`<div class="page">${sec(head("Sala de <em>Imprensa</em>","Comunicados, materiais de mídia e contato com nossa assessoria.")+`<div class="sub">Kits de mídia</div><div class="g">${[["🖼️","Logotipo e Marca","SVG e PNG em versões claro e escuro."],["📄","Press Kit Corporativo","Histórico, missão, visão e ficha técnica."],["📊","Dados & Números","Cobertura, clientes e indicadores."],["📸","Fotos Institucionais","Imagens de alta resolução."]].map(([i,t,d])=>`<div class="c tc rv"><div class="ico">${i}</div><h3>${t}</h3><p class="d">${d}</p><a class="btn bd" href="${wa("Olá! Gostaria de solicitar: "+t+".")}" target="_blank" style="margin-top:auto">Solicitar via WhatsApp</a></div>`).join("")}</div><div class="sub">Últimas notícias</div><div class="g">${[["📡","Expansão","Rio Telecom inicia expansão para Bagre, Breves, Melgaço e Portel no 1º trimestre de 2027.","10 mar 2026"],["🏛️","Governo","Contrato com prefeituras para conectividade de escolas municipais.","28 fev 2026"],["🏆","Reconhecimento","Rio Telecom é premiada como melhor provedor do Baixo Tocantins.","15 jan 2026"]].map(([i,k,t,d])=>`<div class="c rv"><div class="ico">${i}</div><div class="k">${k}</div><h3>${t}</h3><small style="color:var(--m)">${d}</small></div>`).join("")}</div><div class="info" style="margin-top:30px"><b>Assessoria de Imprensa</b><br>📞 (91) 98889-7200 · ✉ info@riotelecom.com.br · Seg–Sex, 8h–18h</div>`)}</div>`
+};
 
-    // ── REAL-TIME STATUS CHECKS ──
-    // All checks use 1.1.1.1 (Cloudflare) as the connectivity probe
-    const PROBE_URL = 'https://1.1.1.1';
-
-    const STATUS_IDS = [
-        'mocajuba','cameta','baiao',
-        'dns1','dns2',
-        'backbone1','backbone2',
-        'claro','tim','vivo','edge','cdns'
-    ];
-
-    function setDot(id, ok) {
-        const dot = document.getElementById('dot-'+id);
-        const st  = document.getElementById('st-'+id);
-        const tm  = document.getElementById('tm-'+id);
-        if (!dot) return;
-        const color = ok ? 'var(--success)' : 'var(--danger)';
-        dot.style.background = color;
-        dot.style.boxShadow  = '0 0 8px ' + color;
-        if (st) { st.textContent = ok ? 'Operacional' : 'Sem resposta'; st.style.color = color; }
-        if (tm && ok) tm.textContent = 'Verificado agora';
-    }
-
-    async function probeConnectivity() {
-        // Fetch 1.1.1.1 with no-cors — success (even opaque) means we have internet
-        try {
-            await fetch(PROBE_URL, {
-                method: 'HEAD',
-                mode: 'no-cors',
-                cache: 'no-store',
-                signal: AbortSignal.timeout(5000)
-            });
-            return true;
-        } catch(e) {
-            // TypeError = CORS/opaque (host responded = online)
-            // AbortError = timeout = offline
-            return e.name !== 'AbortError' && e.name !== 'TimeoutError';
-        }
-    }
-
-    async function checkOne(id) {
-        const ok = await probeConnectivity();
-        setDot(id, ok);
-        return ok;
-    }
-
-    async function runChecks() {
-        const banner  = document.getElementById('status-overall-banner');
-        const odot    = document.getElementById('overall-dot');
-        const otitle  = document.getElementById('overall-title');
-        const osub    = document.getElementById('overall-sub');
-        if (odot) { odot.style.background='var(--warning)'; odot.style.boxShadow='0 0 8px var(--warning)'; }
-        if (otitle) otitle.textContent = 'Verificando sistemas…';
-        if (osub)   osub.textContent   = 'Consultando serviços em tempo real, aguarde.';
-
-        const results = await Promise.all(STATUS_IDS.map(id => checkOne(id)));
-        const allOk   = results.every(Boolean);
-        const anyDown = results.some(r => !r);
-        const color   = allOk ? 'var(--success)' : 'var(--danger)';
-        const now     = new Date().toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
-        if (odot)   { odot.style.background = color; odot.style.boxShadow = '0 0 10px '+color; }
-        if (otitle) otitle.textContent = allOk ? 'Todos os sistemas operacionais' : 'Degradação detectada em um ou mais serviços';
-        if (osub)   osub.textContent   = `Última verificação: hoje às ${now}${allOk ? ' — Nenhum incidente ativo.' : ' — Verifique os itens abaixo.'}`;
-    }
-
-    // Run on page load and when status page is shown
-    const _origShowPage = typeof showPage !== 'undefined' ? null : null;
-    document.addEventListener('DOMContentLoaded', () => setTimeout(runChecks, 800));
-
-    // Device detection & viewport scaling
-    (function() {
-        function detectDevice() {
-            const w = window.innerWidth;
-            const ua = navigator.userAgent;
-            const isMobile = /Android|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua) || w < 480;
-            const isTablet = /iPad|Android(?!.*Mobile)/i.test(ua) || (w >= 480 && w < 960);
-            const isDesktop = !isMobile && !isTablet;
-            document.documentElement.setAttribute('data-device', isMobile ? 'mobile' : isTablet ? 'tablet' : 'desktop');
-            // Ensure proper font scaling on very small screens
-            if (isMobile && w < 360) {
-                document.documentElement.style.fontSize = Math.max(12, (w / 375) * 16) + 'px';
-            } else {
-                document.documentElement.style.fontSize = '';
-            }
-        }
-        detectDevice();
-        window.addEventListener('resize', detectDevice);
-        window.addEventListener('orientationchange', function() { setTimeout(detectDevice, 150); });
-    })();
-
-    function toggleMenu() {
-        document.getElementById('mainNav').classList.toggle('open');
-        document.getElementById('menuToggle').classList.toggle('open');
-    }
-
-    function openCityModal(planName) {
-        document.getElementById('modalPlanName').textContent = planName || 'PLANO SELECIONADO';
-        document.getElementById('cityModal').classList.add('open');
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeCityModal(e) {
-        if (e && e.target !== document.getElementById('cityModal')) return;
-        document.getElementById('cityModal').classList.remove('open');
-        document.body.style.overflow = '';
-    }
-
-    function chooseCityAndGo(city) {
-        document.getElementById('cityModal').classList.remove('open');
-        document.body.style.overflow = '';
-        selectCity(city);
-    }
-
-    // Close modal on Escape key
-    document.addEventListener('keydown', e => {
-        if (e.key === 'Escape') {
-            document.getElementById('cityModal').classList.remove('open');
-            document.body.style.overflow = '';
-        }
-    });
-
-    function toggleFaq(item) { item.classList.toggle('open'); }
-
-    function filterFaq(catEl) {
-        const cat = catEl.dataset.cat;
-        // Toggle active cat button
-        document.querySelectorAll('.faq-cat').forEach(c => c.classList.remove('active'));
-        catEl.classList.add('active');
-        // Close all open items, show/hide by category
-        document.querySelectorAll('#faqList .faq-item').forEach(item => {
-            item.classList.remove('open');
-            item.classList.toggle('hidden', item.dataset.cat !== cat);
-        });
-        // Scroll to faq list smoothly
-        document.getElementById('faqList').scrollIntoView({ behavior:'smooth', block:'nearest' });
-    }
-
-    // Init: show only 'conexao' on load
-    document.addEventListener('DOMContentLoaded', () => {
-        document.querySelectorAll('#faqList .faq-item').forEach(item => {
-            if (item.dataset.cat !== 'conexao') item.classList.add('hidden');
-        });
-    });
-
-    const COB_ATIVAS   = ['baiao','baião','cameta','cametá','mocajuba'];
-    const COB_BREVE    = ['oeiras','limoeiro','ajuru','ajurú','igarapé-miri','igarape-miri','igarapé miri','portel'];
-
-    function checkCoverage() {
-        const val   = document.getElementById('cob-input').value.trim().toLowerCase();
-        const res   = document.getElementById('cob-result');
-        if (!val) { res.style.display = 'none'; return; }
-
-        const ativa = COB_ATIVAS.some(c => val.includes(c));
-        const breve = !ativa && COB_BREVE.some(c => val.includes(c));
-
-        res.style.display = 'flex';
-        if (ativa) {
-            res.style.background = 'rgba(0,196,140,0.1)';
-            res.style.border     = '1.5px solid rgba(0,196,140,0.4)';
-            res.style.color      = '#007a58';
-            res.innerHTML = '<span style="font-size:1.4rem">✅</span><span>DISPONÍVEL — Cobertura em toda a área urbana!</span>';
-        } else if (breve) {
-            res.style.background = 'rgba(255,184,0,0.1)';
-            res.style.border     = '1.5px solid rgba(255,184,0,0.4)';
-            res.style.color      = '#7a5000';
-            res.innerHTML = '<span style="font-size:1.4rem">🔜</span><span>EM BREVE — Expansão prevista para esta cidade. <a href="https://wa.me/5591988897200" target="_blank" style="color:var(--blue-mid);text-decoration:underline">Registre seu interesse</a>.</span>';
-        } else {
-            res.style.background = 'rgba(255,59,59,0.08)';
-            res.style.border     = '1.5px solid rgba(255,59,59,0.3)';
-            res.style.color      = '#a32020';
-            res.innerHTML = '<span style="font-size:1.4rem">📍</span><span>Cidade não encontrada na nossa área de cobertura. <a href="https://wa.me/5591988897200" target="_blank" style="color:var(--blue-mid);text-decoration:underline">Fale conosco</a>.</span>';
-        }
-    }
-
-    renderVoce();
-    renderEmpresas();
-    renderHeroDestaque();
-    buildSlider();
+/* router */
+let cur="home",arg="";
+function R(){
+ const h=location.hash.slice(1)||"home",[p,a]=h.split("/");
+ cur=P[p]?p:"home";arg=C[a]?a:"baiao";
+ $("#m").innerHTML=P[cur](arg);
+ document.querySelectorAll("nav a").forEach(x=>x.classList.toggle("on",x.getAttribute("href")=="#"+cur));
+ if(C[a])$("#cs").value=a;
+ nv.classList.remove("o");
+ if(cur=="ajuda")fq(document.querySelector(".cats .c"),0);
+ if(cur=="trabalhe")vf(null,"Todas");
+ if(cur=="status")chk();
+ io();
+}
+function io(){
+ const o=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add("v");o.unobserve(x.target)}}),{threshold:.12});
+ document.querySelectorAll(".rv").forEach(e=>o.observe(e));
+ document.querySelectorAll("[data-n]").forEach(e=>{const n=+e.dataset.n,d=n%1?1:0;let t=0;const s=setInterval(()=>{t+=.04;const v=n*Math.min(t,1);e.textContent=(e.dataset.p||"")+v.toFixed(d).replace(".",",")+(e.dataset.s||"");if(t>=1)clearInterval(s)},30)});
+}
+function fq(el,i){
+ document.querySelectorAll(".cats .c").forEach(x=>x.classList.remove("on"));el.classList.add("on");
+ $("#fl").innerHTML=Object.values(FAQ)[i].map(([q,a])=>`<div class="fq" onclick="this.classList.toggle('o')"><b>${q}</b><p>${a}</p></div>`).join("");
+}
+function vf(b,f){
+ if(b){document.querySelectorAll(".fl button").forEach(x=>x.classList.remove("on"));b.classList.add("on")}
+ $("#vg").innerHTML=VG.filter(v=>f=="Todas"||v[1]==f).map(v=>`<div class="c vg" style="margin-bottom:12px"><div><h3>${v[0]}</h3><span class="pill">${v[1]}</span><span class="pill" style="background:#f1f3fb;color:var(--m)">${v[2]}</span><span class="pill" style="background:#f1f3fb;color:var(--m)">${v[3]}</span></div><a class="btn bd" href="mailto:info@riotelecom.com.br?subject=${encodeURIComponent("Vaga: "+v[0])}">Candidatar-se</a></div>`).join("");
+}
+function cov(){
+ const v=$("#ci").value.trim().toLowerCase(),r=$("#rs");
+ if(!v){r.style.display="none";return}
+ const A=["baiao","baião","cameta","cametá","mocajuba"],S=["oeiras","limoeiro","ajuru","ajurú","igarapé","igarape","portel"],
+ ok=A.some(x=>v.includes(x)),so=!ok&&S.some(x=>v.includes(x)),l=` <a href="${wa("Olá! Quero saber sobre cobertura.")}" target="_blank" style="text-decoration:underline">Fale conosco</a>.`;
+ r.style.display="block";
+ r.style.cssText+=ok?";background:#10c98f1a;color:#067a58":so?";background:#ffb8001a;color:#7a5000":";background:#ff47571a;color:#a32030";
+ r.innerHTML=ok?"✅ DISPONÍVEL — Cobertura em toda a área urbana!":so?"🔜 EM BREVE — Expansão prevista para esta cidade."+l:"📍 Cidade fora da nossa cobertura atual."+l;
+}
+async function ping(){try{await fetch("https://1.1.1.1",{method:"HEAD",mode:"no-cors",cache:"no-store",signal:AbortSignal.timeout(5000)});return 1}catch(e){return e.name!="AbortError"&&e.name!="TimeoutError"}}
+async function chk(){
+ const set=(i,ok)=>{const d=$("#d-"+i);if(!d)return;const c=ok?"var(--ok)":"var(--no)";d.style.background=c;d.style.boxShadow="0 0 8px "+c;$("#s-"+i).textContent=ok?"Operacional":"Sem resposta"};
+ $("#od").style.background="#ffb800";$("#ot").textContent="Verificando sistemas…";
+ const r=await Promise.all(ST.map(async s=>{const o=await ping();set(s[0],o);return o})),all=r.every(Boolean),c=all?"var(--ok)":"var(--no)";
+ $("#od").style.background=c;$("#od").style.boxShadow="0 0 10px "+c;
+ $("#ot").textContent=all?"Todos os sistemas operacionais":"Degradação detectada em um ou mais serviços";
+ $("#os").textContent="Última verificação: hoje às "+new Date().toLocaleTimeString("pt-BR",{hour:"2-digit",minute:"2-digit"});
+}
+addEventListener("hashchange",()=>{R();scrollTo(0,0)});
+addEventListener("keydown",e=>e.key=="Escape"&&md.classList.remove("o"));
+R();
 </script>
 </body>
 </html>
